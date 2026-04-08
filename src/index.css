@@ -1,0 +1,27 @@
+:root {
+  --primary-colour:#D0021B;
+  --primary-colour-dark:rgb(175, 20, 75);
+  --secondary-colour: #FF902F;
+  --accent-colour: #0053E1;
+  --typography-colour: #333d47;
+  --background-colour: rgb(240, 240, 240);
+  --background-colour-light: white;
+
+  --primary-font: "Source Sans 3", sans-serif;
+  --secondary-font: "DM Sans", sans-serif;
+}
+
+html{
+  font-size: 62.5%;
+}
+
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+
+}
+
+body{
+  background-color: var(--background-colour);
+}
