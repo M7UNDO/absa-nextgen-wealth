@@ -6,6 +6,7 @@
   --typography-colour: #333d47;
   --background-colour: rgb(240, 240, 240);
   --background-colour-light: white;
+  --input-colour: #e7e7e7;
 
   --primary-font: "Source Sans 3", sans-serif;
   --secondary-font: "DM Sans", sans-serif;
@@ -25,3 +26,31 @@ html{
 body{
   background-color: var(--background-colour);
 }
+
+.material-symbols-outlined {
+  font-variation-settings:
+  'FILL' 0,
+  'wght' 250,
+  'GRAD' 0,
+  'opsz' 24
+}
+
+h1 {
+    font-size: 3.5em;
+    line-height: 4rem;
+  }
+
+  h2 {
+    font-size: 2.2rem;
+    line-height: 2.5rem;
+  }
+  h3 {
+    font-size: 2rem;
+    font-weight: 400;
+    line-height: 2.5rem;
+  }
+
+  h4 {
+    font-size: 1.8rem;
+    line-height: 2.2rem;
+  }
