@@ -20,8 +20,8 @@ function App() {
           <Route path="/" element={<Home/>}></Route>
           <Route path="/simulation-lab" element={<SimulationLab />}></Route>
           <Route path="/strategy-tracks" element={<StrategyTracks />}></Route>
-          <Route path="/login" element={<Authentication />}></Route>
-          <Route path="/signup" element={<Authentication />}></Route>
+          <Route path="/login" element={<Authentication mode="login"/>}></Route>
+          <Route path="/signup" element={<Authentication mode="signup"/>}></Route>
           <Route path="*" element={<NotFound />}></Route>
         </Routes>
       </BrowserRouter>

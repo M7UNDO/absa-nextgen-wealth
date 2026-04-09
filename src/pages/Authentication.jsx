@@ -1,19 +1,25 @@
 import React, {useState} from "react";
+import {useNavigate} from "react-router-dom";
 import "../styles/Authentication.css";
 
-function Authentication() {
-
+function Authentication({mode}) {
+  const isLoginIn = mode === "login";
 
   const [password, setPassword] = useState("");
   const [isVisibile, setIsVisibile] = useState(false);
-  const [isLoginIn, setIsLogin] = useState(true);
 
   const toggleVisbility = () => {
     setIsVisibile(!isVisibile);
   };
 
+  const navigate = useNavigate();
+
   const toggleAuthMode = () => {
-    setIsLogin(!isLoginIn);
+    if (isLoginIn) {
+      navigate("/signup");
+    } else {
+      navigate("/login");
+    }
   };
 
   return (
