@@ -1,18 +1,26 @@
-import React, {useState} from "react";
-import {useNavigate} from "react-router-dom";
+import React, {useState, useContext} from "react";
+import AuthContext from "../context/AuthContext";
+import {useNavigate, useLocation} from "react-router-dom";
 import "../styles/Authentication.css";
+import { validateAuth } from "../components/ValidateAuth";
 
 function Authentication({mode}) {
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+  const [email, setEmail] = useState("");
+
+  const [error, setError] = useState("");
   const isLoginIn = mode === "login";
 
-  const [password, setPassword] = useState("");
+  const {login} = useContext(AuthContext);
   const [isVisibile, setIsVisibile] = useState(false);
+  const navigate = useNavigate();
+  const location = useLocation();
+  const from = location.state?.from.pathname || "/";
 
   const toggleVisbility = () => {
     setIsVisibile(!isVisibile);
   };
-
-  const navigate = useNavigate();
 
   const toggleAuthMode = () => {
     if (isLoginIn) {
@@ -22,17 +30,40 @@ function Authentication({mode}) {
     }
   };
 
+  //Form submission e is event
+  function handleSubmit(e) {
+    //Send them to the home page when logged in successfully
+    e.preventDefault;
+    const success = login(username, password);
+
+    if (success) {
+      {
+        /*navigate("/")*/
+      }
+      navigate(from, {replace: true});
+    } else {
+      setError("Invalid credentials. Please try again.");
+    }
+  }
+
   return (
     <section className="auth-section">
       <h1>Absa Next-Gen New Wealth Studio</h1>
-      <h2>{isLoginIn ? "Login" : "Create Account"}</h2>
+      <h2>{isLoginIn ? "Log In" : "Create Account"}</h2>
 
-      <form id="auth-form">
+      <form id="auth-form" onSubmit={handleSubmit}>
         {!isLoginIn && (
           <>
             <div>
               <label htmlFor="firstname-input">Name</label>
-              <input type="text" name="firstname" className="auth-inputs" placeholder="Firstname" />
+              <input
+                type="text"
+                name="firstname"
+                className="auth-inputs"
+                placeholder="Firstname"
+                value={username}
+                onChange={(e) => setUsername(e.target.value)}
+              />
             </div>
 
             <div>
@@ -81,13 +112,14 @@ function Authentication({mode}) {
             </div>
           </>
         )}
+        {error && <p style={{color: "red"}}>{error}</p>}
         <button type="submit" className="auth-btn">
           {isLoginIn ? "Login" : "Sign Up"}
         </button>
         <p className="auth-switch-text">
           {isLoginIn ? "Don't have an acount? " : "Already have an Account? "}
           <button type="button" onClick={toggleAuthMode} className=" auth-switch-btn">
-            {isLoginIn ? "Sign Up" : "Login"}
+            {isLoginIn ? "Sign Up" : "Log In"}
           </button>
         </p>
       </form>

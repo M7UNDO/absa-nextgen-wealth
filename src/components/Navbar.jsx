@@ -1,8 +1,11 @@
 import React, {useState, useEffect} from "react";
+import { useContext } from "react";
+import AuthContext from "../context/AuthContext";
 import {NavLink, Link, useLocation} from "react-router-dom";
 import "../styles/Navbar.css";
 
 export default function Navbar() {
+  const {user, logout} = useContext(AuthContext);
   const [menuOpen, setMenuOpen] = useState(false);
   const location = useLocation();
 
@@ -59,7 +62,8 @@ export default function Navbar() {
         </div>
 
         <div className="auth-container">
-          <Link to="/login">Login</Link>
+          {/*<Link to="/login">Login</Link>*/}
+          <Link to="/login">{user?.displayName}</Link>
           <i class="fa-solid fa-user"></i>
         </div>
 
