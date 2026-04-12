@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from "react";
-import { useContext } from "react";
+import {useContext} from "react";
 import AuthContext from "../context/AuthContext";
 import {NavLink, Link, useLocation} from "react-router-dom";
 import "../styles/Navbar.css";
@@ -39,7 +39,9 @@ export default function Navbar() {
   return (
     <header>
       <nav className="navbar">
-        <Link to="/" className="logo">Absa Next-Gen</Link>
+        <Link to="/" className="logo">
+          Absa Next-Gen
+        </Link>
 
         <div className={`nav-menu  ${menuOpen ? "active" : ""}`}>
           <ul className="navlinks">
@@ -63,8 +65,28 @@ export default function Navbar() {
 
         <div className="auth-container">
           {/*<Link to="/login">Login</Link>*/}
-          <Link to="/login">{user?.displayName}</Link>
-          <i class="fa-solid fa-user"></i>
+          {user ? (
+            <>
+              <span>{`Hi, ${user.user_metadata?.username}`}</span>
+              <div className="divider"></div>
+            </>
+          ) : (
+            <Link to="/login">Login</Link>
+          )}
+
+          <div className="user-menu">
+            <i className="fa-solid fa-user user-icon"></i>
+
+            {user && (
+              <div className="user-dropdown">
+
+                <button onClick={logout} className="logout-btn">
+                  Logout
+                </button>
+                <i class="fa-solid fa-right-from-bracket"></i>
+              </div>
+            )}
+          </div>
         </div>
 
         <button

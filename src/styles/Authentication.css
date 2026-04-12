@@ -11,6 +11,7 @@
   width: 100%;
   background-color: var(--background-colour);
   color: var(--typography-colour);
+  margin-top: 2rem;
   padding: 5rem;
 }
 
@@ -57,7 +58,7 @@
 
 .auth-inputs {
   flex: 1;
-  min-width: 40rem;
+  min-width: 35rem;
   font-family: var(--primary-font);
   font-size: 1.6rem;
   border-radius: 0.5rem;

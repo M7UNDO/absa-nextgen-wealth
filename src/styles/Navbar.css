@@ -53,7 +53,7 @@ header {
 .logo {
   color: var(--primary-colour);
   font-family: var(--primary-font);
-  font-size: 1.6rem;
+  font-size: 1.8rem;
   text-decoration: none;
   transition: all 0.3s ease;
 }
@@ -107,22 +107,96 @@ header {
   transform: rotate(-45deg);
 }
 
-.auth-container{
-    display: flex;
-    gap: 1rem;
-    justify-content: center;
-    align-items: center;
+.auth-container {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  align-items: center;
+  font-family: var(--primary-font);
+  font-size: 1.4rem;
+  color: var(--typography-colour);
+  text-decoration: none;
 }
 
-.auth-container a{
-    font-size: 1.4rem;
-    font-family: var(--primary-font);
-    color: var(--typography-colour);
-    text-decoration: none;
+.divider {
+  height: 2rem;
+  width: 1px;
+  background-color: var(--typography-colour);
+  opacity: 0.5;
 }
 
-.fa-user{
+.logout-btn:hover,
+.logout-btn:hover + .fa-user {
+  color: var(--primary-colour);
+}
+
+.fa-user {
   font-size: 1.6rem;
+}
+
+.user-menu {
+  position: relative;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+}
+
+/* Icon styling */
+.user-icon {
+  font-size: 1.3rem;
+}
+
+/* Hidden dropdown by default */
+.user-dropdown {
+  position: absolute;
+  top: 120%;
+  right: 0;
+
+  background: var(--background-colour-light);
+  color: var(--primary-colour);
+  border: 1px solid #e5e5e5;
+  border-radius: 10px;
+  padding: 0.5rem 0.75rem;
+
+  min-width: 140px;
+
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(-5px);
+
+  transition: all 0.2s ease;
+  z-index: 1000;
+}
+
+/* Show on hover */
+.user-menu:hover .user-dropdown {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+
+.logout-btn {
+  font: inherit;
+  outline: none;
+  border: none;
+  padding: 0;
+  border: 0;
+  cursor: pointer;
+  background: none;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  border: none;
+  color: var(--primary-colour);
+  text-align: left;
+}
+
+.logout-btn:hover {
+  text-decoration: underline;
 }
 
 @media screen and (min-width: 600px) {
@@ -132,7 +206,7 @@ header {
 }
 
 @media screen and (min-width: 1024px) {
-  header{
+  header {
     height: 6rem;
   }
   .navbar {
@@ -168,7 +242,7 @@ header {
     padding: 1rem 0.5rem;
   }
 
-  .navlinks a:hover{
+  .navlinks a:hover {
     color: var(--primary-colour);
   }
 
@@ -185,7 +259,7 @@ header {
     transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1);
   }
 
-  .navlinks a.active::after{
+  .navlinks a.active::after {
     transform: scale(1);
   }
 
@@ -194,11 +268,7 @@ header {
     font-weight: 600;
   }
 
-  .auth-container:hover, .auth-container:hover.auth-container a{
-    color: var(--primary-colour);
-  }
-
-  .logo:hover{
+  .logo:hover {
     transform: translateY(-2px);
   }
 

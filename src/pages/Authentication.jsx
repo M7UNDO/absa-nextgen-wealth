@@ -1,21 +1,22 @@
-import React, {useState, useContext} from "react";
-import AuthContext from "../context/AuthContext";
+import React, {useState, useEffect} from "react";
 import {useNavigate, useLocation} from "react-router-dom";
+import {supabase} from "../services/supabaseClient";
 import "../styles/Authentication.css";
 import {validateAuth} from "../components/ValidateAuth";
 
 function Authentication({mode}) {
+  const isLoginIn = mode === "login";
+
   const [username, setUsername] = useState("");
+  const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [repeatPassword, setRepeatPassword] = useState("");
-  const [email, setEmail] = useState("");
-
   const [error, setError] = useState("");
-  const isLoginIn = mode === "login";
   const [isVisibile, setIsVisibile] = useState(false);
+
   const navigate = useNavigate();
   const location = useLocation();
-  const from = location.state?.from.pathname || "/";
+  const from = location.state?.from?.pathname || "/";
 
   const toggleVisbility = () => {
     setIsVisibile(!isVisibile);
@@ -29,8 +30,17 @@ function Authentication({mode}) {
     }
   };
 
+  useEffect(() => {
+    setUsername("");
+    setEmail("");
+    setPassword("");
+    setRepeatPassword("");
+    setError("");
+  }, [mode]);
+
   async function handleSubmit(e) {
     e.preventDefault();
+    setError("");
 
     const errors = validateAuth({
       mode,
@@ -104,8 +114,15 @@ function Authentication({mode}) {
 
         <div>
           <label htmlFor="email-input">Email</label>
-          <input type="email" name="email" className="auth-inputs" placeholder="Email Address" />
+          <input
+            type="email"
+            className="auth-inputs"
+            placeholder="Email Address"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+          />
         </div>
+
         <div>
           <label htmlFor="password-input">Password</label>
           <div className="password-field">
@@ -131,6 +148,7 @@ function Authentication({mode}) {
                 <input
                   type={isVisibile ? "text" : "password"}
                   className="auth-inputs"
+                  placeholder="Repeat Password"
                   value={repeatPassword}
                   onChange={(e) => setRepeatPassword(e.target.value)}
                 />
