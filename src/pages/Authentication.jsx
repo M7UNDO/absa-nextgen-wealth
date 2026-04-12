@@ -2,17 +2,16 @@ import React, {useState, useContext} from "react";
 import AuthContext from "../context/AuthContext";
 import {useNavigate, useLocation} from "react-router-dom";
 import "../styles/Authentication.css";
-import { validateAuth } from "../components/ValidateAuth";
+import {validateAuth} from "../components/ValidateAuth";
 
 function Authentication({mode}) {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const [repeatPassword, setRepeatPassword] = useState("");
   const [email, setEmail] = useState("");
 
   const [error, setError] = useState("");
   const isLoginIn = mode === "login";
-
-  const {login} = useContext(AuthContext);
   const [isVisibile, setIsVisibile] = useState(false);
   const navigate = useNavigate();
   const location = useLocation();
@@ -30,19 +29,49 @@ function Authentication({mode}) {
     }
   };
 
-  //Form submission e is event
-  function handleSubmit(e) {
-    //Send them to the home page when logged in successfully
-    e.preventDefault;
-    const success = login(username, password);
+  async function handleSubmit(e) {
+    e.preventDefault();
 
-    if (success) {
-      {
-        /*navigate("/")*/
+    const errors = validateAuth({
+      mode,
+      username,
+      email,
+      password,
+      repeatPassword,
+    });
+
+    if (errors.length > 0) {
+      setError(errors.join(". "));
+      return;
+    }
+
+    try {
+      if (isLoginIn) {
+        const {error} = await supabase.auth.signInWithPassword({
+          email,
+          password,
+        });
+
+        if (error) throw error;
+
+        navigate(from, {replace: true});
+      } else {
+        const {error} = await supabase.auth.signUp({
+          email,
+          password,
+          options: {
+            data: {
+              username: username,
+            },
+          },
+        });
+
+        if (error) throw error;
+
+        navigate("/login");
       }
-      navigate(from, {replace: true});
-    } else {
-      setError("Invalid credentials. Please try again.");
+    } catch (err) {
+      setError(err.message);
     }
   }
 
@@ -101,9 +130,9 @@ function Authentication({mode}) {
               <div className="password-field">
                 <input
                   type={isVisibile ? "text" : "password"}
-                  name="repeat-password"
                   className="auth-inputs"
-                  placeholder="Repeat Password"
+                  value={repeatPassword}
+                  onChange={(e) => setRepeatPassword(e.target.value)}
                 />
                 <button type="button" onClick={toggleVisbility} id="visibility-btn">
                   <span className="material-symbols-outlined">{isVisibile ? "visibility_off" : "visibility"}</span>
