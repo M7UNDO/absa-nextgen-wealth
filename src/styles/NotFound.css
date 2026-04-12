@@ -49,3 +49,16 @@
     font-size: 4.5rem;
     font-family: var(--secondary-font);
 }
+
+@media screen and (min-width: 600px) {
+    
+}
+@media screen and (min-width: 768px) {
+    
+}
+@media screen and (min-width: 992px) {
+    
+}
+@media screen and (min-width: 1024px) {
+    
+}

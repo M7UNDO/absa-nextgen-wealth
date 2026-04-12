@@ -1,10 +1,10 @@
 :root {
-  --primary-colour:#D0021B;
-  --primary-colour-dark:rgb(175, 20, 75);
-  --secondary-colour: #FF902F;
-  --accent-colour: #0053E1;
+  --primary-colour: #d0021b;
+  --primary-colour-dark: rgb(175, 20, 75);
+  --secondary-colour: #ff902f;
+  --accent-colour: #0053e1;
   --typography-colour: #333d47;
-  --background-colour: rgb(240, 240, 240);
+  --background-colour: rgb(235, 235, 235);
   --background-colour-light: white;
   --input-colour: #e7e7e7;
 
@@ -12,45 +12,80 @@
   --secondary-font: "DM Sans", sans-serif;
 }
 
-html{
+html {
   font-size: 62.5%;
 }
 
-*{
+* {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-
 }
 
-body{
+body {
   background-color: var(--background-colour);
 }
 
 .material-symbols-outlined {
   font-variation-settings:
-  'FILL' 0,
-  'wght' 250,
-  'GRAD' 0,
-  'opsz' 24
+    "FILL" 0,
+    "wght" 250,
+    "GRAD" 0,
+    "opsz" 24;
 }
 
 h1 {
-    font-size: 3.5em;
-    line-height: 4rem;
+  font-size: 3.5em;
+  line-height: 4rem;
+}
+
+h2 {
+  font-size: 2.2rem;
+  line-height: 2.5rem;
+}
+h3 {
+  font-size: 2rem;
+  font-weight: 400;
+  line-height: 2.5rem;
+}
+
+h4 {
+  font-size: 1.8rem;
+  line-height: 2.2rem;
+}
+
+@media screen and (min-width: 600px) {
+  h1 {
+    font-family: var(--primary-font);
+    font-size: 4.2em;
+    line-height: 5rem;
+    font-weight: 500;
   }
 
   h2 {
-    font-size: 2.2rem;
-    line-height: 2.5rem;
+    font-family: var(--secondary-font);
+    font-size: 2.5rem;
+    font-weight: 400;
+    line-height: 3rem;
+    text-align: center;
   }
   h3 {
-    font-size: 2rem;
+    font-family: var(--secondary-font);
+    font-size: 2.5rem;
     font-weight: 400;
-    line-height: 2.5rem;
+    line-height: 3rem;
   }
 
   h4 {
-    font-size: 1.8rem;
-    line-height: 2.2rem;
+    font-family: var(--secondary-font);
+    font-size: 2rem;
+    font-weight: 500;
+    line-height: 2.4rem;
   }
+}
+@media screen and (min-width: 768px) {
+}
+@media screen and (min-width: 992px) {
+}
+@media screen and (min-width: 1024px) {
+}

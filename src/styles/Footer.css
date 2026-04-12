@@ -11,3 +11,16 @@ footer{
     font-family: var(--secondary-font);
     background-color: var(--background-colour-light);
 }
+
+@media screen and (min-width: 600px) {
+    
+}
+@media screen and (min-width: 768px) {
+    
+}
+@media screen and (min-width: 992px) {
+    
+}
+@media screen and (min-width: 1024px) {
+    
+}
