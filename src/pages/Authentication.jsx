@@ -78,7 +78,10 @@ function Authentication({mode}) {
 
         if (error) throw error;
 
-        navigate("/login");
+        return (
+          <h1>Loading</h1>
+        )
+        /*navigate("/login");*/
       }
     } catch (err) {
       setError(err.message);
@@ -93,6 +96,7 @@ function Authentication({mode}) {
       <form id="auth-form" onSubmit={handleSubmit}>
         {!isLoginIn && (
           <>
+          
             <div>
               <label htmlFor="firstname-input">Name</label>
               <input

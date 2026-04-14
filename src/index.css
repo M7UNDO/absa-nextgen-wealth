@@ -4,7 +4,7 @@
   --secondary-colour: #ff902f;
   --accent-colour: #0053e1;
   --typography-colour: #333d47;
-  --background-colour: rgb(235, 235, 235);
+  --background-colour: rgb(238, 238, 238);
   --background-colour-light: white;
   --input-colour: #e7e7e7;
 
@@ -40,17 +40,18 @@ h1 {
 }
 
 h2 {
-  font-size: 2.2rem;
+  font-size: 2.5rem;
   line-height: 2.5rem;
 }
 h3 {
-  font-size: 2rem;
+  
+  font-size: 2.3rem;
   font-weight: 400;
   line-height: 2.5rem;
 }
 
 h4 {
-  font-size: 1.8rem;
+  font-size: 2rem;
   line-height: 2.2rem;
 }
 

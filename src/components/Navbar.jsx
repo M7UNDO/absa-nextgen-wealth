@@ -71,7 +71,7 @@ export default function Navbar() {
               <div className="divider"></div>
             </>
           ) : (
-            <Link to="/login">Login</Link>
+            <Link to="/login" className="login-link">Login</Link>
           )}
 
           <div className="user-menu">

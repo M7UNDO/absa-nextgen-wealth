@@ -1,0 +1,63 @@
+.simulation-lab-page .hero-section {
+  background-color: #fedcdc;
+}
+
+.simulation-lab-page .hero-info {
+  color: rgba(26, 26, 26, 1);
+  flex-direction: row;
+}
+
+.simulation-lab-page .hero-content h1 {
+  font-weight: 800;
+}
+
+
+.simulation-studio-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-size: 1.6rem;
+  padding: 0 20%;
+}
+
+.simulation-lab-page h2{
+  
+  font-weight: 500;
+
+}
+
+.simulation-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 3rem;
+  width: 100%;
+  font-family: var(--primary-font);
+  background-color: yellow;
+  padding: 2rem;
+}
+
+.studio-btn {
+  font-family: var(--secondary-font);
+  color: var(--primary-colour);
+  border: 1px solid var(--primary-colour);
+  background-color: rgba(247, 29, 105, 0.111);
+  border-radius: 0.5rem;
+  padding: 1rem 4rem;
+  margin-top: 2rem;
+  text-decoration: none;
+}
+
+@media screen and (min-width: 600px) {
+}
+@media screen and (min-width: 768px) {
+  .simulation-studio-container {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+  }
+}
+@media screen and (min-width: 992px) {
+}
+@media screen and (min-width: 1024px) {
+}

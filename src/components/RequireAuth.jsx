@@ -1,6 +1,7 @@
 import {useContext}from 'react'
 import AuthContext from '../context/AuthContext'
 import { Navigate, useLocation } from 'react-router-dom'
+import Loader from './Loader';
 
 function RequireAuth({children}) {
     const {authStatus} = useContext(AuthContext);
@@ -8,7 +9,7 @@ function RequireAuth({children}) {
     const location = useLocation();
 
     if(authStatus === 'unknown'){
-        return <h1>Loading...</h1>
+        return <Loader/>
     }
 
     if(authStatus === 'guest'){

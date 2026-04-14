@@ -1,15 +1,18 @@
 import React from "react";
 import "../styles/Hero.css";
 
-function Hero({title, subheading, img, alt}) {
+function Hero({title, subheading, src, alt, graphicImg, graphicAlt}) {
   return (
     <>
       <section className="hero-section">
         <div className="hero-content">
-          <h1 className="hero-title">{title}</h1>
-          <p className="subheading">{subheading}</p>
+          {graphicImg && <img src={graphicImg} alt={graphicAlt || ""} className="hero-graphic-img" />}
+          <div className="hero-info">
+            <h1 className="hero-title">{title}</h1>
+            <p className="subheading">{subheading}</p>
+          </div>
         </div>
-        <img src={img} alt={alt} className="hero-img" />
+        {src && <img src={src} alt={alt || ""} className="hero-img" />}
       </section>
     </>
   );
