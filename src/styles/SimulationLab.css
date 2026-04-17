@@ -1,3 +1,7 @@
+.simulation-lab-page{
+  margin-bottom: 8rem;
+}
+
 .simulation-lab-page .hero-section {
   background-color: #fedcdc;
 }
@@ -17,14 +21,17 @@
   flex-direction: column;
   align-items: center;
   font-size: 1.6rem;
-  padding: 0 20%;
+  padding: 0 15%;
+  gap: 2rem;
 }
 
 .simulation-lab-page h2{
-  
   font-weight: 500;
-
+  text-align: center;
+  margin: 4rem auto;
 }
+
+
 
 .simulation-card {
   display: flex;
@@ -33,19 +40,36 @@
   gap: 3rem;
   width: 100%;
   font-family: var(--primary-font);
-  background-color: yellow;
   padding: 2rem;
+  background-color: var(--primary-colour-dark);
+  color: white;
+  border-radius: 0.5rem;
+}
+
+.simulation-card .heading{
+  font-size: 1.6rem;
+  font-weight: 600;
+
 }
 
 .studio-btn {
+  width: 100%;
+  font-size: 1.4rem;
   font-family: var(--secondary-font);
-  color: var(--primary-colour);
-  border: 1px solid var(--primary-colour);
+  color: white;
+  border: 1px solid white;
   background-color: rgba(247, 29, 105, 0.111);
   border-radius: 0.5rem;
-  padding: 1rem 4rem;
+  padding: 1.2rem 5rem;
   margin-top: 2rem;
   text-decoration: none;
+  text-align: center;
+  transition: all 0.3s ease;
+}
+
+.studio-btn:hover{
+  background-color: var(--accent-colour);
+  color: white;
 }
 
 @media screen and (min-width: 600px) {
@@ -55,7 +79,10 @@
     display: flex;
     flex-direction: row;
     align-items: center;
+    gap: 2rem;
+    padding: 0 20%;
   }
+
 }
 @media screen and (min-width: 992px) {
 }
