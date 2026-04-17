@@ -4,7 +4,7 @@
   --secondary-colour: #ff902f;
   --accent-colour: #0053e1;
   --typography-colour: #333d47;
-  --background-colour: rgb(238, 238, 238);
+  --background-colour: rgb(245, 245, 245);
   --background-colour-light: white;
   --input-colour: #e7e7e7;
 
@@ -41,9 +41,13 @@ h1 {
 }
 
 h2 {
-  font-family: var(--secondary-font);
+  font-family: var(--primary-font);
   font-size: 2.5rem;
   line-height: 2.5rem;
+  font-weight: 500;
+  text-align: center;
+  margin-top: 4rem;
+  margin-bottom: 4rem;
 }
 h3 {
   font-family: var(--secondary-font);

@@ -61,6 +61,22 @@ export default function Navbar() {
               </NavLink>
             </li>
           </ul>
+
+          <div className="mobile-auth">
+            {user ? (
+              <>
+                <span>Hi, {user.user_metadata?.username}</span>
+                <button onClick={logout}>Logout</button>
+              </>
+            ) : (
+              <>
+                <span>Welcome</span>
+                <Link to="/login" onClick={closeMenu}>
+                  Login
+                </Link>
+              </>
+            )}
+          </div>
         </div>
 
         <div className="auth-container">
@@ -71,7 +87,9 @@ export default function Navbar() {
               <div className="divider"></div>
             </>
           ) : (
-            <Link to="/login" className="login-link">Login</Link>
+            <Link to="/login" className="login-link">
+              Login
+            </Link>
           )}
 
           <div className="user-menu">
@@ -79,7 +97,6 @@ export default function Navbar() {
 
             {user && (
               <div className="user-dropdown">
-
                 <button onClick={logout} className="logout-btn">
                   Logout
                 </button>

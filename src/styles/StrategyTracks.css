@@ -2,21 +2,15 @@
   color: white;
 }
 
-.strategy-tracks{
-  margin-top: 5rem;
+.strategy-tracks {
   margin-bottom: 10rem;
 }
 
-.strategy-tracks h2{
-    text-align: left;
-    padding: 0 10%;
-  }
-
 .strategy-track-container {
-  padding: 2rem 10%;
+  padding: 0 8%;
   display: flex;
   flex-direction: column;
-  gap: 5rem;
+  gap: 2rem;
 }
 
 .track-selection {
@@ -29,18 +23,10 @@
   gap: 2rem;
   border-radius: 0.5rem;
   text-align: left;
-  padding: 1.5rem ;
+  padding: 2rem;
 }
 
-.strategy-tracks h2{
-  font-family: var(--primary-font);
-  font-weight: 600;
-  font-size: 3rem;
-  line-height: 3rem;
-  margin-top: 5rem;
-}
-
-.track-info{
+.track-info {
   width: 100%;
   display: flex;
   flex-direction: column;
@@ -48,19 +34,20 @@
   position: relative;
   z-index: 2;
   color: white;
-  font-family: var(--secondary-font);
+  font-family: var(--primary-font);
 }
 
-.track-info h3{
+.track-info h3 {
   font-family: var(--primary-font);
   font-weight: 500;
 }
 
-.track-description{
+.track-description {
   font-weight: 300;
 }
 
-.image-placeholder, .track-image {
+.image-placeholder,
+.track-image {
   position: absolute;
   inset: 0;
   width: 100%;
@@ -87,28 +74,25 @@
   transition: transform 0.3s ease;
 }
 
-.explore-btn:hover{
+.explore-btn:hover {
   transform: translateY(-4px);
-
 }
 
-
-
 @media screen and (min-width: 600px) {
-  .track-selection{
+  .track-selection {
     flex-direction: row;
     text-align: left;
   }
 
-  .track-selection{
+  .track-selection {
     padding: 3rem;
   }
 
-  .track-info{
+  .track-info {
     width: 80%;
   }
 
-  .explore-btn{
+  .explore-btn {
     width: fit-content;
     margin: 4rem 0 0 0;
     padding: 1rem 4rem;
@@ -116,20 +100,19 @@
 }
 @media screen and (min-width: 768px) {
   .strategy-track-container {
-    padding: 5rem 10%;
+    padding: 0 10%;
   }
 }
 
 @media screen and (min-width: 1024px) {
-  .strategy-tracks h2{
-    text-align: left;
-    padding: 0 15%;
+  .track-info {
+    gap: 4rem;
   }
   .strategy-track-container {
-    padding: 2rem 15%;
+    padding: 0 15%;
   }
 
-  .explore-btn{
+  .explore-btn {
     width: fit-content;
     margin: 4rem 0 0 0;
     padding: 1rem 3rem;

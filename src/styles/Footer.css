@@ -1,7 +1,4 @@
 footer{
-    position: fixed;
-    bottom: 0;
-    left: 0;
     height: 4rem;
     width: 100%;
     display: flex;
@@ -9,7 +6,8 @@ footer{
     align-items: center;
     font-size: 1.2rem;
     font-family: var(--secondary-font);
-    background-color: var(--background-colour-light);
+    background-color: rgb(28, 28, 30);
+    color: rgba(230, 230, 230, 1);
 }
 
 @media screen and (min-width: 600px) {

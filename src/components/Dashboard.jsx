@@ -5,7 +5,6 @@ function Dashboard() {
   return (
     <>
     <section className='dashboard-section'>
-      <h2>Dashboard</h2>
 
 
     </section>
