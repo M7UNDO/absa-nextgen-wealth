@@ -1,0 +1,133 @@
+/* BACKDROP */
+.modal-backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+
+  background: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(4px);
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  z-index: 1000;
+}
+
+/* MODAL CARD */
+.modal {
+  background-color: var(--background-colour);
+  color: var(--typography-colour);
+
+  padding: 3rem;
+  border-radius: 1rem;
+
+  width: 100%;
+  max-width: 500px;
+
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.25);
+}
+
+/* TITLE */
+.modal h2 {
+  font-family: var(--primary-font);
+  font-weight: 400;
+  font-size: 2rem;
+  text-align: center;
+  color: var(--primary-colour);
+}
+
+/* FORM */
+.modal form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+/* INPUT GROUP */
+.modal form div {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+/* LABEL */
+.modal label {
+  font-size: 1.4rem;
+  color: var(--primary-colour-dark);
+  font-family: var(--primary-font);
+}
+
+/* INPUTS */
+.modal input {
+  font-family: var(--primary-font);
+  font-size: 1.6rem;
+
+  border-radius: 0.5rem;
+  border: 0.15rem solid rgba(128, 128, 128, 0.37);
+
+  padding: 1rem;
+  transition: 150ms ease;
+}
+
+.modal input::placeholder {
+  color: var(--typography-colour);
+  opacity: 0.6;
+}
+
+.modal input:hover {
+  border: 0.15rem solid var(--primary-colour-dark);
+}
+
+.modal input:focus {
+  outline: none;
+  border: 0.15rem solid var(--primary-colour);
+}
+
+/* BUTTON */
+.modal button {
+  margin-top: 1rem;
+
+  border: none;
+  outline: none;
+
+  border-radius: 0.5rem;
+  font-size: 1.6rem;
+
+  background-color: var(--primary-colour);
+  color: white;
+
+  padding: 1rem;
+  cursor: pointer;
+
+  transition: 150ms ease;
+}
+
+.modal button:hover {
+  background-color: var(--primary-colour-dark);
+}
+
+.modal button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+/* ERROR */
+.modal-error {
+  color: red;
+  font-size: 1.3rem;
+  text-align: center;
+}
+
+/* RESPONSIVE */
+@media screen and (min-width: 600px) {
+  .modal {
+    max-width: 550px;
+  }
+}

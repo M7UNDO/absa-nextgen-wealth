@@ -78,10 +78,8 @@ function Authentication({mode}) {
 
         if (error) throw error;
 
-        return (
-          <h1>Loading</h1>
-        )
-        /*navigate("/login");*/
+        
+        navigate("/login");
       }
     } catch (err) {
       setError(err.message);
