@@ -30,13 +30,13 @@ function SimulationLab() {
           icon={VehicleImage}
           heading="Vehicle Finance Calculator"
           description="That monthly payment might look manageable, but what does the car really cost you? See how deposit, term, and balloon payments affect your total bill before you sign."
-          to=""
+          to="/simulation-lab/vehicle-finance-calculator"
         />
         <SimulationCard
           icon={SaveImage}
           heading="BNPL vs Save First"
           description="Buy Now, Pay Later feels convenient, but what does it actually cost? Compare instalment plans, store credit, and saving upfront, so you know the true price of convenience."
-          to="/bnpl-vs-save-first"
+          to="/simulation-lab/bnpl-vs-save-first"
         />
       </div>
     </div>

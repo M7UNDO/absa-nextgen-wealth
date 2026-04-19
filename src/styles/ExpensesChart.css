@@ -1,0 +1,174 @@
+.chart-card {
+  background: var(--background-colour-light);
+  border-radius: 2.2rem;
+  padding: 2.4rem;
+  box-shadow:
+    0 1rem 3rem rgba(0, 0, 0, 0.04),
+    0 0.2rem 0.6rem rgba(0, 0, 0, 0.03);
+  border: 0.1rem solid rgba(0, 0, 0, 0.04);
+  max-width: 48rem;
+  width: 100%;
+  transition: 0.25s ease;
+}
+
+.chart-card:hover {
+  transform: translateY(-0.3rem);
+  box-shadow:
+    0 1.4rem 4rem rgba(0, 0, 0, 0.06),
+    0 0.4rem 1rem rgba(0, 0, 0, 0.04);
+}
+
+.chart-card h4 {
+  font-family: var(--secondary-font);
+  font-size: 2rem;
+  font-weight: 600;
+  color: var(--typography-colour);
+  margin-bottom: 2rem;
+}
+
+.chart-wrapper {
+  position: relative;
+  width: 100%;
+  height: 28rem;
+}
+
+.chart-center-label {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+}
+
+.chart-center-label span {
+  font-family: var(--secondary-font);
+  font-size: 1.3rem;
+  color: #7a8694;
+  margin-bottom: 0.4rem;
+}
+
+.chart-center-label h3 {
+  font-family: var(--primary-font);
+  font-size: 2.6rem;
+  font-weight: 700;
+  color: var(--typography-colour);
+}
+
+/* ===============================
+   LEGEND
+================================= */
+
+.chart-legend {
+  display: flex;
+  flex-direction: column;
+  gap: 1.4rem;
+  margin-top: 1rem;
+  margin-bottom: 2rem;
+}
+
+.legend-item {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  gap: 1rem;
+  align-items: center;
+}
+
+.legend-dot {
+  width: 1rem;
+  height: 1rem;
+  border-radius: 50%;
+}
+
+.legend-item p {
+  font-family: var(--secondary-font);
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: var(--typography-colour);
+  margin-bottom: 0.2rem;
+}
+
+.legend-item small {
+  font-size: 1.2rem;
+  color: #7a8694;
+}
+
+.legend-item strong {
+  font-family: var(--secondary-font);
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--typography-colour);
+}
+
+/* ===============================
+   BREAKDOWN SECTION
+================================= */
+
+.expense-breakdown {
+  border-top: 0.1rem solid #ececec;
+  padding-top: 1.8rem;
+  font-family: var(--primary-font);
+  font-size: 1.4rem;
+  background-color: red;
+}
+
+.expense-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 0;
+  border-bottom: 0.1rem solid #f2f2f2;
+}
+
+.expense-row span:first-child {
+  font-family: var(--secondary-font);
+  font-size: 1.45rem;
+  color: #66717d;
+}
+
+.expense-row span:last-child {
+  font-family: var(--secondary-font);
+  font-size: 1.45rem;
+  font-weight: 600;
+  color: var(--typography-colour);
+}
+
+.expense-total {
+  margin-top: 2rem;
+  padding: 1.8rem;
+  border-radius: 1.6rem;
+  background: linear-gradient(
+    135deg,
+    rgba(208, 2, 27, 0.05),
+    rgba(255, 144, 47, 0.08)
+  );
+}
+
+.expense-total p {
+  font-family: var(--secondary-font);
+  font-size: 1.3rem;
+  color: #7a8694;
+  margin-bottom: 0.6rem;
+}
+
+.expense-total h3 {
+  font-family: var(--primary-font);
+  font-size: 2.8rem;
+  font-weight: 700;
+  color: var(--typography-colour);
+}
+
+/* ===============================
+   TABLET+
+================================= */
+
+@media screen and (min-width: 768px) {
+  .chart-card {
+    padding: 3rem;
+  }
+
+  .chart-wrapper {
+    height: 30rem;
+  }
+}

@@ -1,7 +1,7 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "../styles/FinancialModal.css";
 
-function FinancialSetupModal({ onComplete }) {
+function FinancialSetupModal({ onComplete, initialData }) {
   const [form, setForm] = useState({
     grossIncome: "",
     rent: "",
@@ -11,6 +11,12 @@ function FinancialSetupModal({ onComplete }) {
 
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
+
+  useEffect(() => {
+    if (initialData) {
+      setForm(initialData);
+    }
+  }, [initialData]);
 
   const handleChange = (e) => {
     setForm({
@@ -37,10 +43,8 @@ function FinancialSetupModal({ onComplete }) {
       vehicle: Number(form.vehicle) || 0
     };
 
-
     setTimeout(() => {
       localStorage.setItem("financials", JSON.stringify(financialData));
-
       setLoading(false);
       onComplete(financialData);
     }, 300);
@@ -49,7 +53,9 @@ function FinancialSetupModal({ onComplete }) {
   return (
     <div className="modal-backdrop">
       <div className="modal">
-        <h2>Set Up Your Finances</h2>
+        <h2>
+          {initialData ? "Edit Your Finances" : "Set Up Your Finances"}
+        </h2>
 
         <form onSubmit={handleSubmit}>
           <div>
@@ -106,8 +112,12 @@ function FinancialSetupModal({ onComplete }) {
 
           {error && <p className="modal-error">{error}</p>}
 
-          <button type="submit" disabled={loading}>
-            {loading ? "Saving..." : "Save & Continue"}
+          <button type="submit" disabled={loading} className="setup-btn">
+            {loading
+              ? "Saving..."
+              : initialData
+              ? "Update Finances"
+              : "Save & Continue"}
           </button>
         </form>
       </div>

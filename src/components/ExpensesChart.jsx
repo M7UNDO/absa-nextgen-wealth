@@ -1,36 +1,89 @@
 import React from "react";
-import { PieChart, Pie, Cell } from "recharts";
+import {
+  PieChart,
+  Pie,
+  Cell,
+  ResponsiveContainer,
+  Tooltip
+} from "recharts";
+import "../styles/ExpensesChart.css";
+
+import { calculateNetIncome } from "../utils/taxCalculator";
 
 function ExpensesChart({ data }) {
-  const fixedCosts = data.rent + data.retirement + data.vehicle;
-  const disposable = data.grossIncome - fixedCosts;
+  const totalExpenses =
+    data.rent + data.retirement + data.vehicle;
+
+  const netIncome = calculateNetIncome(data.grossIncome);
+
+  const remainingCash = Math.max(
+    0,
+    netIncome - totalExpenses
+  );
 
   const chartData = [
-    { name: "Fixed Costs", value: fixedCosts },
-    { name: "Disposable", value: disposable }
+    {
+      name: "Expenses",
+      value: totalExpenses,
+      color: "#ff4d4f"
+    },
+    {
+      name: "Remaining Cash",
+      value: remainingCash,
+      color: "#1890ff"
+    }
   ];
+
+  const formatCurrency = (value) =>
+    `R ${value.toLocaleString("en-ZA")}`;
 
   return (
     <div className="chart-card">
       <h4>Cash Flow Overview</h4>
 
-      <PieChart width={250} height={250}>
-        <Pie
-          data={chartData}
-          dataKey="value"
-          innerRadius={70}
-          outerRadius={100}
-        >
-          <Cell fill="#ff4d4f" />
-          <Cell fill="#1890ff" />
-        </Pie>
-      </PieChart>
+      <ResponsiveContainer width="100%" height={300}>
+        <PieChart>
+          <Pie
+            data={chartData}
+            dataKey="value"
+            innerRadius={70}
+            outerRadius={100}
+          >
+            {chartData.map((item, index) => (
+              <Cell
+                key={index}
+                fill={item.color}
+              />
+            ))}
+          </Pie>
+
+          <Tooltip
+            formatter={(value) =>
+              formatCurrency(value)
+            }
+          />
+        </PieChart>
+      </ResponsiveContainer>
 
       <div className="expense-breakdown">
-        <p>Rent: R {data.rent}</p>
-        <p>Retirement: R {data.retirement}</p>
-        <p>Vehicle: R {data.vehicle}</p>
-        <h3>Total Fixed: R {fixedCosts}</h3>
+        <p>Rent: {formatCurrency(data.rent)}</p>
+        <p>
+          Retirement:{" "}
+          {formatCurrency(data.retirement)}
+        </p>
+        <p>
+          Vehicle: {formatCurrency(data.vehicle)}
+        </p>
+
+        <h3>
+          Total Expenses:{" "}
+          {formatCurrency(totalExpenses)}
+        </h3>
+
+        <h3>
+          Remaining After Expenses:{" "}
+          {formatCurrency(remainingCash)}
+        </h3>
       </div>
     </div>
   );

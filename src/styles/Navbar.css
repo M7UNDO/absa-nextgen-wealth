@@ -190,6 +190,7 @@ header {
 
 .fa-user {
   font-size: 1.6rem;
+  transition: 0.3s ease;
 }
 
 .user-menu {
@@ -199,12 +200,14 @@ header {
   cursor: pointer;
 }
 
-/* Icon styling */
+.user-menu:hover .fa-user{
+  color: var(--primary-colour);
+}
+
 .user-icon {
   font-size: 1.3rem;
 }
 
-/* Hidden dropdown by default */
 .user-dropdown {
   position: absolute;
   top: 120%;
@@ -230,7 +233,8 @@ header {
   z-index: 1000;
 }
 
-/* Show on hover */
+
+
 .user-menu:hover .user-dropdown {
   opacity: 1;
   visibility: visible;

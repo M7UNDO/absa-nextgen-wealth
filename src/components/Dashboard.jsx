@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, {useEffect, useState} from "react";
 import IncomeTiles from "./IncomeTiles";
 import ExpensesChart from "./ExpensesChart";
 import FinancialSetupModal from "./FinancialSetupModal";
@@ -9,7 +9,6 @@ function Dashboard() {
   const [financials, setFinancials] = useState(null);
   const [showModal, setShowModal] = useState(false);
 
-  // Load from localStorage
   useEffect(() => {
     const stored = localStorage.getItem("financials");
 
@@ -20,19 +19,31 @@ function Dashboard() {
     }
   }, []);
 
-  // When modal completes
   const handleSetupComplete = (data) => {
     setFinancials(data);
     setShowModal(false);
   };
 
+  const handleEditClick = () => {
+    setShowModal(!false);
+  };
+
   if (!financials && !showModal) {
-    return <Loader/>
+    return <Loader />;
   }
 
   return (
     <section className="dashboard-section">
-      <h1>Hello 👋</h1>
+      <div className="dashboard-header">
+        <h1>Welcome to ABSA Next-Gen</h1>
+
+        {financials && (
+          <button className="edit-btn" onClick={handleEditClick}>
+            <i class="fa-regular fa-pen-to-square"></i>
+            Edit Finances
+          </button>
+        )}
+      </div>
 
       {financials && (
         <>
@@ -41,9 +52,7 @@ function Dashboard() {
         </>
       )}
 
-      {showModal && (
-        <FinancialSetupModal onComplete={handleSetupComplete} />
-      )}
+      {showModal && <FinancialSetupModal onComplete={handleSetupComplete} initialData={financials} />}
     </section>
   );
 }
