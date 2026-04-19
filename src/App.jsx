@@ -7,7 +7,6 @@ import RequireAuth from "./components/RequireAuth";
 import MainLayout from "./layouts/MainLayout";
 import AuthLayout from "./layouts/AuthLayout";
 
-import "./App.css";
 import Home from "./pages/Home";
 import SimulationLab from "./pages/SimulationLab";
 import StrategyTracks from "./pages/StrategyTracks";

@@ -2,7 +2,7 @@
   --primary-colour: #d0021b;
   --primary-colour-dark: rgb(175, 20, 75);
   --secondary-colour: #ff902f;
-  --accent-colour: #0053e1;
+  --accent-colour: #3d83fc;
   --typography-colour: #333d47;
   --background-colour: rgb(245, 245, 245);
   --background-colour-light: white;
@@ -62,7 +62,7 @@ h4 {
   line-height: 2.2rem;
 }
 
-.back-btn{
+/*.back-btn{
   display: flex;
   gap: 1rem;
   border: 1px solid var(--background-colour);
@@ -75,7 +75,7 @@ h4 {
 
 .back-btn:hover{
   border: 1px solid var(--primary-colour);
-}
+}*/
 
 @media screen and (min-width: 600px) {
   h1 {
