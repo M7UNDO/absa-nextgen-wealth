@@ -1,5 +1,6 @@
 import React, {useState} from "react";
 import "../styles/VehicleFinance.css";
+import { formatCurrency } from "../utils/formatCurrency";
 
 function VehicleFinance() {
   const termOptions = [24, 36, 48, 60, 72, 78, 84, 90, 96];
@@ -61,7 +62,7 @@ function VehicleFinance() {
         </div>
 
         <div>
-          <label>Vehicle Purchase Price</label>
+          <label>Vehicle Purchase Price (ZAR)</label>
           <input
             type="number"
             placeholder="Enter amount"
@@ -72,7 +73,7 @@ function VehicleFinance() {
         </div>
 
         <div>
-          <label>Deposit Amount</label>
+          <label>Deposit Amount (ZAR)</label>
           <input
             type="number"
             placeholder="Enter deposit"
@@ -120,12 +121,14 @@ function VehicleFinance() {
           </select>
         </div>
 
-        <button onClick={calculateFinance}>Simulate<i class="fa-solid fa-flask"></i></button>
+        <button onClick={calculateFinance}>
+          Simulate<i class="fa-solid fa-flask"></i>
+        </button>
 
         {monthlyPayment && (
           <div>
             <h2>Estimated Monthly Repayment</h2>
-            <p>R{monthlyPayment.toFixed(0)}</p>
+            <p>{formatCurrency(monthlyPayment)}</p>
           </div>
         )}
       </div>

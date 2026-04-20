@@ -1,7 +1,7 @@
 :root {
   --primary-colour: #d0021b;
   --primary-colour-dark: rgb(175, 20, 75);
-  --secondary-colour: #ff902f;
+  --secondary-colour: #fedcdc;
   --accent-colour: #3d83fc;
   --typography-colour: #333d47;
   --background-colour: rgb(245, 245, 245);
@@ -24,6 +24,7 @@ html {
 
 body {
   background-color: var(--background-colour);
+  color: var(--typography-colour);
 }
 
 .material-symbols-outlined {

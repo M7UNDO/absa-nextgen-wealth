@@ -101,10 +101,6 @@
   color: var(--typography-colour);
 }
 
-/* ===============================
-   BREAKDOWN SECTION
-================================= */
-
 .expense-breakdown {
   border-top: 0.1rem solid #ececec;
   padding-top: 1.8rem;
@@ -158,10 +154,6 @@
   font-weight: 700;
   color: var(--typography-colour);
 }
-
-/* ===============================
-   TABLET+
-================================= */
 
 @media screen and (min-width: 768px) {
   .chart-card {
