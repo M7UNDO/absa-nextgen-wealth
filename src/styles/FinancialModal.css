@@ -65,7 +65,8 @@
 
   border-radius: 0.5rem;
   border: 0.15rem solid rgba(128, 128, 128, 0.37);
-
+  background-color: var(--background-colour-light);
+  color: var(--typography-colour);
   padding: 1rem;
   transition: 150ms ease;
 }

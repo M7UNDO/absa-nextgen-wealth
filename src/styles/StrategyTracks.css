@@ -63,7 +63,7 @@
 .explore-btn {
   width: 100%;
   color: white;
-  border: 1px solid var(--background-colour);
+  border: 1px solid white;
   border-radius: 0.5rem;
   padding: 1rem 3rem;
   margin: 2rem 0;

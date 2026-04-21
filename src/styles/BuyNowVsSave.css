@@ -39,7 +39,8 @@
   font-size: 1.6rem;
   border-radius: 0.5rem;
   border: 0.15rem solid rgba(128, 128, 128, 0.35);
-  background: white;
+  background: var(--background-colour-light);
+  color: var(--typography);
   transition: all 0.3s ease;
 }
 
@@ -56,7 +57,7 @@
   appearance: none;
   height: 0.6rem;
   border-radius: 10rem;
-  background: var(--secondary-colour);
+  background: var(--primary-colour);
   margin: 3rem 0;
   padding: 0;
 }
@@ -150,9 +151,6 @@
   font-size: 1.4rem;
   color: var(--primary-colour);
   line-height: 1.6;
-}
-
-.bnpl-form .bnpl-slider {
 }
 
 @media screen and (min-width: 768px) {

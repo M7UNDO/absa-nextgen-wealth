@@ -10,6 +10,8 @@
 
   --primary-font: "Source Sans 3", sans-serif;
   --secondary-font: "DM Sans", sans-serif;
+  --numbers-font: "Roboto", sans-serif;
+  --numbers-font-2: "Oswald", sans-serif;
 }
 
 html {
@@ -78,30 +80,39 @@ h4 {
   border: 1px solid var(--primary-colour);
 }*/
 
+/*@media (prefers-color-scheme: dark) {
+  :root {
+    --primary-colour: #d0021b;
+    --primary-colour-dark: rgb(175, 20, 75);
+    --secondary-colour: #fedcdc;
+    --accent-colour: #3d83fc;
+    --typography-colour: #e0e0e0;
+    --background-colour: rgb(29, 28, 32);
+    --background-colour-light: rgb(45, 44, 50);
+    --input-colour: rgb(45, 44, 50);
+  }
+}*/
+
 @media screen and (min-width: 600px) {
   h1 {
-    
     font-size: 4.2em;
     line-height: 5rem;
     font-weight: 500;
   }
 
   h2 {
-    
     font-size: 2.5rem;
     font-weight: 400;
     line-height: 3rem;
     text-align: center;
   }
   h3 {
-    
     font-size: 2.5rem;
     font-weight: 400;
     line-height: 3rem;
   }
 
   h4 {
-    
     font-size: 2rem;
     font-weight: 500;
     line-height: 2.4rem;

@@ -51,7 +51,7 @@
   border-radius: 0.5rem;
   border: 0.15rem solid rgba(128, 128, 128, 0.35);
 
-  background-color: white;
+  background-color: var(--background-colour-light);
   color: var(--typography-colour);
 
   transition: 150ms ease;
@@ -82,7 +82,7 @@
   appearance: none;
   height: 0.6rem;
   border-radius: 10rem;
-  background: var(--secondary-colour);
+  background: var(--primary-colour);
   cursor: pointer;
   margin: 3rem 0;
   padding: 0;

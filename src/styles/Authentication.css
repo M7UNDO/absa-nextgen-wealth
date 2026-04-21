@@ -118,6 +118,7 @@
 }
 
 #visibility-btn {
+  font-size: 1.7rem;
   position: absolute;
   top: 50%;
   right: 1rem;
@@ -132,6 +133,11 @@
   justify-content: center;
 
   cursor: pointer;
+  opacity: 0.6;
+}
+
+#visibility-btn:hover {
+  opacity: 1;
 }
 
 @media screen and (min-width: 600px) {
@@ -142,12 +148,4 @@
 @media screen and (min-width: 768px) {
 }
 @media screen and (min-width: 1024px) {
-
-  #visibility-btn {
-    opacity: 0.6;
-  }
-
-  #visibility-btn:hover {
-    opacity: 1;
-  }
 }

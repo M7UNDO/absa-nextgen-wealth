@@ -1,0 +1,400 @@
+.first-property-page {
+  min-height: 100vh;
+  background-color: var(--background-colour);
+  color: var(--typography-colour);
+}
+
+.first-property-content {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  padding: 3rem 2rem 5rem 2rem;
+}
+
+.first-property-intro-card,
+.first-property-progress-card,
+.path-section {
+  background-color: var(--background-colour-light);
+  border-radius: 1.8rem;
+  padding: 2rem;
+  box-shadow:
+    0 1rem 3rem rgba(0, 0, 0, 0.05),
+    0 0.2rem 0.8rem rgba(0, 0, 0, 0.03);
+}
+
+.track-tag,
+.progress-copy p,
+.sidebar-card h3 {
+  margin-bottom: 1rem;
+  font-family: var(--primary-font);
+  font-size: 1.5rem;
+  font-weight: 500;
+  color: var(--primary-colour);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+.path-section h2 {
+  font-family: var(--numbers-font);
+  font-size: 2.4rem;
+  font-weight: 500;
+  color: var(--primary-colour);
+  text-align: left;
+  padding: 0rem;
+  margin-top: 1rem;
+  margin-bottom: 2rem;
+}
+
+.first-property-intro-card p,
+.path-section p,
+.path-section li,
+.sidebar-card li,
+.milestone-content p,
+.accordion-content p {
+  font-family: var(--primary-font);
+  font-size: 1.5rem;
+  line-height: 1.7;
+}
+
+.first-property-progress-card {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.progress-copy h3 {
+  font-family: var(--numbers-font);
+  font-size: 2.8rem;
+  font-weight: 400;
+  margin: 1rem 0;
+}
+
+.progress-bar {
+  width: 100%;
+  height: 0.8rem;
+  border-radius: 10rem;
+  background-color: rgba(0, 83, 225, 0.12);
+  overflow: hidden;
+}
+
+.progress-bar-fill {
+  height: 100%;
+  border-radius: 10rem;
+  background-color: var(--primary-colour);
+}
+
+.property-tip-card {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  background-color: var(--secondary-colour);
+  color: var(--primary-colour);
+  opacity: 1;
+  border: 1px solid rgba(255, 0, 0, 0.3);
+  border-left: 3px solid var(--primary-colour);
+  padding: 1rem 1.5rem;
+}
+
+.property-tip-label {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  font-family: var(--secondary-font);
+  font-size: 1.6rem;
+  font-weight: 500;
+}
+
+.property-tip-text {
+  font-family: var(--primary-font);
+  font-size: 1.3rem;
+  line-height: 1.7;
+  animation: fadeSlideTip 0.45s ease;
+}
+
+@keyframes fadeSlideTip {
+  from {
+    opacity: 0;
+    transform: translateY(1rem);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.first-property-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.first-property-main,
+.first-property-sidebar {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.first-property-sidebar {
+  margin: 5rem 0;
+}
+
+.path-section ul,
+.sidebar-card ul {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  padding-left: 2rem;
+}
+
+.priorities-list li::marker {
+  color: var(--primary-colour);
+}
+
+.milestone-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1.6rem;
+}
+
+.milestone-card {
+  position: relative;
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  gap: 1.4rem;
+  padding: 4rem 1.6rem 4rem 1.6rem;
+  border-bottom: 1px solid rgba(128, 128, 128, 0.4);
+}
+
+.milestone-list .milestone-card:last-child {
+  border: none;
+}
+
+.milestone-number {
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  flex-shrink: 0;
+
+  width: 5rem;
+  height: 5rem;
+  border: 1px dashed var(--primary-colour);
+  border-radius: 50%;
+  color: var(--primary-colour);
+
+  font-family: var(--numbers-font-2);
+  font-size: 3rem;
+}
+
+.milestone-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+}
+
+.milestone-year {
+  font-size: 1.3rem;
+  color: var(--primary-colour);
+}
+
+.milestone-content h3 {
+  font-family: var(--secondary-font);
+  font-size: 1.9rem;
+  font-weight: 500;
+  color: var(--typography-colour);
+}
+
+.status-group {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.8rem;
+  margin-top: 0.6rem;
+}
+
+.status-btn {
+  border: 0.1rem solid rgba(0, 0, 0, 0.12);
+  background-color: var(--background-colour-light);
+  border-radius: 10rem;
+  padding: 0.8rem 1.2rem;
+
+  font-family: var(--primary-font);
+  font-size: 1.3rem;
+  color: var(--typography-colour);
+
+  cursor: pointer;
+  transition: 150ms ease;
+}
+
+.status-btn:hover {
+  border-color: var(--primary-colour);
+  color: var(--primary-colour);
+}
+
+.status-btn.active {
+  background-color: var(--primary-colour);
+  border-color: var(--primary-colour);
+  color: white;
+}
+
+.accordion-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  padding: 0;
+}
+
+.accordion-item {
+  border-radius: 1rem;
+  background-color: var(--primary-colour-dark);
+  overflow: hidden;
+}
+
+.accordion-item.open {
+  background-color: var(--primary-colour-dark);
+}
+
+.accordion-trigger {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+
+  border: none;
+  background: none;
+  padding: 1.6rem 1.8rem;
+
+  font-family: var(--primary-font);
+  font-size: 1.7rem;
+  font-weight: 500;
+  color: white;
+  text-align: left;
+
+  cursor: pointer;
+}
+
+.accordion-trigger i {
+  flex-shrink: 0;
+  font-size: 1.4rem;
+  color: white;
+}
+
+.accordion-content {
+  padding: 0 1.8rem 1.8rem 1.8rem;
+  font-weight: 400;
+  color: white;
+}
+
+.studio-links {
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+}
+
+.studio-link-card {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  padding: 1.4rem;
+  border: 1px solid rgba(0, 0, 0, 0.12);
+  border-radius: 0.5rem;
+  background-color: var(--background-colour-light);
+  color: var(--typography-colour);
+  text-decoration: none;
+  transition: all 150ms ease;
+}
+
+.studio-link-card strong {
+  font-family: var(--numbers-font);
+  font-size: 1.6rem;
+  font-weight: 500;
+}
+
+.studio-link-card span {
+  font-family: var(--primary-font);
+  font-size: 1.4rem;
+  line-height: 1.5;
+}
+
+.studio-link-card:hover {
+  transform: translateY(-0.2rem);
+  border-color: var(--background-colour-light);
+  box-shadow:
+    0 1rem 3rem rgba(0, 0, 0, 0.06),
+    0 0.2rem 0.8rem rgba(0, 0, 0, 0.04);
+}
+
+@media screen and (min-width: 768px) {
+  .first-property-content {
+    padding: 4rem 3rem 6rem 3rem;
+  }
+
+  .first-property-intro-card,
+  .first-property-progress-card,
+  .property-tip-card,
+  .path-section,
+  .sidebar-card {
+    padding: 2.4rem;
+  }
+
+  .path-section h2 {
+    font-size: 2.6rem;
+    padding: 0 2rem;
+  }
+
+  .progress-copy h3 {
+    font-size: 3rem;
+  }
+
+  .property-tip-card {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    background-color: var(--secondary-colour);
+    color: var(--primary-colour);
+    opacity: 1;
+    border-radius: 0.5rem;
+    padding: 1rem;
+  }
+
+  .property-tip-text {
+    font-size: 1.4rem;
+    line-height: 1.7;
+  }
+
+  .first-property-sidebar {
+    margin: 0;
+  }
+
+  .path-section ul,
+  .sidebar-card ul {
+    padding-left: 4rem;
+  }
+
+  .accordion-list {
+    padding: 0 2rem;
+  }
+}
+
+@media screen and (min-width: 1024px) {
+  .first-property-content {
+    padding: 5rem 10%;
+  }
+
+  .first-property-grid {
+    display: grid;
+    grid-template-columns: 1.6fr 1fr;
+    gap: 2.4rem;
+    align-items: start;
+  }
+
+  .first-property-intro-card,
+  .first-property-progress-card,
+  .property-tip-card,
+  .path-section,
+  .sidebar-card {
+    padding: 2.6rem;
+  }
+}

@@ -11,7 +11,7 @@ import Home from "./pages/Home";
 import SimulationLab from "./pages/SimulationLab";
 import StrategyTracks from "./pages/StrategyTracks";
 
-import SrategyTrackDetail from "./pages/SrategyTrackDetail";
+import FirstPropertyPath from "./pages/FirstPropertyPath";
 import VehicleFinance from "./pages/VehicleFinance";
 import BuyNowVsSave from "./pages/BuyNowVsSave";
 import HomeLoan from "./pages/HomeLoan";
@@ -39,7 +39,7 @@ function App() {
               <Route path="/simulation-lab/vehicle-finance-calculator" element={<VehicleFinance/>}></Route>
               <Route path="/simulation-lab/bnpl-vs-save-first" element={<BuyNowVsSave/>}></Route>
               <Route path="/strategy-tracks" element={<StrategyTracks />}></Route>
-              <Route path="/strategy-tracks/:id" element={<SrategyTrackDetail/>}></Route>
+              <Route path="/strategy-tracks/first-property-path" element={<FirstPropertyPath />}></Route>
             </Route>
 
             <Route element={<AuthLayout />}>

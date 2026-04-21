@@ -137,7 +137,7 @@ function Authentication({mode}) {
               onChange={(e) => setPassword(e.target.value)}
             />
             <button type="button" onClick={toggleVisbility} id="visibility-btn">
-              <span className="material-symbols-outlined">{isVisibile ? "visibility_off" : "visibility"}</span>
+              <i className={isVisibile? "fa-regular fa-eye-slash": "fa-regular fa-eye"}></i>
             </button>
           </div>
         </div>
@@ -155,7 +155,7 @@ function Authentication({mode}) {
                   onChange={(e) => setRepeatPassword(e.target.value)}
                 />
                 <button type="button" onClick={toggleVisbility} id="visibility-btn">
-                  <span className="material-symbols-outlined">{isVisibile ? "visibility_off" : "visibility"}</span>
+                  <i className={isVisibile? "fa-regular fa-eye-slash": "fa-regular fa-eye"}></i>
                 </button>
               </div>
             </div>
