@@ -38,17 +38,18 @@
   outline: none;
   border: none;
   border-radius: 0.5rem;
-  border-left: 2px solid rgba(175, 20, 74, 0);
+  border: 1px solid rgba(255, 0, 0, 0.237);
+  border-left: 3px solid rgba(255, 0, 0, 0.237);
 
   background: none;
-  background-color: rgba(175, 20, 74, 0.199);
   padding: 0.5rem 2rem;
   transition: all 0.3s ease;
 }
 
 .edit-btn:hover {
   transform: translateY(-2px);
-  border-left: 2px solid var(--primary-colour);
+  border: 1px solid rgba(255, 0, 0, 0.7);
+  border-left: 3px solid var(--primary-colour);
 }
 
 @media screen and (min-width: 600px) {
