@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import "../styles/FinancialModal.css";
 
-function FinancialSetupModal({ onComplete, initialData }) {
+function FinancialSetupModal({ onComplete, onClose, initialData, isEditing }) {
   const [form, setForm] = useState({
     grossIncome: "",
     rent: "",
@@ -53,6 +53,12 @@ function FinancialSetupModal({ onComplete, initialData }) {
   return (
     <div className="modal-backdrop">
       <div className="modal">
+        {isEditing && (
+          <button type="button" className="modal-close-btn" onClick={onClose}>
+            <i className="fa-solid fa-xmark"></i>
+          </button>
+        )}
+
         <h2>
           {initialData ? "Edit Your Finances" : "Set Up Your Finances"}
         </h2>

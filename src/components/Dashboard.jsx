@@ -1,4 +1,6 @@
 import React, {useEffect, useState} from "react";
+import { useContext } from "react";
+import AuthContext from "../context/AuthContext";
 import IncomeTiles from "./IncomeTiles";
 import ExpensesChart from "./ExpensesChart";
 import FinancialSetupModal from "./FinancialSetupModal";
@@ -6,8 +8,11 @@ import Loader from "./Loader";
 import "../styles/Dashboard.css";
 
 function Dashboard() {
+  const {user} = useContext(AuthContext)
   const [financials, setFinancials] = useState(null);
   const [showModal, setShowModal] = useState(false);
+  const [isEditing, setIsEditing] = useState(false);
+  const isFirstTimeUser = !financials;
 
   useEffect(() => {
     const stored = localStorage.getItem("financials");
@@ -16,16 +21,24 @@ function Dashboard() {
       setFinancials(JSON.parse(stored));
     } else {
       setShowModal(true);
+      setIsEditing(false);
     }
   }, []);
 
   const handleSetupComplete = (data) => {
     setFinancials(data);
     setShowModal(false);
+    setIsEditing(false);
   };
 
   const handleEditClick = () => {
-    setShowModal(!false);
+    setShowModal(true);
+    setIsEditing(true);
+  };
+
+  const handleCloseModal = () => {
+    setShowModal(false);
+    setIsEditing(false);
   };
 
   if (!financials && !showModal) {
@@ -35,24 +48,33 @@ function Dashboard() {
   return (
     <section className="dashboard-section">
       <div className="dashboard-header">
-        <h1>Welcome to ABSA Next-Gen</h1>
+        <h1>{isFirstTimeUser ? "Welcome to ABSA Next-Gen" : `Welcome back, ${user.user_metadata?.username}`}</h1>
 
         {financials && (
           <button className="edit-btn" onClick={handleEditClick}>
-            <i class="fa-regular fa-pen-to-square"></i>
+            <i className="fa-regular fa-pen-to-square"></i>
             Edit Finances
           </button>
         )}
       </div>
 
-      {financials && (
+      {financials ? (
         <>
           <IncomeTiles gross={financials.grossIncome} />
           <ExpensesChart data={financials} />
         </>
+      ) : (
+        <div className="dashboard-placeholder"></div>
       )}
 
-      {showModal && <FinancialSetupModal onComplete={handleSetupComplete} initialData={financials} />}
+      {showModal && (
+        <FinancialSetupModal
+          onComplete={handleSetupComplete}
+          onClose={handleCloseModal}
+          initialData={financials}
+          isEditing={isEditing}
+        />
+      )}
     </section>
   );
 }

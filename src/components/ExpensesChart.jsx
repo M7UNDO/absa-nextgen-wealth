@@ -9,17 +9,18 @@ import {
 import "../styles/ExpensesChart.css";
 
 import { calculateNetIncome } from "../utils/taxCalculator";
+import { formatCurrency } from "../utils/formatCurrency";
 
 function ExpensesChart({ data }) {
-  const totalExpenses =
-    data.rent + data.retirement + data.vehicle;
-
+  const totalExpenses = data.rent + data.retirement + data.vehicle;
   const netIncome = calculateNetIncome(data.grossIncome);
+  const remainingCash = Math.max(0, netIncome - totalExpenses);
 
-  const remainingCash = Math.max(
-    0,
-    netIncome - totalExpenses
-  );
+  const expensesPercentage =
+    netIncome > 0 ? (totalExpenses / netIncome) * 100 : 0;
+
+  const remainingPercentage =
+    netIncome > 0 ? (remainingCash / netIncome) * 100 : 0;
 
   const chartData = [
     {
@@ -34,56 +35,146 @@ function ExpensesChart({ data }) {
     }
   ];
 
-  const formatCurrency = (value) =>
-    `R ${value.toLocaleString("en-ZA")}`;
+  const renderPercentageLabel = ({
+    cx,
+    cy,
+    midAngle,
+    innerRadius,
+    outerRadius,
+    percent
+  }) => {
+    if (percent === 0 || percent < 0.08) return null;
+
+    const RADIAN = Math.PI / 180;
+    const radius = innerRadius + (outerRadius - innerRadius) * 0.5;
+
+    const x = cx + radius * Math.cos(-midAngle * RADIAN);
+    const y = cy + radius * Math.sin(-midAngle * RADIAN);
+
+    return (
+      <text
+        x={x}
+        y={y}
+        fill="#ffffff"
+        textAnchor="middle"
+        dominantBaseline="central"
+        className="chart-percentage-label"
+      >
+        {`${(percent * 100).toFixed(0)}%`}
+      </text>
+    );
+  };
+
+  const renderCenterLabel = () => {
+    return (
+      <>
+        <text
+          x="50%"
+          y="46%"
+          textAnchor="middle"
+          dominantBaseline="central"
+          className="chart-centre-label-title"
+        >
+          Net Income
+        </text>
+        <text
+          x="50%"
+          y="56%"
+          textAnchor="middle"
+          dominantBaseline="central"
+          className="chart-centre-label-value"
+        >
+          {formatCurrency(netIncome)}
+        </text>
+      </>
+    );
+  };
 
   return (
     <div className="chart-card">
-      <h4>Cash Flow Overview</h4>
+      <div className="chart-card-header">
+        <h4>Cash Flow Overview</h4>
+        <p>Fixed costs vs remaining monthly cash</p>
+      </div>
 
-      <ResponsiveContainer width="100%" height={300}>
-        <PieChart>
-          <Pie
-            data={chartData}
-            dataKey="value"
-            innerRadius={70}
-            outerRadius={100}
-          >
-            {chartData.map((item, index) => (
-              <Cell
-                key={index}
-                fill={item.color}
-              />
-            ))}
-          </Pie>
+      <div className="chart-wrapper">
+        <ResponsiveContainer width="100%" height={320}>
+          <PieChart>
+            <Pie
+              data={chartData}
+              dataKey="value"
+              nameKey="name"
+              innerRadius={78}
+              outerRadius={110}
+              paddingAngle={2}
+              cornerRadius={8}
+              stroke="none"
+              labelLine={false}
+              label={renderPercentageLabel}
+            >
+              {chartData.map((item, index) => (
+                <Cell key={index} fill={item.color} />
+              ))}
+            </Pie>
 
-          <Tooltip
-            formatter={(value) =>
-              formatCurrency(value)
-            }
-          />
-        </PieChart>
-      </ResponsiveContainer>
+            {renderCenterLabel()}
+
+            <Tooltip
+              formatter={(value, name) => [formatCurrency(value), name]}
+              contentStyle={{
+                borderRadius: "1rem",
+                border: "0.1rem solid rgba(0,0,0,0.08)",
+                boxShadow: "0 1rem 3rem rgba(0, 0, 0, 0.08)",
+                fontSize: "1.4rem"
+              }}
+            />
+          </PieChart>
+        </ResponsiveContainer>
+      </div>
+
+      <div className="chart-legend">
+        <div className="legend-item">
+          <span className="legend-dot expenses-dot"></span>
+          <span>Expenses</span>
+        </div>
+
+        <div className="legend-item">
+          <span className="legend-dot remaining-dot"></span>
+          <span>Remaining Cash</span>
+        </div>
+      </div>
 
       <div className="expense-breakdown">
-        <p>Rent: {formatCurrency(data.rent)}</p>
-        <p>
-          Retirement:{" "}
-          {formatCurrency(data.retirement)}
-        </p>
-        <p>
-          Vehicle: {formatCurrency(data.vehicle)}
-        </p>
+        <div className="breakdown-row">
+          <span>Rent</span>
+          <span>{formatCurrency(data.rent)}</span>
+        </div>
 
-        <h3>
-          Total Expenses:{" "}
-          {formatCurrency(totalExpenses)}
-        </h3>
+        <div className="breakdown-row">
+          <span>Retirement</span>
+          <span>{formatCurrency(data.retirement)}</span>
+        </div>
 
-        <h3>
-          Remaining After Expenses:{" "}
-          {formatCurrency(remainingCash)}
-        </h3>
+        <div className="breakdown-row">
+          <span>Vehicle</span>
+          <span>{formatCurrency(data.vehicle)}</span>
+        </div>
+
+        <div className="breakdown-divider"></div>
+
+        <div className="breakdown-row breakdown-strong">
+          <span>Total Expenses</span>
+          <span>
+            {formatCurrency(totalExpenses)} ({expensesPercentage.toFixed(0)}%)
+          </span>
+        </div>
+
+        <div className="breakdown-row breakdown-strong">
+          <span className="remaining-cash">Remaining After Expenses</span>
+          <span className="remaining-cash">
+            {formatCurrency(remainingCash)} ({remainingPercentage.toFixed(0)}%)
+          </span>
+        </div>
       </div>
     </div>
   );

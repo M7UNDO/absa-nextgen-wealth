@@ -1,0 +1,193 @@
+.income-tiles {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  margin: 2rem 0 3rem;
+}
+
+.tile {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 1.6rem;
+  min-height: 19rem;
+  padding: 2rem;
+  border-radius: 2rem;
+  overflow: hidden;
+}
+
+.tile::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  border-radius: inherit;
+}
+
+.tile-light {
+  background: linear-gradient(180deg, #ffffff 0%, #f7f8fa 100%);
+  box-shadow:
+    0 1rem 3rem rgba(0, 0, 0, 0.06),
+    0 0.2rem 0.8rem rgba(0, 0, 0, 0.04);
+  color: var(--typography-colour);
+}
+
+.tile-light::before {
+  border: 0.1rem solid rgba(0, 0, 0, 0.06);
+}
+
+.tile-dark {
+  background: linear-gradient(135deg, #1f1f2e 0%, #2d3142 100%);
+  color: white;
+  box-shadow:
+    0 1rem 3rem rgba(0, 0, 0, 0.14),
+    0 0.2rem 0.8rem rgba(0, 0, 0, 0.08);
+}
+
+.tile-dark::before {
+  border: 0.1rem solid rgba(255, 255, 255, 0.08);
+}
+
+.tile-content {
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+}
+
+.tile-label {
+  font-family: var(--primary-font);
+  font-size: 1.4rem;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+  opacity: 0.8;
+}
+
+.tile-amount {
+  font-family: var(--secondary-font);
+  font-size: 3rem;
+  font-weight: 500;
+  line-height: 1.1;
+  margin: 1rem 0;
+}
+
+.net-income {
+  color: var(--accent-colour);
+}
+
+.tile-subtext {
+  font-family: var(--primary-font);
+  font-size: 1.4rem;
+  line-height: 1.5;
+  opacity: 0.75;
+}
+
+.tile-meta {
+  margin-top: 0.4rem;
+  font-family: var(--primary-font);
+  font-size: 1.4rem;
+  line-height: 1.5;
+  opacity: 0.9;
+}
+
+.tile-info-btn {
+  position: absolute;
+  top: 1.4rem;
+  right: 1.4rem;
+  z-index: 2;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 3.6rem;
+  height: 3.6rem;
+
+  border: none;
+  outline: none;
+  border-radius: 50%;
+  background: rgba(0, 0, 0, 0.05);
+  color: var(--primary-colour);
+  font-size: 1.8rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.tile-info-btn:hover {
+  transform: translateY(-0.1rem);
+  background: rgba(0, 0, 0, 0.08);
+}
+
+.tile-info-btn-dark {
+  background: rgba(255, 255, 255, 0.12);
+  color: white;
+}
+
+.tile-info-btn-dark:hover {
+  background: rgba(255, 255, 255, 0.18);
+}
+
+.tile-explainer {
+  margin-top: 0.8rem;
+  padding: 1.6rem;
+  border-radius: 1.4rem;
+  background: rgba(175, 20, 74, 0.06);
+  border: 0.1rem solid rgba(175, 20, 74, 0.1);
+}
+
+.tile-explainer-dark {
+  background: rgba(255, 255, 255, 0.08);
+  border: 0.1rem solid rgba(255, 255, 255, 0.1);
+}
+
+.tile-explainer h5 {
+  margin-bottom: 0.8rem;
+  font-family: var(--secondary-font);
+  font-size: 1.8rem;
+  font-weight: 500;
+  color: inherit;
+}
+
+.tile-explainer h6 {
+  margin: 1.2rem 0 0.6rem;
+  font-family: var(--primary-font);
+  font-size: 1.4rem;
+  font-weight: 600;
+  color: inherit;
+  opacity: 0.9;
+}
+
+.tile-explainer p {
+  font-family: var(--primary-font);
+  font-size: 1.35rem;
+  line-height: 1.6;
+  color: inherit;
+  opacity: 0.9;
+}
+
+@media screen and (min-width: 600px) {
+  .tile {
+    padding: 2.2rem;
+  }
+
+  .tile-amount {
+    font-size: 3.4rem;
+  }
+}
+
+@media screen and (min-width: 992px) {
+  .income-tiles {
+    flex-direction: row;
+    gap: 2rem;
+  }
+
+  .tile {
+    flex: 1;
+    min-height: 22rem;
+    padding: 2.4rem;
+  }
+
+  .tile-amount {
+    font-size: 3.8rem;
+  }
+}
