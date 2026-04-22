@@ -216,7 +216,7 @@ function FirstPropertyPath() {
           {isCurrentTrack && (
             <div className="track-btn-group">
               <button className="selected-track-btn" type="button">
-                Current Track
+                <i class="fa-solid fa-check"></i>Current Track
               </button>
 
               <button className="untrack-btn" onClick={handleUntrack}>

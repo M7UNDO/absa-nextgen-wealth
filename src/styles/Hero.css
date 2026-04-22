@@ -30,7 +30,7 @@
 }
 
 .hero-content .subheading {
-  font-size: 1.2rem;
+  font-size: 1.6rem;
   line-height: 1.5;
 }
 
@@ -61,11 +61,6 @@
     padding: 0 1rem;
     font-family: var(--secondary-font);
     text-align: center;
-  }
-
-  .hero-content .subheading {
-    font-size: 1.4rem;
-    line-height: 1.5;
   }
 }
 

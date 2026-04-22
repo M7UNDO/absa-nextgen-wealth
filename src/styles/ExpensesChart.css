@@ -53,6 +53,7 @@
 }
 
 .chart-centre-label-value {
+  color: var(--typography-colour);
   font-family: var(--secondary-font);
   font-size: 1.8rem;
   font-weight: 500;

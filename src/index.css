@@ -6,6 +6,7 @@
   --accent-colour-2: #FF450D;
   --typography-colour: #333d47;
   --background-colour: rgb(245, 245, 245);
+  --background: linear-gradient(180deg, #ffffff 0%, #f7f8fa 100%);
   --background-colour-light: white;
   --input-colour: #e7e7e7;
 
@@ -66,20 +67,6 @@ h4 {
   line-height: 2.2rem;
 }
 
-/*.back-btn{
-  display: flex;
-  gap: 1rem;
-  border: 1px solid var(--background-colour);
-  border-radius: 50%;
-  outline: none;
-  background: none;
-  color: var(--primary-colour);
-  padding: 1rem;
-}
-
-.back-btn:hover{
-  border: 1px solid var(--primary-colour);
-}*/
 
 /*@media (prefers-color-scheme: dark) {
   :root {
@@ -88,8 +75,9 @@ h4 {
     --secondary-colour: #fedcdc;
     --accent-colour: #3d83fc;
     --typography-colour: #e0e0e0;
-    --background-colour: rgb(29, 28, 32);
-    --background-colour-light: rgb(45, 44, 50);
+    --background-colour: rgb(24, 22, 32);
+    --background: linear-gradient(135deg, #1f1f2e 0%, #2d3142 100%);
+    --background-colour-light: rgb(41, 39, 52);
     --input-colour: rgb(45, 44, 50);
   }
 }*/

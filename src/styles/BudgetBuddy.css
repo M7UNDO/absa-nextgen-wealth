@@ -50,6 +50,7 @@
 }
 
 .budget-feedback-banner {
+  width: 90%;
   font-family: var(--primary-font);
   position: fixed;
   left: 50%;
@@ -217,6 +218,7 @@
 }
 
 .overspend-warning {
+  font-family: var(--secondary-font);
   font-size: 1.3rem;
   color: #dc2626;
   font-weight: 500;
@@ -257,4 +259,16 @@
 
 .simulate-spend-btn:hover {
   background: rgba(0, 0, 0, 0.08);
+}
+
+@media screen and (min-width: 600px) {
+  .budget-feedback-banner {
+    width: fit-content;
+  }
+}
+@media screen and (min-width: 768px) {
+}
+@media screen and (min-width: 992px) {
+}
+@media screen and (min-width: 1024px) {
 }
