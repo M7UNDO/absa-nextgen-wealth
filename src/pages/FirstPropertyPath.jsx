@@ -1,11 +1,17 @@
-import React, {useEffect, useMemo, useState} from "react";
+import React, {useEffect, useMemo, useState, useRef} from "react";
 import {Link} from "react-router-dom";
+import {useGSAP} from "@gsap/react";
+import {gsap} from "gsap";
 import Hero from "../components/Hero";
 import track1 from "../assets/images/roger-starnes-sr-YTqHwZhykMg-unsplash.jpg";
 import "../styles/FirstPropertyPath.css";
 
 function FirstPropertyPath() {
   const [financials, setFinancials] = useState(null);
+  const [activeTrack, setActiveTrack] = useState(null);
+  const [celebrationMessage, setCelebrationMessage] = useState("");
+  const bannerRef = useRef(null);
+
   const [progress, setProgress] = useState({
     emergencyFund: "not-started",
     creditScore: "not-started",
@@ -19,6 +25,7 @@ function FirstPropertyPath() {
   useEffect(() => {
     const storedFinancials = localStorage.getItem("financials");
     const storedProgress = localStorage.getItem("first-property-progress");
+    const storedTrack = localStorage.getItem("activeStrategyTrack");
 
     if (storedFinancials) {
       setFinancials(JSON.parse(storedFinancials));
@@ -27,9 +34,65 @@ function FirstPropertyPath() {
     if (storedProgress) {
       setProgress(JSON.parse(storedProgress));
     }
+
+    if (storedTrack) {
+      setActiveTrack(storedTrack);
+    }
   }, []);
 
-  function updateProgress(step, value) {
+  useGSAP(
+    () => {
+      if (!celebrationMessage || !bannerRef.current) return;
+
+      gsap.fromTo(
+        bannerRef.current,
+        {autoAlpha: 0, y: 20},
+        {
+          autoAlpha: 1,
+          y: 0,
+          duration: 0.5,
+          ease: "power3.out",
+        },
+      );
+
+      const timeout = setTimeout(() => {
+        gsap.to(bannerRef.current, {
+          autoAlpha: 0,
+          y: 20,
+          duration: 0.4,
+          ease: "power2.in",
+        });
+      }, 8000);
+
+      return () => clearTimeout(timeout);
+    },
+    {dependencies: [celebrationMessage]},
+  );
+
+  function handleApplyTrack() {
+    if (!activeTrack) {
+      localStorage.setItem("activeStrategyTrack", "first-property-path");
+      setActiveTrack("first-property-path");
+      setCelebrationMessage("You’ve applied First Property Path as your active strategy track.");
+      return;
+    }
+
+    if (activeTrack === "first-property-path") {
+      return;
+    }
+
+    setCelebrationMessage("You already have an active strategy track. Untrack it first before applying a new one.");
+  }
+
+  function handleUntrack() {
+    localStorage.removeItem("activeStrategyTrack");
+    setActiveTrack(null);
+    setCelebrationMessage("First Property Path has been untracked.");
+  }
+
+  function updateProgress(step, value, milestoneLabel) {
+    const previousValue = progress[step];
+
     const updatedProgress = {
       ...progress,
       [step]: value,
@@ -37,6 +100,10 @@ function FirstPropertyPath() {
 
     setProgress(updatedProgress);
     localStorage.setItem("first-property-progress", JSON.stringify(updatedProgress));
+
+    if (previousValue !== "done" && value === "done") {
+      setCelebrationMessage(`🎉 Milestone reached: ${milestoneLabel}`);
+    }
   }
 
   const completionPercentage = useMemo(() => {
@@ -128,6 +195,9 @@ function FirstPropertyPath() {
     },
   ];
 
+  const isCurrentTrack = activeTrack === "first-property-path";
+  const anotherTrackSelected = activeTrack && activeTrack !== "first-property-path";
+
   return (
     <div className="first-property-page">
       <Hero
@@ -137,11 +207,40 @@ function FirstPropertyPath() {
         alt="Modern apartment building"
       >
         <div className="btn-container">
-          <button className="select-track-btn">Apply This Track</button>
+          {!activeTrack && (
+            <button className="select-track-btn" onClick={handleApplyTrack}>
+              Apply This Track
+            </button>
+          )}
+
+          {isCurrentTrack && (
+            <div className="track-btn-group">
+              <button className="selected-track-btn" type="button">
+                Current Track
+              </button>
+
+              <button className="untrack-btn" onClick={handleUntrack}>
+                Untrack
+              </button>
+            </div>
+          )}
+
+          {anotherTrackSelected && (
+            <button className="track-disabled-btn" type="button" disabled>
+              Untrack Current Path First
+            </button>
+          )}
         </div>
       </Hero>
 
       <section className="first-property-content">
+        {celebrationMessage && (
+          <div ref={bannerRef} className="celebration-banner">
+            <i className="fa-solid fa-circle-check"></i>
+            <p>{celebrationMessage}</p>
+          </div>
+        )}
+
         <div className="first-property-intro-card">
           <p className="track-tag">First Property Path</p>
           <p>
@@ -176,7 +275,7 @@ function FirstPropertyPath() {
         <section className="first-property-grid">
           <main className="first-property-main">
             <section className="path-section">
-              <h2>Key Priorities </h2>
+              <h2>Key Priorities</h2>
               <ul className="priorities-list">
                 <li>Saving aggressively for a deposit</li>
                 <li>Building and protecting your credit score</li>
@@ -202,21 +301,21 @@ function FirstPropertyPath() {
                       <button
                         type="button"
                         className={progress.emergencyFund === "not-started" ? "status-btn active" : "status-btn"}
-                        onClick={() => updateProgress("emergencyFund", "not-started")}
+                        onClick={() => updateProgress("emergencyFund", "not-started", "Build your financial base")}
                       >
                         Not started
                       </button>
                       <button
                         type="button"
                         className={progress.emergencyFund === "in-progress" ? "status-btn active" : "status-btn"}
-                        onClick={() => updateProgress("emergencyFund", "in-progress")}
+                        onClick={() => updateProgress("emergencyFund", "in-progress", "Build your financial base")}
                       >
                         In progress
                       </button>
                       <button
                         type="button"
                         className={progress.emergencyFund === "done" ? "status-btn active" : "status-btn"}
-                        onClick={() => updateProgress("emergencyFund", "done")}
+                        onClick={() => updateProgress("emergencyFund", "done", "Build your financial base")}
                       >
                         Done
                       </button>
@@ -239,21 +338,21 @@ function FirstPropertyPath() {
                       <button
                         type="button"
                         className={progress.creditScore === "not-started" ? "status-btn active" : "status-btn"}
-                        onClick={() => updateProgress("creditScore", "not-started")}
+                        onClick={() => updateProgress("creditScore", "not-started", "Improve your credit profile")}
                       >
                         Not started
                       </button>
                       <button
                         type="button"
                         className={progress.creditScore === "in-progress" ? "status-btn active" : "status-btn"}
-                        onClick={() => updateProgress("creditScore", "in-progress")}
+                        onClick={() => updateProgress("creditScore", "in-progress", "Improve your credit profile")}
                       >
                         In progress
                       </button>
                       <button
                         type="button"
                         className={progress.creditScore === "done" ? "status-btn active" : "status-btn"}
-                        onClick={() => updateProgress("creditScore", "done")}
+                        onClick={() => updateProgress("creditScore", "done", "Improve your credit profile")}
                       >
                         Done
                       </button>
@@ -274,21 +373,21 @@ function FirstPropertyPath() {
                       <button
                         type="button"
                         className={progress.depositFund === "not-started" ? "status-btn active" : "status-btn"}
-                        onClick={() => updateProgress("depositFund", "not-started")}
+                        onClick={() => updateProgress("depositFund", "not-started", "Grow your deposit fund")}
                       >
                         Not started
                       </button>
                       <button
                         type="button"
                         className={progress.depositFund === "in-progress" ? "status-btn active" : "status-btn"}
-                        onClick={() => updateProgress("depositFund", "in-progress")}
+                        onClick={() => updateProgress("depositFund", "in-progress", "Grow your deposit fund")}
                       >
                         In progress
                       </button>
                       <button
                         type="button"
                         className={progress.depositFund === "done" ? "status-btn active" : "status-btn"}
-                        onClick={() => updateProgress("depositFund", "done")}
+                        onClick={() => updateProgress("depositFund", "done", "Grow your deposit fund")}
                       >
                         Done
                       </button>
@@ -312,21 +411,21 @@ function FirstPropertyPath() {
                       <button
                         type="button"
                         className={progress.homeLoanPrep === "not-started" ? "status-btn active" : "status-btn"}
-                        onClick={() => updateProgress("homeLoanPrep", "not-started")}
+                        onClick={() => updateProgress("homeLoanPrep", "not-started", "Prepare to buy")}
                       >
                         Not started
                       </button>
                       <button
                         type="button"
                         className={progress.homeLoanPrep === "in-progress" ? "status-btn active" : "status-btn"}
-                        onClick={() => updateProgress("homeLoanPrep", "in-progress")}
+                        onClick={() => updateProgress("homeLoanPrep", "in-progress", "Prepare to buy")}
                       >
                         In progress
                       </button>
                       <button
                         type="button"
                         className={progress.homeLoanPrep === "done" ? "status-btn active" : "status-btn"}
-                        onClick={() => updateProgress("homeLoanPrep", "done")}
+                        onClick={() => updateProgress("homeLoanPrep", "done", "Prepare to buy")}
                       >
                         Done
                       </button>
