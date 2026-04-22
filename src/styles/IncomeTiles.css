@@ -129,44 +129,53 @@
   background: rgba(255, 255, 255, 0.18);
 }
 
-.tile-explainer {
-  margin-top: 0.8rem;
-  padding: 1.6rem;
-  border-radius: 1.4rem;
-  background: rgba(175, 20, 74, 0.06);
-  border: 0.1rem solid rgba(175, 20, 74, 0.1);
+.tile-info-wrapper {
+  position: absolute;
+  top: 1.4rem;
+  right: 1.4rem;
+  z-index: 5;
 }
 
-.tile-explainer-dark {
-  background: rgba(255, 255, 255, 0.08);
-  border: 0.1rem solid rgba(255, 255, 255, 0.1);
+.tile-popover {
+  position: absolute;
+  top: 4.4rem;
+  right: 0;
+  width: min(32rem, 80vw);
+  padding: 1.4rem;
+  border-radius: 1.2rem;
+  background: white;
+  color: var(--typography-colour);
+  box-shadow:
+    0 1rem 3rem rgba(0, 0, 0, 0.14),
+    0 0.2rem 1rem rgba(0, 0, 0, 0.08);
+  border: 0.1rem solid rgba(0, 0, 0, 0.08);
 }
 
-.tile-explainer h5 {
-  margin-bottom: 0.8rem;
+.tile-popover-dark {
+  background: #2d3142;
+  color: white;
+  border: 0.1rem solid rgba(255, 255, 255, 0.08);
+}
+
+.tile-popover h5 {
+  margin-bottom: 0.6rem;
   font-family: var(--secondary-font);
-  font-size: 1.8rem;
+  font-size: 1.6rem;
   font-weight: 500;
-  color: inherit;
 }
 
-.tile-explainer h6 {
-  margin: 1.2rem 0 0.6rem;
+.tile-popover h6 {
+  margin: 1rem 0 0.5rem;
   font-family: var(--primary-font);
-  font-size: 1.4rem;
-  font-weight: 600;
-  color: inherit;
-  opacity: 0.9;
+  font-size: 1.3rem;
+  font-weight: 700;
 }
 
-.tile-explainer p {
+.tile-popover p {
   font-family: var(--primary-font);
-  font-size: 1.35rem;
-  line-height: 1.6;
-  color: inherit;
-  opacity: 0.9;
+  font-size: 1.3rem;
+  line-height: 1.55;
 }
-
 @media screen and (min-width: 600px) {
   .tile {
     padding: 2.2rem;

@@ -93,7 +93,7 @@ function ExpensesChart({ data }) {
   return (
     <div className="chart-card">
       <div className="chart-card-header">
-        <h4>Cash Flow Overview</h4>
+        <h4 className="cashflow-title">Cash Flow Overview</h4>
         <p>Fixed costs vs remaining monthly cash</p>
       </div>
 
