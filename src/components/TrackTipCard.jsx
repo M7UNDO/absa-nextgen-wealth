@@ -17,13 +17,13 @@ function TrackTipCard({ tips, interval = 8000 }) {
   if (!tips || !tips.length) return null;
 
   return (
-    <div className="property-tip-card">
-      <div className="property-tip-label">
+    <div className="tip-card">
+      <div className="tip-label">
         <span>Tip</span>
         <i className="fa-solid fa-lightbulb"></i>
       </div>
 
-      <p key={activeTipIndex} className="property-tip-text">
+      <p key={activeTipIndex} className="tip-text">
         {tips[activeTipIndex]}
       </p>
     </div>

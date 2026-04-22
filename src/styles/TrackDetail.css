@@ -1,11 +1,16 @@
-.first-property-content {
+.first-property-content,
+.freedom-path-content,
+.legacy-path-content {
   display: flex;
   flex-direction: column;
   gap: 2rem;
   padding: 3rem 2rem 5rem 2rem;
 }
 
-.first-property-grid {
+.first-property-grid,
+.freedom-path-grid,
+.legacy-path-grid,
+.main-layout {
   display: flex;
   flex-direction: column;
   gap: 2rem;
@@ -31,6 +36,15 @@
   margin-bottom: 2rem;
 }
 
+.intro-card {
+  background-color: var(--background-colour-light);
+  border-radius: 1.8rem;
+  padding: 2rem;
+  box-shadow:
+    0 1rem 3rem rgba(0, 0, 0, 0.05),
+    0 0.2rem 0.8rem rgba(0, 0, 0, 0.03);
+}
+
 .intro-card p,
 .path-section p,
 .path-section li,
@@ -40,6 +54,20 @@
   line-height: 1.7;
 }
 
+.priorities-list li::marker {
+  color: var(--primary-colour);
+}
+
+.track-tag {
+  margin-bottom: 1rem;
+  font-family: var(--primary-font);
+  font-size: 1.5rem;
+  font-weight: 500;
+  color: var(--primary-colour);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
 .path-section ul {
   display: flex;
   flex-direction: column;
@@ -47,8 +75,51 @@
   padding-left: 2rem;
 }
 
+.studio-links {
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+}
+
+.studio-link-card {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  padding: 1.4rem;
+  border: 1px solid rgba(0, 0, 0, 0.12);
+  border-radius: 0.5rem;
+  background-color: var(--background-colour-light);
+  color: var(--typography-colour);
+  text-decoration: none;
+  transition: all 150ms ease;
+}
+
+.studio-link-card strong {
+  font-family: var(--numbers-font);
+  font-size: 1.6rem;
+  font-weight: 500;
+}
+
+.studio-link-card span {
+  font-family: var(--primary-font);
+  font-size: 1.4rem;
+  line-height: 1.5;
+}
+
+.studio-link-card:hover {
+  transform: translateY(-0.2rem);
+  border-color: var(--background-colour-light);
+  box-shadow:
+    0 1rem 3rem rgba(0, 0, 0, 0.06),
+    0 0.2rem 0.8rem rgba(0, 0, 0, 0.04);
+}
+.studio-link-card:hover strong {
+  color: var(--primary-colour);
+}
+
 @media screen and (min-width: 768px) {
-  .first-property-content {
+  .first-property-content,
+  .freedom-path-content {
     padding: 4rem 3rem 6rem 3rem;
   }
 
@@ -68,18 +139,21 @@
 }
 
 @media screen and (min-width: 1024px) {
-  .first-property-content {
+  .first-property-content,
+  .freedom-path-content,.legacy-path-content {
     padding: 5rem 10%;
   }
 
-  .first-property-grid {
+  .first-property-grid,
+  .freedom-path-grid,
+  .legacy-path-grid {
     display: grid;
     grid-template-columns: 1.6fr 1fr;
     gap: 2.4rem;
     align-items: start;
   }
 
-  .path-section{
+  .path-section {
     padding: 2.6rem;
   }
 }

@@ -146,7 +146,7 @@ function FirstPropertyPath() {
       <section className="first-property-content">
         <TrackCelebrationBanner message={celebrationMessage} />
 
-        <div className="first-property-intro-card">
+        <div className="intro-card">
           <p className="track-tag">{firstPropertyPathData.intro.tag}</p>
           <p>{firstPropertyPathData.intro.description}</p>
         </div>
@@ -156,7 +156,7 @@ function FirstPropertyPath() {
         <TrackTipCard tips={tips} />
 
         <section className="first-property-grid">
-          <main className="first-property-main">
+          <div className="main-layout">
             <section className="path-section">
               <h2>{firstPropertyPathData.priorities.title}</h2>
               <ul className="priorities-list">
@@ -177,7 +177,7 @@ function FirstPropertyPath() {
               title={firstPropertyPathData.accordion.title}
               items={firstPropertyPathData.accordion.items}
             />
-          </main>
+          </div>
 
           <TrackSidebar
             className="first-property-sidebar"
