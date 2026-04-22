@@ -38,8 +38,7 @@
   outline: none;
   border: none;
   border-radius: 0.5rem;
-  border: 1px solid rgba(255, 0, 0, 0.237);
-  border-left: 3px solid rgba(255, 0, 0, 0.237);
+  border:none;
 
   background: none;
   padding: 0.5rem 2rem;
@@ -48,8 +47,7 @@
 
 .edit-btn:hover {
   transform: translateY(-2px);
-  border: 1px solid rgba(255, 0, 0, 0.7);
-  border-left: 3px solid var(--primary-colour);
+  text-decoration: underline;
 }
 
 @media screen and (min-width: 600px) {

@@ -135,7 +135,11 @@ function FirstPropertyPath() {
         subheading="Build toward owning your own home in 3-5 years"
         src={track1}
         alt="Modern apartment building"
-      />
+      >
+        <div className="btn-container">
+          <button className="select-track-btn">Apply This Track</button>
+        </div>
+      </Hero>
 
       <section className="first-property-content">
         <div className="first-property-intro-card">
@@ -172,7 +176,7 @@ function FirstPropertyPath() {
         <section className="first-property-grid">
           <main className="first-property-main">
             <section className="path-section">
-              <h2>Priorities </h2>
+              <h2>Key Priorities </h2>
               <ul className="priorities-list">
                 <li>Saving aggressively for a deposit</li>
                 <li>Building and protecting your credit score</li>

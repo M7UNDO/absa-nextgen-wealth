@@ -1,64 +1,197 @@
-.notfound{
-    position: fixed;
-    top: 0;
-    left: 0;
-    height: 100%;
-    width: 100%;
-    z-index: 99;
-    font-family: var(--secondary-font);
-    background-color: var(--background-colour);
-    color: var(--typography-colour);
+.notfound {
+  position: fixed;
+  inset: 0;
+  z-index: 99;
+  padding: 2rem 1.6rem;
+  font-family: var(--secondary-font);
+  background-color: var(--background-colour);
+  color: var(--typography-colour);
+  overflow-y: auto;
 }
 
-.notfound-wrapper{
-    height: 100%;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    gap: 5rem;
-    
+.notfound-wrapper {
+  min-height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 3.2rem;
+  text-align: center;
+  max-width: 60rem;
+  margin: 0 auto;
 }
 
-.notfound-wrapper p{
-    font-size: 1.6rem;
+.notfound-label {
+  font-family: var(--primary-font);
+  font-size: 1.3rem;
+  color: var(--primary-colour);
+  background-color: rgba(255, 149, 149, 0.177);
+  border-radius: 1rem;
+  padding: 0.8rem 1.2rem;
 }
 
-
-
-.btn-container .home-btn{
-    outline: none;
-    cursor: pointer;
-    font-size: 1.6rem;
-    color: var(--primary-colour-dark);
-    padding: 1.5rem 5rem;
-    border: 0.2rem solid var(--primary-colour-dark);
-    border-radius: 1.5rem;
-    transition: all 0.3s ease;
-    text-decoration: none;
-} 
-
-.btn-container .home-btn:hover{
-    background-color: var(--primary-colour-dark);
-    color: white;
-    transform: translateY(-2px);
-    
+.notfound h1 {
+  font-family: var(--numbers-font);
+  font-size: clamp(7rem, 24vw, 11rem);
+  line-height: 0.95;
+  margin: 0;
 }
 
-.notfound h1{
-    font-size: 4.5rem;
-    font-family: var(--primary-font);
+.notfound-message {
+  font-family: var(--numbers-font);
+  font-size: 1.9rem;
+  font-weight: 600;
+  line-height: 1.3;
+  margin-bottom: 0.8rem;
+}
+
+.notfound-subtext {
+  font-family: var(--primary-font);
+  font-size: 1.4rem;
+  line-height: 1.6;
+  opacity: 0.8;
+  max-width: 32rem;
+  margin: 0 auto;
+}
+
+.btn-container {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 1rem;
+  width: 100%;
+  font-family: var(--secondary-font);
+}
+
+.back-btn,
+.home-btn {
+  width: 100%;
+  min-height: 4.8rem;
+  padding: 1.2rem 2rem;
+  border-radius: 10rem;
+  font-size: 1.5rem;
+  font-weight: 600;
+  text-decoration: none;
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease,
+    background-color 0.2s ease,
+    color 0.2s ease,
+    border-color 0.2s ease;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+.back-btn {
+  border: 0.1rem solid rgba(0, 0, 0, 0.25);
+  background-color: transparent;
+  color: var(--typography-colour);
+}
+
+.home-btn {
+  border: 0.1rem solid var(--primary-colour);
+  background-color: var(--primary-colour);
+  color: #fff;
+  box-shadow: 0 0.8rem 2rem rgba(208, 2, 27, 0.2);
+}
+
+.btn-container .home-btn:hover {
+  background-color: var(--primary-colour-dark);
+  color: #fff;
+  transform: translateY(-0.2rem);
+}
+
+.back-btn:hover {
+  color: var(--primary-colour);
+  border: 0.1rem solid var(--primary-colour);
+  transform: translateY(-0.2rem);
+}
+
+.back-btn:focus-visible,
+.home-btn:focus-visible {
+  outline: 0.2rem solid var(--accent-colour);
+  outline-offset: 0.3rem;
 }
 
 @media screen and (min-width: 600px) {
-    
+  .notfound {
+    padding: 2.4rem 2rem;
+  }
+
+  .notfound-wrapper {
+    gap: 4rem;
+  }
+
+  .notfound-message {
+    font-size: 2.2rem;
+  }
+
+  .notfound-subtext {
+    font-size: 1.5rem;
+    max-width: 42rem;
+  }
 }
+
 @media screen and (min-width: 768px) {
-    
+  .notfound {
+    padding: 3.2rem 2.4rem;
+  }
+
+  .notfound-wrapper {
+    gap: 5rem;
+  }
+
+  .notfound-label {
+    font-size: 1.4rem;
+    padding: 1rem 1.4rem;
+  }
+
+  .notfound-message {
+    font-size: 2.4rem;
+  }
+
+  .btn-container {
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    width: auto;
+  }
+
+  .back-btn,
+  .home-btn {
+    width: auto;
+    min-width: 15rem;
+  }
 }
+
 @media screen and (min-width: 992px) {
-    
+  .notfound-wrapper {
+    gap: 6rem;
+    max-width: 70rem;
+  }
+
+  .notfound-message {
+    font-size: 2.6rem;
+  }
+
+  .notfound-subtext {
+    font-size: 1.6rem;
+    max-width: 48rem;
+  }
 }
+
 @media screen and (min-width: 1024px) {
-    
+  .notfound {
+    padding: 4rem 2rem;
+  }
+
+  .notfound-wrapper {
+    gap: 7rem;
+  }
+
+  .notfound h1 {
+    font-size: 15rem;
+  }
 }
