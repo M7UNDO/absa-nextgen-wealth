@@ -7,6 +7,8 @@ import RequireAuth from "./components/RequireAuth";
 import MainLayout from "./layouts/MainLayout";
 import AuthLayout from "./layouts/AuthLayout";
 
+import ScrollToTop from "./components/ScrollToTop";
+
 import Home from "./pages/Home";
 import SimulationLab from "./pages/SimulationLab";
 import StrategyTracks from "./pages/StrategyTracks";
@@ -24,6 +26,7 @@ function App() {
     <>
       <AuthProvider>
         <BrowserRouter>
+          <ScrollToTop />
           <Routes>
             <Route element={<MainLayout />}>
               <Route
@@ -36,8 +39,8 @@ function App() {
               ></Route>
               <Route path="/simulation-lab" element={<SimulationLab />}></Route>
               <Route path="/simulation-lab/home-loan-calculator" element={<HomeLoan />}></Route>
-              <Route path="/simulation-lab/vehicle-finance-calculator" element={<VehicleFinance/>}></Route>
-              <Route path="/simulation-lab/bnpl-vs-save-first" element={<BuyNowVsSave/>}></Route>
+              <Route path="/simulation-lab/vehicle-finance-calculator" element={<VehicleFinance />}></Route>
+              <Route path="/simulation-lab/bnpl-vs-save-first" element={<BuyNowVsSave />}></Route>
               <Route path="/strategy-tracks" element={<StrategyTracks />}></Route>
               <Route path="/strategy-tracks/first-property-path" element={<FirstPropertyPath />}></Route>
             </Route>

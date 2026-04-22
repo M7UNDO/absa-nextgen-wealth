@@ -50,19 +50,43 @@
 }
 
 .budget-feedback-banner {
-  padding: 1.2rem 1.4rem;
-  border-left: 0.4rem solid var(--accent-colour-2);
+  font-family: var(--primary-font);
+  position: fixed;
+  left: 50%;
+  bottom: 2rem;
+  transform: translateX(-50%);
+
+  opacity: 0;
+
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+
+  background-color: rgba(255, 255, 255, 0.9);
+  backdrop-filter: blur(8px);
+
+  border-left: 0.4rem solid var(--accent-colour);
   border-radius: 1rem;
-  background: rgba(61, 131, 252, 0.08);
+
+  padding: 1.4rem 4rem;
+
+  box-shadow:
+    0 1rem 3rem rgba(0, 0, 0, 0.12),
+    0 0.3rem 1rem rgba(0, 0, 0, 0.08);
+
+  z-index: 1000;
+}
+
+.budget-feedback-banner i {
+  color: var(--accent-colour);
 }
 
 .budget-feedback-banner p {
+  margin: 0;
   font-size: 1.4rem;
-  color: var(--primary-colour);
   font-weight: 500;
-  line-height: 1.5;
+  color: var(--accent-colour);
 }
-
 .budget-summary {
   display: flex;
   flex-direction: column;

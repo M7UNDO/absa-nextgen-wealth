@@ -162,16 +162,16 @@ function ExpensesChart({ data }) {
 
         <div className="breakdown-divider"></div>
 
-        <div className="breakdown-row breakdown-strong">
+        <div className="breakdown-row breakdown-strong" >
           <span>Total Expenses</span>
-          <span>
+          <span id="total-expenses">
             {formatCurrency(totalExpenses)} ({expensesPercentage.toFixed(0)}%)
           </span>
         </div>
 
-        <div className="breakdown-row breakdown-strong">
-          <span className="remaining-cash">Remaining After Expenses</span>
-          <span className="remaining-cash">
+        <div className="breakdown-row breakdown-strong" >
+          <span>Remaining After Expenses</span>
+          <span id="remaining-cash">
             {formatCurrency(remainingCash)} ({remainingPercentage.toFixed(0)}%)
           </span>
         </div>

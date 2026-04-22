@@ -62,7 +62,7 @@ function FirstPropertyPath() {
           duration: 0.4,
           ease: "power2.in",
         });
-      }, 8000);
+      }, 4000);
 
       return () => clearTimeout(timeout);
     },

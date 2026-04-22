@@ -104,8 +104,6 @@
 }
 
 .back-btn:hover {
-  color: var(--primary-colour);
-  border: 0.1rem solid var(--primary-colour);
   transform: translateY(-0.2rem);
 }
 

@@ -13,7 +13,7 @@ export default function Navbar() {
     setMenuOpen(false);
   }, [location]);
 
-  //Stop scrolling
+
   useEffect(() => {
     if (menuOpen) {
       document.body.style.overflow = "hidden";

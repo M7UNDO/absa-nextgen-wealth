@@ -1,5 +1,5 @@
 .chart-card {
-  background: var(--background-colour-light, #ffffff);
+  background-color: var(--background-colour-light);
   border-radius: 2rem;
   padding: 2.4rem 1.8rem;
   box-shadow:
@@ -126,16 +126,12 @@
   font-weight: 600;
 }
 
-.breakdown-strong span:first-child {
-  color: var(--primary-colour-dark);
-}
-
-.breakdown-strong span:last-child {
-  color: var(--primary-colour);
-}
-
-.breakdown-strong span.remaining-cash{
+#remaining-cash{
   color: var(--accent-colour);
+}
+
+#total-expenses{
+  color: var(--primary-colour);
 }
 
 @media screen and (min-width: 600px) {

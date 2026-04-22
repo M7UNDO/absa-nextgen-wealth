@@ -1,6 +1,8 @@
-import React, {useEffect, useMemo, useState, useRef} from "react";
+import React, { useEffect, useMemo, useState, useRef } from "react";
+import { gsap } from "gsap";
+import { useGSAP } from "@gsap/react";
 import BudgetBuddyModal from "./BudgetBuddyModal";
-import {formatCurrency} from "../utils/formatCurrency";
+import { formatCurrency } from "../utils/formatCurrency";
 import "../styles/BudgetBuddy.css";
 
 const defaultCategories = [
@@ -39,6 +41,7 @@ function BudgetBuddy() {
   const [showModal, setShowModal] = useState(false);
   const [spendInputs, setSpendInputs] = useState({});
   const [feedbackMessage, setFeedbackMessage] = useState("");
+  const bannerRef = useRef(null);
 
   useEffect(() => {
     const stored = localStorage.getItem("budgetCategories");
@@ -51,15 +54,35 @@ function BudgetBuddy() {
     }
   }, []);
 
-  useEffect(() => {
-    if (!feedbackMessage) return;
+  useGSAP(
+    () => {
+      if (!feedbackMessage || !bannerRef.current) return;
 
-    const timer = setTimeout(() => {
-      setFeedbackMessage("");
-    }, 3000);
+      gsap.fromTo(
+        bannerRef.current,
+        { autoAlpha: 0, y: 20 },
+        {
+          autoAlpha: 1,
+          y: 0,
+          duration: 0.5,
+          ease: "power3.out",
+        }
+      );
 
-    return () => clearTimeout(timer);
-  }, [feedbackMessage]);
+      const timeout = setTimeout(() => {
+        gsap.to(bannerRef.current, {
+          autoAlpha: 0,
+          y: 20,
+          duration: 0.4,
+          ease: "power2.in",
+          onComplete: () => setFeedbackMessage(""),
+        });
+      }, 4000);
+
+      return () => clearTimeout(timeout);
+    },
+    { dependencies: [feedbackMessage] }
+  );
 
   function saveCategories(updated) {
     setCategories(updated);
@@ -120,6 +143,7 @@ function BudgetBuddy() {
     });
 
     saveCategories(updated);
+
     setSpendInputs((prev) => ({
       ...prev,
       [id]: "",
@@ -138,6 +162,13 @@ function BudgetBuddy() {
 
   return (
     <>
+      {feedbackMessage && (
+        <div ref={bannerRef} className="budget-feedback-banner">
+          <i className="fa-solid fa-circle-check"></i>
+          <p>{feedbackMessage}</p>
+        </div>
+      )}
+
       <div className="budget-buddy-card">
         <div className="budget-buddy-header">
           <div>
@@ -145,16 +176,14 @@ function BudgetBuddy() {
             <p>{categories.length} categories</p>
           </div>
 
-          <button type="button" className="budget-add-btn" onClick={() => setShowModal(true)}>
+          <button
+            type="button"
+            className="budget-add-btn"
+            onClick={() => setShowModal(true)}
+          >
             <i className="fa-solid fa-plus"></i>
           </button>
         </div>
-
-        {feedbackMessage && (
-          <div className="budget-feedback-banner">
-            <p>{feedbackMessage}</p>
-          </div>
-        )}
 
         <div className="budget-summary">
           <div className="budget-summary-row">
@@ -184,7 +213,10 @@ function BudgetBuddy() {
               <div key={category.id} className="budget-category-item">
                 <div className="budget-category-top">
                   <div className="budget-category-name-wrap">
-                    <span className="budget-category-dot" style={{backgroundColor: category.color}}></span>
+                    <span
+                      className="budget-category-dot"
+                      style={{ backgroundColor: category.color }}
+                    ></span>
 
                     <div>
                       <h5>{category.name}</h5>
@@ -204,7 +236,7 @@ function BudgetBuddy() {
                       className="delete-category-btn"
                       onClick={() => handleDeleteCategory(category.id, category.name)}
                     >
-                      <i class="fa-solid fa-minus"></i>
+                      <i className="fa-solid fa-minus"></i>
                     </button>
                   </div>
                 </div>
@@ -219,7 +251,9 @@ function BudgetBuddy() {
                   ></div>
                 </div>
 
-                {isOverspent && <p className="overspend-warning">You have exceeded this category budget.</p>}
+                {isOverspent && (
+                  <p className="overspend-warning">You have exceeded this category budget.</p>
+                )}
 
                 <div className="budget-spend-controls">
                   <input
@@ -231,7 +265,11 @@ function BudgetBuddy() {
                     className="spend-input"
                   />
 
-                  <button type="button" className="simulate-spend-btn" onClick={() => handleSimulateSpend(category.id)}>
+                  <button
+                    type="button"
+                    className="simulate-spend-btn"
+                    onClick={() => handleSimulateSpend(category.id)}
+                  >
                     Simulate Spend
                   </button>
                 </div>
@@ -241,7 +279,12 @@ function BudgetBuddy() {
         </div>
       </div>
 
-      {showModal && <BudgetBuddyModal onClose={() => setShowModal(false)} onSave={handleAddCategory} />}
+      {showModal && (
+        <BudgetBuddyModal
+          onClose={() => setShowModal(false)}
+          onSave={handleAddCategory}
+        />
+      )}
     </>
   );
 }

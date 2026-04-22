@@ -9,12 +9,11 @@
   position: relative;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
-  gap: 1.6rem;
-  min-height: 19rem;
+  min-height: 22rem;
   padding: 2rem;
   border-radius: 2rem;
-  overflow: hidden;
+  overflow: visible;
+  isolation: isolate;
 }
 
 .tile::before {
@@ -53,7 +52,7 @@
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  height: 100%;
+  flex: 1;
   gap: 0.8rem;
 }
 
@@ -67,7 +66,7 @@
 
 .tile-amount {
   font-family: var(--numbers-font);
-  font-size: 2.5rem;
+  font-size: 3rem;
   font-weight: 500;
   line-height: 1.1;
   margin: 1rem 0;
@@ -94,8 +93,8 @@
 
 .tile-info-btn {
   position: absolute;
-  top: 1.4rem;
-  right: 1.4rem;
+  top: 0rem;
+  right: 0rem;
   z-index: 2;
 
   display: flex;
@@ -133,7 +132,7 @@
   position: absolute;
   top: 1.4rem;
   right: 1.4rem;
-  z-index: 5;
+  z-index: 20;
 }
 
 .tile-popover {
@@ -149,6 +148,7 @@
     0 1rem 3rem rgba(0, 0, 0, 0.14),
     0 0.2rem 1rem rgba(0, 0, 0, 0.08);
   border: 0.1rem solid rgba(0, 0, 0, 0.08);
+  z-index: 30;
 }
 
 .tile-popover-dark {
