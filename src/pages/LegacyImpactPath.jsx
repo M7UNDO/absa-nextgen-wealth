@@ -10,7 +10,7 @@ import TrackSidebar from "../components/TrackSidebar";
 import TrackAccordionSection from "../components/TrackAccordionSection";
 
 import legacyImpactPathData from "../data/legacyImpactPathData";
-import "../styles/LegacyImpactPath.css";
+import "../styles/TrackDetail.css";
 
 function LegacyImpactPath() {
   const [financials, setFinancials] = useState(null);
