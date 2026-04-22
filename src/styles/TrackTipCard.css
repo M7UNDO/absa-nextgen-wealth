@@ -1,0 +1,56 @@
+.tip-card {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  background-color: var(--secondary-colour);
+  color: var(--primary-colour);
+  opacity: 1;
+  border: 1px solid rgba(255, 0, 0, 0.3);
+  border-left: 3px solid var(--primary-colour);
+  padding: 1rem 1.5rem;
+}
+
+.tip-label {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  font-family: var(--secondary-font);
+  font-size: 1.6rem;
+  font-weight: 500;
+}
+
+.tip-text {
+  font-family: var(--primary-font);
+  font-size: 1.3rem;
+  line-height: 1.7;
+  animation: fadeSlideTip 1s ease;
+}
+
+@keyframes fadeSlideTip {
+  from {
+    opacity: 0;
+    transform: translateY(1rem);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media screen and (min-width: 768px) {
+  .property-tip-card {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    background-color: var(--secondary-colour);
+    color: var(--primary-colour);
+    opacity: 1;
+    border-radius: 0.5rem;
+    padding: 1rem;
+  }
+
+  .property-tip-text {
+    font-size: 1.4rem;
+    line-height: 1.7;
+  }
+}

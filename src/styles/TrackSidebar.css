@@ -1,0 +1,55 @@
+.sidebar-card h3 {
+  margin-bottom: 1rem;
+  font-family: var(--primary-font);
+  font-size: 1.5rem;
+  font-weight: 500;
+  color: var(--primary-colour);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+.sidebar-card li,
+.milestone-content p,
+.accordion-content p {
+  font-family: var(--primary-font);
+  font-size: 1.5rem;
+  line-height: 1.7;
+}
+
+.first-property-sidebar {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.first-property-sidebar {
+  margin: 5rem 0;
+}
+
+.path-section ul,
+.sidebar-card ul {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  padding-left: 2rem;
+}
+
+@media screen and (min-width: 768px) {
+  .sidebar-card {
+    padding: 2.4rem;
+  }
+
+  .first-property-sidebar {
+    margin: 0;
+  }
+
+  .sidebar-card ul {
+    padding-left: 4rem;
+  }
+}
+
+@media screen and (min-width: 768px) {
+  .sidebar-card {
+    padding: 2.6rem;
+  }
+}

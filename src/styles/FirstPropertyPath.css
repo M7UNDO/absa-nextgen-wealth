@@ -88,12 +88,6 @@
   gap: 1.2rem;
 }
 
-.first-property-page {
-  min-height: 100vh;
-  background-color: var(--background-colour);
-  color: var(--typography-colour);
-}
-
 .first-property-content {
   display: flex;
   flex-direction: column;
@@ -198,7 +192,7 @@
   font-family: var(--primary-font);
   font-size: 1.3rem;
   line-height: 1.7;
-  animation: fadeSlideTip 0.45s ease;
+  animation: fadeSlideTip 1s ease;
 }
 
 @keyframes fadeSlideTip {

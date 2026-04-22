@@ -1,0 +1,114 @@
+.milestone-content p {
+  font-family: var(--primary-font);
+  font-size: 1.5rem;
+  line-height: 1.7;
+}
+
+.milestone-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1.6rem;
+}
+
+.milestone-card {
+  position: relative;
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  gap: 1.4rem;
+  padding: 4rem 0;
+  border-bottom: 1px solid rgba(128, 128, 128, 0.4);
+}
+
+.milestone-list .milestone-card:last-child {
+  border: none;
+}
+
+.milestone-number {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+
+  width: 4.5rem;
+  height: 4.5rem;
+  border: 1px dashed var(--primary-colour);
+  border-radius: 50%;
+  color: var(--primary-colour);
+
+  font-family: var(--numbers-font-2);
+  font-size: 3rem;
+}
+
+.milestone-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+}
+
+.milestone-year {
+  font-size: 1.3rem;
+  color: var(--primary-colour);
+}
+
+.milestone-content h3 {
+  font-family: var(--secondary-font);
+  font-size: 1.9rem;
+  font-weight: 500;
+  color: var(--typography-colour);
+}
+
+.status-group {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.8rem;
+  margin-top: 0.6rem;
+}
+
+.status-btn {
+  border: 0.1rem solid rgba(0, 0, 0, 0.12);
+  background-color: var(--background-colour-light);
+  border-radius: 10rem;
+  padding: 0.8rem 1.2rem;
+
+  font-family: var(--primary-font);
+  font-size: 1.3rem;
+  color: var(--typography-colour);
+
+  cursor: pointer;
+  transition: 150ms ease;
+}
+
+.status-btn:hover {
+  border-color: var(--primary-colour);
+  color: var(--primary-colour);
+}
+
+.status-btn.active {
+  background-color: var(--primary-colour);
+  border-color: var(--primary-colour);
+  color: white;
+}
+
+@media screen and (min-width: 600px) {
+  .milestone-number {
+    width: 5rem;
+    height: 5rem;
+  }
+}
+
+@media screen and (min-width: 768px) {
+  .celebration-banner {
+    width: fit-content;
+  }
+
+  .milestone-card {
+    padding: 4rem 1.6rem;
+  }
+
+  .milestone-number {
+    width: 5rem;
+    height: 5rem;
+  }
+}
