@@ -4,7 +4,7 @@ import { useGSAP } from "@gsap/react";
 import { gsap } from "gsap";
 import Hero from "../components/Hero";
 import track2 from "../assets/images/raimond-klavins-xAqrT-279UA-unsplash.jpg";
-import "../styles/FreedomFlexibilityPath.css";
+import "../styles/FirstPropertyPath.css"
 
 function FreedomFlexibilityPath() {
   const [financials, setFinancials] = useState(null);
