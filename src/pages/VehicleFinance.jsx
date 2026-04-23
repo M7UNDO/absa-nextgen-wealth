@@ -1,6 +1,8 @@
-import React, {useState} from "react";
+import React, { useState } from "react";
 import "../styles/VehicleFinance.css";
 import { formatCurrency } from "../utils/formatCurrency";
+import useInfoToggle from "../hooks/useInfoToggle";
+import InfoPopover from "../components/InfoPopover";
 
 function VehicleFinance() {
   const termOptions = [24, 36, 48, 60, 72, 78, 84, 90, 96];
@@ -23,6 +25,8 @@ function VehicleFinance() {
   const [balloon, setBalloon] = useState("0.0");
   const [monthlyPayment, setMonthlyPayment] = useState(null);
 
+  const { activeInfo, toggleInfo } = useInfoToggle();
+
   const selectedTerm = termOptions[termIndex];
 
   function calculateFinance() {
@@ -41,7 +45,9 @@ function VehicleFinance() {
     const monthlyRate = rate / 12 / 100;
     const months = selectedTerm;
 
-    const payment = (financedAmount * monthlyRate) / (1 - Math.pow(1 + monthlyRate, -months));
+    const payment =
+      (financedAmount * monthlyRate) /
+      (1 - Math.pow(1 + monthlyRate, -months));
 
     setMonthlyPayment(payment);
   }
@@ -51,9 +57,12 @@ function VehicleFinance() {
       <h1>Vehicle Finance Calculator</h1>
 
       <div className="vehicle-inputs-container">
-        <div>
+        <div className="vehicle-field">
           <label>Vehicle Type</label>
-          <select value={vehicleType} onChange={(e) => setVehicleType(e.target.value)}>
+          <select
+            value={vehicleType}
+            onChange={(e) => setVehicleType(e.target.value)}
+          >
             <option value="">Please Select</option>
             <option value="Used">Used</option>
             <option value="New">New</option>
@@ -61,7 +70,7 @@ function VehicleFinance() {
           </select>
         </div>
 
-        <div>
+        <div className="vehicle-field">
           <label>Vehicle Purchase Price (ZAR)</label>
           <input
             type="number"
@@ -72,7 +81,7 @@ function VehicleFinance() {
           />
         </div>
 
-        <div>
+        <div className="vehicle-field">
           <label>Deposit Amount (ZAR)</label>
           <input
             type="number"
@@ -83,8 +92,27 @@ function VehicleFinance() {
           />
         </div>
 
-        <div>
-          <label>Repayment Term</label>
+        <div className="vehicle-field">
+          <div className="vehicle-label-row">
+            <label>Repayment Term</label>
+
+            <InfoPopover
+              infoKey="term"
+              activeInfo={activeInfo}
+              toggleInfo={toggleInfo}
+              title="What is Repayment Term?"
+              className="vehicle-info-popover-wrapper"
+              buttonClassName="vehicle-info-popover-btn"
+              popoverClassName="vehicle-info-popover-panel"
+            >
+              <p>
+                This is the number of months you will take to repay the vehicle
+                loan. A longer term can reduce the monthly repayment, but it
+                usually increases the total interest paid over time.
+              </p>
+            </InfoPopover>
+          </div>
+
           <input type="text" value={`${selectedTerm} Months`} readOnly />
 
           <input
@@ -99,9 +127,30 @@ function VehicleFinance() {
           />
         </div>
 
-        <div>
-          <label>Interest Rate %</label>
-          <select value={interestRate} onChange={(e) => setInterestRate(e.target.value)}>
+        <div className="vehicle-field">
+          <div className="vehicle-label-row">
+            <label>Interest Rate %</label>
+
+            <InfoPopover
+              infoKey="interest"
+              activeInfo={activeInfo}
+              toggleInfo={toggleInfo}
+              title="What is Interest Rate?"
+              className="vehicle-info-popover-wrapper"
+              buttonClassName="vehicle-info-popover-btn"
+              popoverClassName="vehicle-info-popover-panel"
+            >
+              <p>
+                This is the percentage charged for borrowing the money. A higher
+                interest rate means a more expensive loan overall.
+              </p>
+            </InfoPopover>
+          </div>
+
+          <select
+            value={interestRate}
+            onChange={(e) => setInterestRate(e.target.value)}
+          >
             {interestOptions.map((rate) => (
               <option key={rate} value={rate}>
                 {rate}%
@@ -110,9 +159,32 @@ function VehicleFinance() {
           </select>
         </div>
 
-        <div>
-          <label>Balloon Percentage %</label>
-          <select value={balloon} onChange={(e) => setBalloon(e.target.value)}>
+        <div className="vehicle-field">
+          <div className="vehicle-label-row">
+            <label>Balloon Percentage %</label>
+
+            <InfoPopover
+              infoKey="balloon"
+              activeInfo={activeInfo}
+              toggleInfo={toggleInfo}
+              title="What is Balloon Percentage?"
+              className="vehicle-info-popover-wrapper"
+              buttonClassName="vehicle-info-popover-btn"
+              popoverClassName="vehicle-info-popover-panel"
+            >
+              <p>
+                A balloon payment is a large final amount left unpaid until the
+                end of the loan. Choosing a higher balloon percentage can lower
+                your monthly instalments, but it increases the amount still owed
+                later and usually makes the vehicle more expensive overall.
+              </p>
+            </InfoPopover>
+          </div>
+
+          <select
+            value={balloon}
+            onChange={(e) => setBalloon(e.target.value)}
+          >
             {balloonOptions.map((item) => (
               <option key={item} value={item}>
                 {item}%
@@ -121,12 +193,12 @@ function VehicleFinance() {
           </select>
         </div>
 
-        <button onClick={calculateFinance}>
-          Simulate<i class="fa-solid fa-flask"></i>
+        <button onClick={calculateFinance} className="sim-btn">
+          Simulate <i className="fa-solid fa-flask"></i>
         </button>
 
         {monthlyPayment && (
-          <div>
+          <div className="vehicle-results">
             <h2>Estimated Monthly Repayment</h2>
             <p>{formatCurrency(monthlyPayment)}</p>
           </div>

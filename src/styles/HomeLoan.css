@@ -65,7 +65,6 @@
   border: 0.15rem solid var(--primary-colour);
 }
 
-/* Slider */
 .home-loan-container input[type="range"] {
   width: 100%;
   appearance: none;
@@ -168,6 +167,37 @@
   font-size: 1.4rem;
   color: var(--primary-colour);
   line-height: 1.5;
+}
+
+.loan-field {
+  position: relative;
+}
+
+.loan-label-row {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 0.8rem;
+}
+
+.loan-label-row label {
+  margin-bottom: 0;
+}
+
+.loan-info-popover-wrapper {
+  position: relative;
+}
+
+.loan-info-popover-btn {
+  width: 2.8rem;
+  height: 2.8rem;
+}
+
+.loan-info-popover-panel {
+  right: 0;
+  width: min(30rem, 80vw);
 }
 
 @media screen and (min-width: 600px) {

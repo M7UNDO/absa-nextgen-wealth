@@ -31,14 +31,6 @@ body {
   color: var(--typography-colour);
 }
 
-.material-symbols-outlined {
-  font-variation-settings:
-    "FILL" 0,
-    "wght" 250,
-    "GRAD" 0,
-    "opsz" 24;
-}
-
 h1 {
   font-family: var(--primary-font);
   font-size: 3.5em;

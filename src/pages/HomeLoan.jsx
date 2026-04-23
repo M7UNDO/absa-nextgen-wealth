@@ -1,6 +1,8 @@
-import React, {useState} from "react";
+import React, { useState } from "react";
 import "../styles/HomeLoan.css";
-import {formatCurrency} from "../utils/formatCurrency";
+import { formatCurrency } from "../utils/formatCurrency";
+import useInfoToggle from "../hooks/useInfoToggle";
+import InfoPopover from "../components/InfoPopover";
 
 function HomeLoan() {
   const [purchasePrice, setPurchasePrice] = useState("");
@@ -11,8 +13,10 @@ function HomeLoan() {
 
   const [monthlyPayment, setMonthlyPayment] = useState(null);
   const [loanNeeded, setLoanNeeded] = useState(null);
-  const [budgetRange, setBudgetRange] = useState({min: null, max: null});
+  const [budgetRange, setBudgetRange] = useState({ min: null, max: null });
   const [affordabilityMessage, setAffordabilityMessage] = useState("");
+
+  const { activeInfo, toggleInfo } = useInfoToggle();
 
   function calculateHomeLoan() {
     const homePrice = Number(purchasePrice);
@@ -31,18 +35,23 @@ function HomeLoan() {
     const monthlyRate = annualRate / 12 / 100;
     const months = years * 12;
 
-    const payment = (financedAmount * monthlyRate) / (1 - Math.pow(1 + monthlyRate, -months));
+    const payment =
+      (financedAmount * monthlyRate) /
+      (1 - Math.pow(1 + monthlyRate, -months));
 
     setMonthlyPayment(payment);
     setLoanNeeded(financedAmount);
 
-    /* Suggested affordability range */
     const comfortableBudget = grossIncome * 0.25;
     const maxBudget = grossIncome * 0.3;
 
-    const minLoan = (comfortableBudget * (1 - Math.pow(1 + monthlyRate, -months))) / monthlyRate;
+    const minLoan =
+      (comfortableBudget * (1 - Math.pow(1 + monthlyRate, -months))) /
+      monthlyRate;
 
-    const maxLoan = (maxBudget * (1 - Math.pow(1 + monthlyRate, -months))) / monthlyRate;
+    const maxLoan =
+      (maxBudget * (1 - Math.pow(1 + monthlyRate, -months))) /
+      monthlyRate;
 
     setBudgetRange({
       min: minLoan,
@@ -50,13 +59,21 @@ function HomeLoan() {
     });
 
     if (payment <= grossIncome * 0.25) {
-      setAffordabilityMessage("Excellent affordability. Comfortable repayment level.");
+      setAffordabilityMessage(
+        "Excellent affordability. Comfortable repayment level."
+      );
     } else if (payment <= grossIncome * 0.3) {
-      setAffordabilityMessage("Affordable, but keep room for other monthly expenses.");
+      setAffordabilityMessage(
+        "Affordable, but keep room for other monthly expenses."
+      );
     } else if (payment <= grossIncome * 0.4) {
-      setAffordabilityMessage("Stretching your budget. A larger deposit may help.");
+      setAffordabilityMessage(
+        "Stretching your budget. A larger deposit may help."
+      );
     } else {
-      setAffordabilityMessage("High risk. Consider a lower purchase price or larger deposit.");
+      setAffordabilityMessage(
+        "High risk. Consider a lower purchase price or larger deposit."
+      );
     }
   }
 
@@ -65,8 +82,26 @@ function HomeLoan() {
       <h1>Home Loan Affordability Calculator</h1>
 
       <div className="home-loan-container">
-        <div>
-          <label>Property Purchase Price (ZAR)</label>
+        <div className="loan-field">
+          <div className="loan-label-row">
+            <label>Property Purchase Price (ZAR)</label>
+
+            <InfoPopover
+              infoKey="purchasePrice"
+              activeInfo={activeInfo}
+              toggleInfo={toggleInfo}
+              title="What is Property Purchase Price?"
+              className="loan-info-popover-wrapper"
+              buttonClassName="loan-info-popover-btn"
+              popoverClassName="loan-info-popover-panel"
+            >
+              <p>
+                This is the full price of the property you want to buy before
+                subtracting your deposit.
+              </p>
+            </InfoPopover>
+          </div>
+
           <input
             type="number"
             placeholder="Enter property price"
@@ -76,8 +111,27 @@ function HomeLoan() {
           />
         </div>
 
-        <div>
-          <label>Deposit Amount (ZAR)</label>
+        <div className="loan-field">
+          <div className="loan-label-row">
+            <label>Deposit Amount (ZAR)</label>
+
+            <InfoPopover
+              infoKey="deposit"
+              activeInfo={activeInfo}
+              toggleInfo={toggleInfo}
+              title="What is Deposit Amount?"
+              className="loan-info-popover-wrapper"
+              buttonClassName="loan-info-popover-btn"
+              popoverClassName="loan-info-popover-panel"
+            >
+              <p>
+                Your deposit is the amount you pay upfront toward the property.
+                A larger deposit usually reduces the loan amount and monthly
+                repayment.
+              </p>
+            </InfoPopover>
+          </div>
+
           <input
             type="number"
             placeholder="Enter deposit"
@@ -87,8 +141,27 @@ function HomeLoan() {
           />
         </div>
 
-        <div>
-          <label>Gross Monthly Income (ZAR)</label>
+        <div className="loan-field">
+          <div className="loan-label-row">
+            <label>Gross Monthly Income (ZAR)</label>
+
+            <InfoPopover
+              infoKey="salary"
+              activeInfo={activeInfo}
+              toggleInfo={toggleInfo}
+              title="What is Gross Monthly Income?"
+              className="loan-info-popover-wrapper"
+              buttonClassName="loan-info-popover-btn"
+              popoverClassName="loan-info-popover-panel"
+            >
+              <p>
+                Gross monthly income is your income before tax and other
+                deductions. This calculator uses it to estimate how affordable
+                the home loan may be.
+              </p>
+            </InfoPopover>
+          </div>
+
           <input
             type="number"
             placeholder="Enter salary"
@@ -98,10 +171,33 @@ function HomeLoan() {
           />
         </div>
 
-        <div>
-          <label>Loan Term (Years)</label>
+        <div className="loan-field">
+          <div className="loan-label-row">
+            <label>Loan Term (Years)</label>
 
-          <input type="text" value={`${loanYears} Years`} readOnly className="loan-inputs" />
+            <InfoPopover
+              infoKey="loanTerm"
+              activeInfo={activeInfo}
+              toggleInfo={toggleInfo}
+              title="What is Loan Term?"
+              className="loan-info-popover-wrapper"
+              buttonClassName="loan-info-popover-btn"
+              popoverClassName="loan-info-popover-panel"
+            >
+              <p>
+                This is the number of years you will take to repay the home
+                loan. A longer term can lower the monthly repayment, but it
+                usually increases the total interest paid.
+              </p>
+            </InfoPopover>
+          </div>
+
+          <input
+            type="text"
+            value={`${loanYears} Years`}
+            readOnly
+            className="loan-inputs"
+          />
 
           <input
             type="range"
@@ -113,8 +209,27 @@ function HomeLoan() {
           />
         </div>
 
-        <div>
-          <label>Interest Rate %</label>
+        <div className="loan-field">
+          <div className="loan-label-row">
+            <label>Interest Rate %</label>
+
+            <InfoPopover
+              infoKey="interestRate"
+              activeInfo={activeInfo}
+              toggleInfo={toggleInfo}
+              title="What is Interest Rate?"
+              className="loan-info-popover-wrapper"
+              buttonClassName="loan-info-popover-btn"
+              popoverClassName="loan-info-popover-panel"
+            >
+              <p>
+                This is the percentage charged by the lender for borrowing the
+                money. A higher interest rate increases the monthly repayment
+                and the total cost of the loan.
+              </p>
+            </InfoPopover>
+          </div>
+
           <input
             type="number"
             min="1"
@@ -128,7 +243,7 @@ function HomeLoan() {
         </div>
 
         <button onClick={calculateHomeLoan} className="loan-btn">
-          Simulate<i class="fa-solid fa-flask"></i>
+          Simulate <i className="fa-solid fa-flask"></i>
         </button>
 
         {monthlyPayment && (
@@ -141,7 +256,8 @@ function HomeLoan() {
 
             <h3>Suggested Home Budget Range</h3>
             <span>
-              {formatCurrency(budgetRange.min)} - {formatCurrency(budgetRange.max)}
+              {formatCurrency(budgetRange.min)} -{" "}
+              {formatCurrency(budgetRange.max)}
             </span>
 
             <div className="loan-message">

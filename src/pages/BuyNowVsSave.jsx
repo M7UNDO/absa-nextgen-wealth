@@ -1,5 +1,8 @@
 import React, { useState } from "react";
 import "../styles/BuyNowVsSave.css";
+import useInfoToggle from "../hooks/useInfoToggle";
+import InfoPopover from "../components/InfoPopover";
+import { formatCurrency } from "../utils/formatCurrency";
 
 function BuyNowVsSave() {
   const [price, setPrice] = useState("");
@@ -12,17 +15,17 @@ function BuyNowVsSave() {
   const [saveMonthly, setSaveMonthly] = useState(null);
   const [verdict, setVerdict] = useState("");
 
+  const { activeInfo, toggleInfo } = useInfoToggle();
+
   function compareOptions() {
     const itemPrice = Number(price);
     const interest = Number(bnplInterest);
 
     if (!itemPrice || itemPrice <= 0) return;
 
-    /* BNPL */
     const totalBnpl = itemPrice + itemPrice * (interest / 100);
     const bnplPerMonth = totalBnpl / bnplMonths;
 
-    /* Save First */
     const savingPerMonth = itemPrice / saveMonths;
 
     setBnplTotal(totalBnpl);
@@ -33,9 +36,7 @@ function BuyNowVsSave() {
       const extra = totalBnpl - itemPrice;
 
       setVerdict(
-        `Saving first takes ${saveMonths} months longer but saves you R${extra.toFixed(
-          0
-        )} overall.`
+        `Saving first takes ${saveMonths} months longer but saves you ${formatCurrency(extra)} overall.`
       );
     } else {
       setVerdict("Both options cost the same overall.");
@@ -47,9 +48,26 @@ function BuyNowVsSave() {
       <h1>BNPL vs Save First</h1>
 
       <div className="bnpl-form">
-        {/* Purchase Price */}
-        <div>
-          <label>Purchase Price (ZAR)</label>
+        <div className="bnpl-field">
+          <div className="bnpl-label-row">
+            <label>Purchase Price (ZAR)</label>
+
+            <InfoPopover
+              infoKey="purchasePrice"
+              activeInfo={activeInfo}
+              toggleInfo={toggleInfo}
+              title="What is Purchase Price?"
+              className="bnpl-info-popover-wrapper"
+              buttonClassName="bnpl-info-popover-btn"
+              popoverClassName="bnpl-info-popover-panel"
+            >
+              <p>
+                This is the full price of the item you want to compare across
+                both options.
+              </p>
+            </InfoPopover>
+          </div>
+
           <input
             type="number"
             placeholder="Enter item price"
@@ -62,8 +80,26 @@ function BuyNowVsSave() {
           <h2>Buy Now, Pay Later</h2>
         </div>
 
-        <div>
-          <label>Repayment Term (Months)</label>
+        <div className="bnpl-field">
+          <div className="bnpl-label-row">
+            <label>Repayment Term (Months)</label>
+
+            <InfoPopover
+              infoKey="bnplMonths"
+              activeInfo={activeInfo}
+              toggleInfo={toggleInfo}
+              title="What is Repayment Term?"
+              className="bnpl-info-popover-wrapper"
+              buttonClassName="bnpl-info-popover-btn"
+              popoverClassName="bnpl-info-popover-panel"
+            >
+              <p>
+                This is the number of months you will take to repay the BNPL
+                purchase. A longer term can lower the monthly amount, but it can
+                also keep you in debt for longer.
+              </p>
+            </InfoPopover>
+          </div>
 
           <input type="text" value={`${bnplMonths} Months`} readOnly />
 
@@ -78,8 +114,26 @@ function BuyNowVsSave() {
           />
         </div>
 
-        <div>
-          <label>Interest %</label>
+        <div className="bnpl-field">
+          <div className="bnpl-label-row">
+            <label>Interest %</label>
+
+            <InfoPopover
+              infoKey="bnplInterest"
+              activeInfo={activeInfo}
+              toggleInfo={toggleInfo}
+              title="What is Interest %?"
+              className="bnpl-info-popover-wrapper"
+              buttonClassName="bnpl-info-popover-btn"
+              popoverClassName="bnpl-info-popover-panel"
+            >
+              <p>
+                This is the extra percentage charged on top of the item price
+                for using the BNPL option. A higher percentage increases the
+                total cost.
+              </p>
+            </InfoPopover>
+          </div>
 
           <input
             type="number"
@@ -95,8 +149,25 @@ function BuyNowVsSave() {
           <h2>Save First</h2>
         </div>
 
-        <div>
-          <label>Saving Period (Months)</label>
+        <div className="bnpl-field">
+          <div className="bnpl-label-row">
+            <label>Saving Period (Months)</label>
+
+            <InfoPopover
+              infoKey="saveMonths"
+              activeInfo={activeInfo}
+              toggleInfo={toggleInfo}
+              title="What is Saving Period?"
+              className="bnpl-info-popover-wrapper"
+              buttonClassName="bnpl-info-popover-btn"
+              popoverClassName="bnpl-info-popover-panel"
+            >
+              <p>
+                This is how long you plan to save before buying the item. A
+                shorter saving period means a higher monthly saving target.
+              </p>
+            </InfoPopover>
+          </div>
 
           <input type="text" value={`${saveMonths} Months`} readOnly />
 
@@ -119,15 +190,15 @@ function BuyNowVsSave() {
           <div className="results-wrap">
             <div className="result-card">
               <h3>BNPL Outcome</h3>
-              <p>R{bnplTotal.toFixed(0)}</p>
-              <span>R{bnplMonthly.toFixed(0)}/month</span>
+              <p>{formatCurrency(bnplTotal)}</p>
+              <span>{formatCurrency(bnplMonthly)}/month</span>
               <small>{bnplMonths} months</small>
             </div>
 
             <div className="result-card">
               <h3>Save First Outcome</h3>
-              <p>R{Number(price).toFixed(0)}</p>
-              <span>R{saveMonthly.toFixed(0)}/month</span>
+              <p>{formatCurrency(Number(price))}</p>
+              <span>{formatCurrency(saveMonthly)}/month</span>
               <small>{saveMonths} months</small>
             </div>
           </div>

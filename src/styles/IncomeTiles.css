@@ -159,9 +159,10 @@
 
 .tile-popover h5 {
   margin-bottom: 0.6rem;
-  font-family: var(--secondary-font);
+  font-family: var(--numbers-font);
   font-size: 1.6rem;
   font-weight: 500;
+  color: var(--primary-colour);
 }
 
 .tile-popover h6 {

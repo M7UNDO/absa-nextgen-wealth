@@ -153,6 +153,37 @@
   line-height: 1.6;
 }
 
+.bnpl-field {
+  position: relative;
+}
+
+.bnpl-label-row {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 0.8rem;
+}
+
+.bnpl-label-row label {
+  margin-bottom: 0;
+}
+
+.bnpl-info-popover-wrapper {
+  position: relative;
+}
+
+.bnpl-info-popover-btn {
+  width: 2.8rem;
+  height: 2.8rem;
+}
+
+.bnpl-info-popover-panel {
+  right: 0;
+  width: min(30rem, 80vw);
+}
+
 @media screen and (min-width: 768px) {
   .bnpl-page h1 {
     font-size: 4rem;

@@ -107,7 +107,7 @@
   cursor: pointer;
 }
 
-.vehicle-inputs-container button {
+.vehicle-inputs-container .sim-btn{
   display: flex;
   justify-content: center;
   align-items: center;
@@ -130,7 +130,7 @@
   cursor: pointer;
 }
 
-.vehicle-inputs-container button:hover {
+.vehicle-inputs-container .sim-btn:hover {
   background-color: var(--primary-colour-dark);
 }
 
@@ -148,6 +148,37 @@
   font-weight: 500;
   text-align: center;
   color: var(--primary-colour);
+}
+
+.vehicle-field {
+  position: relative;
+}
+
+.vehicle-label-row {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 0.8rem;
+}
+
+.vehicle-label-row label {
+  margin-bottom: 0;
+}
+
+.vehicle-info-popover-wrapper {
+  position: relative;
+}
+
+.vehicle-info-popover-btn {
+  width: 2.8rem;
+  height: 2.8rem;
+}
+
+.vehicle-info-popover-panel {
+  right: 0;
+  width: min(30rem, 80vw);
 }
 
 @media screen and (min-width: 600px) {
@@ -170,7 +201,7 @@
     max-width: 55rem;
   }
 
-  .vehicle-inputs-container button {
+  .vehicle-inputs-container .sim-btn {
     width: fit-content;
     padding: 1.2rem 5rem;
     align-self: center;

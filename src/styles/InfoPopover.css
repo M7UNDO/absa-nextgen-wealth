@@ -1,0 +1,90 @@
+.info-popover-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+   text-align: left;
+}
+
+.info-popover-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 2.8rem;
+  height: 2.8rem;
+
+  border: none;
+  outline: none;
+  border-radius: 50%;
+  background: rgba(0, 0, 0, 0.05);
+  color: var(--typography-colour);
+  cursor: pointer;
+  transition: all 0.2s ease;
+  opacity: 0.8;
+}
+
+.info-popover-btn:hover {
+  transform: translateY(-0.1rem);
+  background: rgba(0, 0, 0, 0.08);
+}
+
+.info-popover-btn .material-symbols-outlined {
+  font-size: 1.8rem;
+}
+
+.info-popover-btn-dark {
+  background: rgba(255, 255, 255, 0.12);
+  color: white;
+}
+
+.info-popover-btn-dark:hover {
+  background: rgba(255, 255, 255, 0.18);
+}
+
+.info-popover-panel {
+  position: absolute;
+  top: 3rem;
+  right: 0;
+  width: min(32rem, 80vw);
+  padding: 1.4rem 1.5rem;
+  border-radius: 1.2rem;
+  background: white;
+  color: var(--typography-colour);
+  box-shadow:
+    0 1rem 3rem rgba(0, 0, 0, 0.14),
+    0 0.2rem 1rem rgba(0, 0, 0, 0.08);
+  border: 0.1rem solid rgba(0, 0, 0, 0.08);
+  z-index: 30;
+ 
+}
+
+.info-popover-panel-dark {
+  background: #2d3142;
+  color: white;
+  border: 0.1rem solid rgba(255, 255, 255, 0.08);
+}
+
+.info-popover-panel h5 {
+  margin-bottom: 0.6rem;
+  font-family: var(--numbers-font);
+  font-size: 1.5rem;
+  font-weight: 500;
+  color: var(--primary-colour);
+}
+
+.info-popover-body h6 {
+  margin: 1rem 0 0.5rem;
+  font-family: var(--primary-font);
+  font-size: 1.3rem;
+  font-weight: 700;
+   text-align: left;
+}
+
+.info-popover-panel .info-popover-body p {
+  font-family: var(--primary-font);
+  color: var(--typography-colour);
+  font-size: 1.3rem;
+  line-height: 1.55;
+  text-align: left;
+}
