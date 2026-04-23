@@ -79,7 +79,7 @@ function Authentication({mode}) {
         if (error) throw error;
 
         
-        navigate("/login");
+        navigate("/");
       }
     } catch (err) {
       setError(err.message);
