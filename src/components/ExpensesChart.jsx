@@ -1,48 +1,55 @@
 import React from "react";
-import {
-  PieChart,
-  Pie,
-  Cell,
-  ResponsiveContainer,
-  Tooltip
-} from "recharts";
+import {PieChart, Pie, Cell, ResponsiveContainer, Tooltip} from "recharts";
 import "../styles/ExpensesChart.css";
 
-import { calculateNetIncome } from "../utils/taxCalculator";
-import { formatCurrency } from "../utils/formatCurrency";
+import {useFinancials} from "../context/FinancialContext";
+import {calculateNetIncome} from "../utils/taxCalculator";
+import {formatCurrency} from "../utils/formatCurrency";
 
-function ExpensesChart({ data }) {
-  const totalExpenses = data.rent + data.retirement + data.vehicle;
-  const netIncome = calculateNetIncome(data.grossIncome);
+function ExpensesChart() {
+  const {financials} = useFinancials();
+
+  if (!financials) {
+    return null;
+  }
+
+  const grossIncome = Number(financials.grossIncome) || 0;
+  const rent = Number(financials.rent) || 0;
+  const retirement = Number(financials.retirement) || 0;
+  const vehicle = Number(financials.vehicle) || 0;
+  const age = Number(financials.age) || 30;
+  const medicalAidMembers = Number(financials.medicalAidMembers) || 0;
+
+  const incomeBreakdown = calculateNetIncome({
+    grossIncome,
+    retirement,
+    age,
+    medicalAidMembers,
+  });
+
+  const netIncome = incomeBreakdown.netIncome;
+
+  const totalExpenses = rent + retirement + vehicle;
   const remainingCash = Math.max(0, netIncome - totalExpenses);
 
-  const expensesPercentage =
-    netIncome > 0 ? (totalExpenses / netIncome) * 100 : 0;
+  const expensesPercentage = netIncome > 0 ? (totalExpenses / netIncome) * 100 : 0;
 
-  const remainingPercentage =
-    netIncome > 0 ? (remainingCash / netIncome) * 100 : 0;
+  const remainingPercentage = netIncome > 0 ? (remainingCash / netIncome) * 100 : 0;
 
   const chartData = [
     {
       name: "Expenses",
       value: totalExpenses,
-      color: "#ff4d4f"
+      color: "#ff4d4f",
     },
     {
       name: "Remaining Cash",
       value: remainingCash,
-      color: "#1890ff"
-    }
+      color: "#1890ff",
+    },
   ];
 
-  const renderPercentageLabel = ({
-    cx,
-    cy,
-    midAngle,
-    innerRadius,
-    outerRadius,
-    percent
-  }) => {
+  const renderPercentageLabel = ({cx, cy, midAngle, innerRadius, outerRadius, percent}) => {
     if (percent === 0 || percent < 0.08) return null;
 
     const RADIAN = Math.PI / 180;
@@ -68,22 +75,11 @@ function ExpensesChart({ data }) {
   const renderCenterLabel = () => {
     return (
       <>
-        <text
-          x="50%"
-          y="46%"
-          textAnchor="middle"
-          dominantBaseline="central"
-          className="chart-centre-label-title"
-        >
+        <text x="50%" y="46%" textAnchor="middle" dominantBaseline="central" className="chart-centre-label-title">
           Net Income
         </text>
-        <text
-          x="50%"
-          y="56%"
-          textAnchor="middle"
-          dominantBaseline="central"
-          className="chart-centre-label-value"
-        >
+
+        <text x="50%" y="56%" textAnchor="middle" dominantBaseline="central" className="chart-centre-label-value">
           {formatCurrency(netIncome)}
         </text>
       </>
@@ -125,7 +121,7 @@ function ExpensesChart({ data }) {
                 borderRadius: "1rem",
                 border: "0.1rem solid rgba(0,0,0,0.08)",
                 boxShadow: "0 1rem 3rem rgba(0, 0, 0, 0.08)",
-                fontSize: "1.4rem"
+                fontSize: "1.4rem",
               }}
             />
           </PieChart>
@@ -147,29 +143,41 @@ function ExpensesChart({ data }) {
       <div className="expense-breakdown">
         <div className="breakdown-row">
           <span>Rent</span>
-          <span>{formatCurrency(data.rent)}</span>
+          <span>{formatCurrency(rent)}</span>
         </div>
 
         <div className="breakdown-row">
           <span>Retirement</span>
-          <span>{formatCurrency(data.retirement)}</span>
+          <span>{formatCurrency(retirement)}</span>
         </div>
 
         <div className="breakdown-row">
           <span>Vehicle</span>
-          <span>{formatCurrency(data.vehicle)}</span>
+          <span>{formatCurrency(vehicle)}</span>
         </div>
 
         <div className="breakdown-divider"></div>
 
-        <div className="breakdown-row breakdown-strong" >
+        <div className="breakdown-row">
+          <span>PAYE Estimated</span>
+          <span>{formatCurrency(incomeBreakdown.monthlyPAYE)}</span>
+        </div>
+
+        <div className="breakdown-row">
+          <span>UIF Estimated</span>
+          <span>{formatCurrency(incomeBreakdown.monthlyUIF)}</span>
+        </div>
+
+        <div className="breakdown-divider"></div>
+
+        <div className="breakdown-row breakdown-strong">
           <span>Total Expenses</span>
           <span id="total-expenses">
             {formatCurrency(totalExpenses)} ({expensesPercentage.toFixed(0)}%)
           </span>
         </div>
 
-        <div className="breakdown-row breakdown-strong" >
+        <div className="breakdown-row breakdown-strong">
           <span>Remaining After Expenses</span>
           <span id="remaining-cash">
             {formatCurrency(remainingCash)} ({remainingPercentage.toFixed(0)}%)

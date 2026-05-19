@@ -1,5 +1,6 @@
-import React, { useEffect, useState, useContext } from "react";
+import React, {useEffect, useState, useContext} from "react";
 import AuthContext from "../context/AuthContext";
+import {useFinancials} from "../context/FinancialContext";
 import IncomeTiles from "./IncomeTiles";
 import ExpensesChart from "./ExpensesChart";
 import BudgetBuddy from "./BudgetBuddy";
@@ -9,25 +10,23 @@ import Loader from "./Loader";
 import "../styles/Dashboard.css";
 
 function Dashboard() {
-  const { user } = useContext(AuthContext);
-  const [financials, setFinancials] = useState(null);
+  const {user} = useContext(AuthContext);
+  const {financials, financialsLoading, saveFinancials} = useFinancials();
+
   const [showModal, setShowModal] = useState(false);
   const [isEditing, setIsEditing] = useState(false);
+
   const isFirstTimeUser = !financials;
 
   useEffect(() => {
-    const stored = localStorage.getItem("financials");
-
-    if (stored) {
-      setFinancials(JSON.parse(stored));
-    } else {
+    if (!financialsLoading && !financials) {
       setShowModal(true);
       setIsEditing(false);
     }
-  }, []);
+  }, [financialsLoading, financials]);
 
   const handleSetupComplete = (data) => {
-    setFinancials(data);
+    saveFinancials(data);
     setShowModal(false);
     setIsEditing(false);
   };
@@ -42,7 +41,7 @@ function Dashboard() {
     setIsEditing(false);
   };
 
-  if (!financials && !showModal) {
+  if (financialsLoading) {
     return <Loader />;
   }
 
@@ -52,7 +51,7 @@ function Dashboard() {
         <h1>
           {isFirstTimeUser
             ? "Welcome to ABSA Next-Gen"
-            : `Welcome back, ${user.user_metadata?.username}`}
+            : `Welcome back, ${user?.user_metadata?.username || user?.email || "User"}`}
         </h1>
 
         {financials && (
@@ -65,10 +64,15 @@ function Dashboard() {
 
       {financials ? (
         <>
-          <IncomeTiles gross={financials.grossIncome} />
+          <IncomeTiles
+            gross={financials.grossIncome}
+            retirement={financials.retirement}
+            age={financials.age}
+            medicalAidMembers={financials.medicalAidMembers}
+          />
 
           <div className="dashboard-grid">
-            <ExpensesChart data={financials} />
+            <ExpensesChart />
             <BudgetBuddy />
             <FeatureGateway />
           </div>

@@ -100,7 +100,7 @@ export default function Navbar() {
                 <button onClick={logout} className="logout-btn">
                   Logout
                 </button>
-                <i class="fa-solid fa-right-from-bracket"></i>
+                <i className="fa-solid fa-right-from-bracket"></i>
               </div>
             )}
           </div>

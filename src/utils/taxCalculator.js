@@ -1,34 +1,185 @@
-export function calculatePAYE(monthlyIncome) {
-  const annual = monthlyIncome * 12;
+// src/utils/taxCalculations.js
 
-  let tax = 0;
+const TAX_TABLES = {
+  2027: {
+    brackets: [
+      { upTo: 245100, base: 0, rate: 0.18, threshold: 0 },
+      { upTo: 383100, base: 44118, rate: 0.26, threshold: 245100 },
+      { upTo: 530200, base: 79998, rate: 0.31, threshold: 383100 },
+      { upTo: 695800, base: 125599, rate: 0.36, threshold: 530200 },
+      { upTo: 875000, base: 185215, rate: 0.39, threshold: 695800 },
+      { upTo: 1859000, base: 255103, rate: 0.41, threshold: 875000 },
+      { upTo: Infinity, base: 658543, rate: 0.45, threshold: 1859000 }
+    ],
+    rebates: {
+      under65: 17820,
+      age65To74: 17820 + 9765,
+      age75Plus: 17820 + 9765 + 3249
+    },
+    thresholds: {
+      under65: 99000,
+      age65To74: 153250,
+      age75Plus: 171300
+    },
+    medicalCredits: {
+      firstTwoDependants: 376,
+      additionalDependant: 254
+    }
+  },
 
-  if (annual <= 237100) {
-    tax = annual * 0.18;
-  } else if (annual <= 370500) {
-    tax = 42678 + (annual - 237100) * 0.26;
-  } else if (annual <= 512800) {
-    tax = 77362 + (annual - 370500) * 0.31;
-  } else if (annual <= 673000) {
-    tax = 121475 + (annual - 512800) * 0.36;
-  } else if (annual <= 857900) {
-    tax = 179147 + (annual - 673000) * 0.39;
-  } else if (annual <= 1817000) {
-    tax = 251258 + (annual - 857900) * 0.41;
-  } else {
-    tax = 644489 + (annual - 1817000) * 0.45;
+  2026: {
+    brackets: [
+      { upTo: 237100, base: 0, rate: 0.18, threshold: 0 },
+      { upTo: 370500, base: 42678, rate: 0.26, threshold: 237100 },
+      { upTo: 512800, base: 77362, rate: 0.31, threshold: 370500 },
+      { upTo: 673000, base: 121475, rate: 0.36, threshold: 512800 },
+      { upTo: 857900, base: 179147, rate: 0.39, threshold: 673000 },
+      { upTo: 1817000, base: 251258, rate: 0.41, threshold: 857900 },
+      { upTo: Infinity, base: 644489, rate: 0.45, threshold: 1817000 }
+    ],
+    rebates: {
+      under65: 17235,
+      age65To74: 17235 + 9444,
+      age75Plus: 17235 + 9444 + 3145
+    },
+    thresholds: {
+      under65: 95750,
+      age65To74: 148217,
+      age75Plus: 165689
+    },
+    medicalCredits: {
+      firstTwoDependants: 364,
+      additionalDependant: 246
+    }
   }
+};
 
-  const rebate = 17235;
-
-  const finalTax = Math.max(0, tax - rebate);
-
-  return finalTax / 12;
+function getAgeBand(age = 30) {
+  if (age >= 75) return "age75Plus";
+  if (age >= 65) return "age65To74";
+  return "under65";
 }
 
-export function calculateNetIncome(gross) {
-  const paye = calculatePAYE(gross);
-  return gross - paye;
+export function calculateUIF(monthlyIncome) {
+  const UIF_RATE = 0.01;
+  const UIF_MONTHLY_CAP = 17712;
+
+  return Math.min(monthlyIncome, UIF_MONTHLY_CAP) * UIF_RATE;
+}
+
+export function calculateMedicalTaxCredit(dependants = 0, taxYear = 2027) {
+  const table = TAX_TABLES[taxYear];
+  const totalPeople = Math.max(0, dependants);
+
+  if (totalPeople === 0) return 0;
+
+  if (totalPeople <= 2) {
+    return totalPeople * table.medicalCredits.firstTwoDependants;
+  }
+
+  return (
+    2 * table.medicalCredits.firstTwoDependants +
+    (totalPeople - 2) * table.medicalCredits.additionalDependant
+  );
+}
+
+export function calculateAnnualTaxBeforeRebates(annualTaxableIncome, taxYear = 2027) {
+  const table = TAX_TABLES[taxYear];
+
+  const bracket = table.brackets.find(
+    (item) => annualTaxableIncome <= item.upTo
+  );
+
+  return bracket.base + (annualTaxableIncome - bracket.threshold) * bracket.rate;
+}
+
+export function calculatePAYE({
+  monthlyIncome,
+  monthlyRetirement = 0,
+  age = 30,
+  medicalDependants = 0,
+  taxYear = 2027
+}) {
+  const table = TAX_TABLES[taxYear];
+  const ageBand = getAgeBand(age);
+
+  const annualIncome = monthlyIncome * 12;
+
+  const annualRetirement = monthlyRetirement * 12;
+
+  // Simplified retirement deduction cap:
+  // SARS allows deductions up to 27.5% of remuneration/taxable income,
+  // capped annually. This keeps your calculator closer to real-world logic.
+  const retirementDeductionCap = Math.min(annualIncome * 0.275, 350000);
+  const allowedRetirementDeduction = Math.min(
+    annualRetirement,
+    retirementDeductionCap
+  );
+
+  const annualTaxableIncome = Math.max(
+    0,
+    annualIncome - allowedRetirementDeduction
+  );
+
+  if (annualTaxableIncome <= table.thresholds[ageBand]) {
+    return {
+      monthlyPAYE: 0,
+      annualPAYE: 0,
+      annualTaxableIncome,
+      allowedRetirementDeduction
+    };
+  }
+
+  const taxBeforeRebates = calculateAnnualTaxBeforeRebates(
+    annualTaxableIncome,
+    taxYear
+  );
+
+  const rebate = table.rebates[ageBand];
+  const annualMedicalCredit =
+    calculateMedicalTaxCredit(medicalDependants, taxYear) * 12;
+
+  const annualPAYE = Math.max(
+    0,
+    taxBeforeRebates - rebate - annualMedicalCredit
+  );
+
+  return {
+    monthlyPAYE: annualPAYE / 12,
+    annualPAYE,
+    annualTaxableIncome,
+    allowedRetirementDeduction
+  };
+}
+
+export function calculateNetIncome({
+  grossIncome,
+  retirement = 0,
+  age = 30,
+  medicalDependants = 0,
+  taxYear = 2027
+}) {
+  const payeResult = calculatePAYE({
+    monthlyIncome: grossIncome,
+    monthlyRetirement: retirement,
+    age,
+    medicalDependants,
+    taxYear
+  });
+
+  const monthlyUIF = calculateUIF(grossIncome);
+
+  const netIncome = grossIncome - payeResult.monthlyPAYE - monthlyUIF;
+
+  return {
+    grossIncome,
+    netIncome,
+    monthlyPAYE: payeResult.monthlyPAYE,
+    monthlyUIF,
+    annualPAYE: payeResult.annualPAYE,
+    annualTaxableIncome: payeResult.annualTaxableIncome,
+    allowedRetirementDeduction: payeResult.allowedRetirementDeduction
+  };
 }
 /*Current tax tables (2026) tables no changes
 
