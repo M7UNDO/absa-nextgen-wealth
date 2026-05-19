@@ -1,5 +1,5 @@
 import {useState, useEffect} from "react";
-import {BrowserRouter, Routes, Route, useLocation} from "react-router-dom";
+import {HashRouter, Routes, Route, useLocation} from "react-router-dom";
 
 import {AuthProvider} from "./context/AuthContext";
 import RequireAuth from "./components/RequireAuth";
@@ -28,7 +28,7 @@ function App() {
   return (
     <>
       <AuthProvider>
-        <BrowserRouter>
+        <HashRouter>
           <ScrollToTop />
           <Routes>
             <Route element={<MainLayout />}>
@@ -58,7 +58,7 @@ function App() {
 
             <Route path="*" element={<NotFound />}></Route>
           </Routes>
-        </BrowserRouter>
+        </HashRouter>
       </AuthProvider>
     </>
   );
