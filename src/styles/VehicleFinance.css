@@ -107,11 +107,12 @@
   cursor: pointer;
 }
 
-.vehicle-inputs-container .sim-btn{
+.vehicle-inputs-container .sim-btn {
   display: flex;
   justify-content: center;
   align-items: center;
   gap: 1rem;
+
   outline: none;
   border: none;
   border-radius: 0.5rem;
@@ -132,22 +133,6 @@
 
 .vehicle-inputs-container .sim-btn:hover {
   background-color: var(--primary-colour-dark);
-}
-
-.vehicle-inputs-container h2 {
-  font-family: var(--secondary-font);
-  font-weight: 400;
-  font-size: 2.4rem;
-  text-align: center;
-  margin-top: 2rem;
-}
-
-.vehicle-inputs-container p {
-  font-family: var(--secondary-font);
-  font-size: 4rem;
-  font-weight: 500;
-  text-align: center;
-  color: var(--primary-colour);
 }
 
 .vehicle-field {
@@ -181,6 +166,190 @@
   width: min(30rem, 80vw);
 }
 
+/* Error Message */
+
+.vehicle-error {
+  font-family: var(--primary-font);
+  font-size: 1.4rem;
+  font-weight: 500;
+  line-height: 1.5;
+
+  color: #d93025;
+  background: rgba(217, 48, 37, 0.08);
+  border: 0.1rem solid rgba(217, 48, 37, 0.2);
+
+  padding: 1rem 1.2rem;
+  border-radius: 1rem;
+}
+
+/* Results Section */
+
+.vehicle-results {
+  display: flex;
+  flex-direction: column;
+  gap: 1.6rem;
+
+  margin-top: 2rem;
+  padding: 2rem;
+
+  border-radius: 2rem;
+  background-color: var(--background-colour-light);
+  border: 0.1rem solid rgba(128, 128, 128, 0.18);
+  box-shadow: 0 1.5rem 4rem rgba(0, 0, 0, 0.08);
+}
+
+.vehicle-results h2 {
+  font-family: var(--secondary-font);
+  font-weight: 400;
+  font-size: 2.4rem;
+  text-align: center;
+  color: var(--primary-colour);
+}
+
+.vehicle-result-highlight {
+  margin-top: 1rem;
+  padding: 2rem;
+  border-radius: 1.6rem;
+  background: rgba(0, 0, 0, 0.04);
+  border: 0.1rem solid rgba(0, 0, 0, 0.05);
+}
+
+.vehicle-result-highlight p {
+  margin-bottom: 0.5rem;
+
+  font-family: var(--primary-font);
+  font-size: 1.4rem;
+  font-weight: 400;
+  text-align: center;
+  color: var(--typography-colour);
+}
+
+.vehicle-result-highlight h3 {
+  font-family: var(--secondary-font);
+  font-size: 3rem;
+  font-weight: 500;
+  text-align: center;
+  color: var(--primary-colour);
+}
+
+/* Affordability Card */
+
+.vehicle-affordability-card {
+  padding: 1.6rem;
+  border-radius: 1.4rem;
+  background: rgba(24, 144, 255, 0.08);
+  border: 0.1rem solid rgba(24, 144, 255, 0.18);
+}
+
+.vehicle-affordability-card h3 {
+  margin-bottom: 1rem;
+
+  font-family: var(--secondary-font);
+  font-size: 2rem;
+  font-weight: 500;
+  color: var(--primary-colour);
+}
+
+.vehicle-affordability-card p {
+  margin-bottom: 0.8rem;
+
+  font-family: var(--primary-font);
+  font-size: 1.4rem;
+  font-weight: 400;
+  text-align: left;
+  color: var(--typography-colour);
+  line-height: 1.6;
+}
+
+.vehicle-affordability-card p:last-child {
+  margin-bottom: 0;
+}
+
+.vehicle-affordability-card strong {
+  color: var(--primary-colour);
+}
+
+.vehicle-affordability-status {
+  display: inline-flex;
+  width: fit-content;
+
+  padding: 0.6rem 1rem;
+  margin-bottom: 1rem;
+
+  border-radius: 999px;
+  background: rgba(0, 0, 0, 0.08);
+
+  font-family: var(--primary-font);
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: var(--typography-colour);
+}
+
+/* Result Grid */
+
+.vehicle-result-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr));
+  gap: 1.2rem;
+  margin-top: 0.4rem;
+}
+
+.vehicle-result-grid div {
+  padding: 1.4rem;
+  border-radius: 1.2rem;
+  background: rgba(255, 255, 255, 0.75);
+  border: 0.1rem solid rgba(0, 0, 0, 0.08);
+}
+
+.vehicle-result-grid span {
+  display: block;
+  margin-bottom: 0.5rem;
+
+  font-family: var(--primary-font);
+  font-size: 1.2rem;
+  color: var(--typography-colour);
+  opacity: 0.75;
+}
+
+.vehicle-result-grid strong {
+  font-family: var(--primary-font);
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: var(--typography-colour);
+}
+
+/* Narrative and Education Cards */
+
+.vehicle-insight-card,
+.vehicle-education-card {
+  padding: 1.6rem;
+  border-radius: 1.4rem;
+  background: rgba(255, 255, 255, 0.85);
+  border: 0.1rem solid rgba(0, 0, 0, 0.08);
+}
+
+.vehicle-insight-card h3,
+.vehicle-education-card h3 {
+  margin-bottom: 0.8rem;
+
+  font-family: var(--secondary-font);
+  font-size: 2rem;
+  font-weight: 500;
+  color: var(--primary-colour);
+}
+
+.vehicle-insight-card p,
+.vehicle-education-card p {
+  font-family: var(--primary-font);
+  font-size: 1.4rem;
+  font-weight: 400;
+  text-align: left;
+  color: var(--typography-colour);
+  line-height: 1.6;
+}
+
+/* Tablet */
+
 @media screen and (min-width: 600px) {
   .vehicle-finance-page h1 {
     font-size: 3.8rem;
@@ -189,9 +358,14 @@
   .vehicle-inputs-container {
     max-width: 50rem;
   }
+
+  .vehicle-results {
+    padding: 2.4rem;
+  }
 }
 
 /* Desktop */
+
 @media screen and (min-width: 1024px) {
   .vehicle-finance-page {
     padding-top: 10rem;
@@ -205,5 +379,9 @@
     width: fit-content;
     padding: 1.2rem 5rem;
     align-self: center;
+  }
+
+  .vehicle-result-grid {
+    grid-template-columns: repeat(2, 1fr);
   }
 }

@@ -148,13 +148,14 @@
     0 1rem 3rem rgba(0, 0, 0, 0.14),
     0 0.2rem 1rem rgba(0, 0, 0, 0.08);
   border: 0.1rem solid rgba(0, 0, 0, 0.08);
-  z-index: 30;
+  z-index: 99;
 }
 
 .tile-popover-dark {
   background: #2d3142;
   color: white;
   border: 0.1rem solid rgba(255, 255, 255, 0.08);
+  z-index: 99;
 }
 
 .tile-popover h5 {
