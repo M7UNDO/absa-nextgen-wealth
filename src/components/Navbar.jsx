@@ -3,6 +3,7 @@ import {useContext} from "react";
 import AuthContext from "../context/AuthContext";
 import {NavLink, Link, useLocation} from "react-router-dom";
 import "../styles/Navbar.css";
+import ThemeToggle from "./ThemeToggle";
 
 export default function Navbar() {
   const {user, logout} = useContext(AuthContext);
@@ -12,7 +13,6 @@ export default function Navbar() {
   useEffect(() => {
     setMenuOpen(false);
   }, [location]);
-
 
   useEffect(() => {
     if (menuOpen) {
@@ -80,6 +80,7 @@ export default function Navbar() {
         </div>
 
         <div className="auth-container">
+          <ThemeToggle />
           {/*<Link to="/login">Login</Link>*/}
           {user ? (
             <>
@@ -106,13 +107,16 @@ export default function Navbar() {
           </div>
         </div>
 
-        <button
-          className={`menu-btn ${menuOpen ? "menu-open" : ""}`}
-          onClick={() => setMenuOpen(!menuOpen)}
-          aria-label="Toggle navigation menu"
-        >
-          <span className="menu-lines"></span>
-        </button>
+        <div className="mobile-nav-actions">
+          <ThemeToggle />
+          <button
+            className={`menu-btn ${menuOpen ? "menu-open" : ""}`}
+            onClick={() => setMenuOpen(!menuOpen)}
+            aria-label="Toggle navigation menu"
+          >
+            <span className="menu-lines"></span>
+          </button>
+        </div>
       </nav>
     </header>
   );

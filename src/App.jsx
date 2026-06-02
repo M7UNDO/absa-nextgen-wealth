@@ -1,8 +1,9 @@
-import {useState, useEffect} from "react";
+import {useState, useEffect, useContext} from "react";
 import {HashRouter, Routes, Route, useLocation} from "react-router-dom";
 
 import {AuthProvider} from "./context/AuthContext";
 import {FinancialProvider} from "./context/FinancialContext";
+import ThemeContext from "./context/ThemeContext";
 import RequireAuth from "./components/RequireAuth";
 
 import MainLayout from "./layouts/MainLayout";
@@ -26,43 +27,63 @@ import Authentication from "./pages/Authentication";
 import NotFound from "./pages/NotFound";
 
 function App() {
+  const [theme, setTheme] = useState(() => {
+    try {
+      return localStorage.getItem("theme") || "light";
+    } catch (error) {
+      return "light";
+    }
+  });
+
+  useEffect(() => {
+    document.documentElement.setAttribute("data-theme", theme);
+    localStorage.setItem("theme", theme);
+  }, [theme]);
+
+  function toggleTheme() {
+    setTheme((prevTheme) => (prevTheme === "light" ? "dark" : "light"));
+    console.log("Theme Changed");
+  }
+
   return (
     <>
-      <AuthProvider>
-        <FinancialProvider>
-          <HashRouter>
-            <ScrollToTop />
-            <Routes>
-              <Route element={<MainLayout />}>
-                <Route
-                  path="/"
-                  element={
-                    <RequireAuth>
-                      <Home />
-                    </RequireAuth>
-                  }
-                ></Route>
-                <Route path="/simulation-lab" element={<SimulationLab />}></Route>
-                <Route path="/simulation-lab/home-loan-calculator" element={<HomeLoan />}></Route>
-                <Route path="/simulation-lab/vehicle-finance-calculator" element={<VehicleFinance />}></Route>
-                <Route path="/simulation-lab/bnpl-vs-save-first" element={<BuyNowVsSave />}></Route>
-                <Route path="/strategy-tracks" element={<StrategyTracks />}></Route>
+      <ThemeContext.Provider value={{theme, setTheme, toggleTheme}}>
+        <AuthProvider>
+          <FinancialProvider>
+            <HashRouter>
+              <ScrollToTop />
+              <Routes>
+                <Route element={<MainLayout />}>
+                  <Route
+                    path="/"
+                    element={
+                      <RequireAuth>
+                        <Home />
+                      </RequireAuth>
+                    }
+                  ></Route>
+                  <Route path="/simulation-lab" element={<SimulationLab />}></Route>
+                  <Route path="/simulation-lab/home-loan-calculator" element={<HomeLoan />}></Route>
+                  <Route path="/simulation-lab/vehicle-finance-calculator" element={<VehicleFinance />}></Route>
+                  <Route path="/simulation-lab/bnpl-vs-save-first" element={<BuyNowVsSave />}></Route>
+                  <Route path="/strategy-tracks" element={<StrategyTracks />}></Route>
 
-                <Route path="/strategy-tracks/first-property-path" element={<FirstPropertyPath />}></Route>
-                <Route path="/strategy-tracks/freedom-flexibility-path" element={<FreedomFlexibility />}></Route>
-                <Route path="/strategy-tracks/legacy-impact-path" element={<LegacyImpactPath />}></Route>
-              </Route>
+                  <Route path="/strategy-tracks/first-property-path" element={<FirstPropertyPath />}></Route>
+                  <Route path="/strategy-tracks/freedom-flexibility-path" element={<FreedomFlexibility />}></Route>
+                  <Route path="/strategy-tracks/legacy-impact-path" element={<LegacyImpactPath />}></Route>
+                </Route>
 
-              <Route element={<AuthLayout />}>
-                <Route path="/login" element={<Authentication mode="login" />}></Route>
-                <Route path="/signup" element={<Authentication mode="signup" />}></Route>
-              </Route>
+                <Route element={<AuthLayout />}>
+                  <Route path="/login" element={<Authentication mode="login" />}></Route>
+                  <Route path="/signup" element={<Authentication mode="signup" />}></Route>
+                </Route>
 
-              <Route path="*" element={<NotFound />}></Route>
-            </Routes>
-          </HashRouter>
-        </FinancialProvider>
-      </AuthProvider>
+                <Route path="*" element={<NotFound />}></Route>
+              </Routes>
+            </HashRouter>
+          </FinancialProvider>
+        </AuthProvider>
+      </ThemeContext.Provider>
     </>
   );
 }

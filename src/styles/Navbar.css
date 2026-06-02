@@ -11,7 +11,7 @@ header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background-color: var(--background-colour-light);
+  background-color: var(--background-colour);
   height: 100%;
   padding: 1rem;
 }

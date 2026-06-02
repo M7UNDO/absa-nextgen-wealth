@@ -1,5 +1,6 @@
 import React from "react";
 import "../styles/InfoPopover.css";
+import infoSymbol from "../assets/icons/help-circle.svg?react";
 
 function InfoPopover({
   infoKey,

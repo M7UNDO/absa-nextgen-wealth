@@ -1,12 +1,12 @@
-import React, { useState } from "react";
+import React, {useRef, useState} from "react";
 import "../styles/VehicleFinance.css";
-import { formatCurrency } from "../utils/formatCurrency";
+import {formatCurrency} from "../utils/formatCurrency";
 import useInfoToggle from "../hooks/useInfoToggle";
 import InfoPopover from "../components/InfoPopover";
-import { useFinancials } from "../context/FinancialContext";
+import {useFinancials} from "../context/FinancialContext";
 
 function VehicleFinance() {
-  const { financials } = useFinancials();
+  const {financials} = useFinancials();
 
   const termOptions = [24, 36, 48, 60, 72, 78, 84, 90, 96];
 
@@ -30,16 +30,27 @@ function VehicleFinance() {
   const [error, setError] = useState("");
   const [result, setResult] = useState(null);
 
-  const { activeInfo, toggleInfo } = useInfoToggle();
+  const resultRef = useRef(null);
+
+  const {activeInfo, toggleInfo} = useInfoToggle();
 
   const selectedTerm = termOptions[termIndex];
+
+  function scrollToResult() {
+    setTimeout(() => {
+      resultRef.current?.scrollIntoView({
+        behavior: "smooth",
+        block: "start",
+      });
+    }, 100);
+  }
 
   function getAffordabilityStatus(vehicleToNetRatio, cashAfterVehicle) {
     if (cashAfterVehicle < 0) {
       return {
         status: "High Risk",
         message:
-          "This repayment would push your monthly cash flow below zero after your rent and retirement contribution. This may be difficult to afford unless you reduce other expenses or choose a cheaper vehicle."
+          "This repayment would push your monthly cash flow below zero after your rent and retirement contribution. This may be difficult to afford unless you reduce other expenses or choose a cheaper vehicle.",
       };
     }
 
@@ -47,7 +58,7 @@ function VehicleFinance() {
       return {
         status: "High Risk",
         message:
-          "This repayment takes up more than 25% of your estimated net income. That may create pressure on your monthly budget and reduce your flexibility."
+          "This repayment takes up more than 25% of your estimated net income. That may create pressure on your monthly budget and reduce your flexibility.",
       };
     }
 
@@ -55,14 +66,14 @@ function VehicleFinance() {
       return {
         status: "Caution",
         message:
-          "This repayment is possible, but it takes up a noticeable portion of your income. You may want to compare a larger deposit, a cheaper vehicle, or a different term."
+          "This repayment is possible, but it takes up a noticeable portion of your income. You may want to compare a larger deposit, a cheaper vehicle, or a different term.",
       };
     }
 
     return {
       status: "Manageable",
       message:
-        "This repayment appears more manageable compared to your estimated net income and saved financial profile."
+        "This repayment appears more manageable compared to your estimated net income and saved financial profile.",
     };
   }
 
@@ -72,22 +83,20 @@ function VehicleFinance() {
     monthlyPayment,
     totalInterest,
     balloonAmount,
-    totalRepayable
+    totalRepayable,
   }) {
     if (balloonPercent > 0) {
       return `This option lowers your monthly instalment to ${formatCurrency(
-        monthlyPayment
+        monthlyPayment,
       )}, but it leaves a final balloon payment of ${formatCurrency(
-        balloonAmount
+        balloonAmount,
       )}. This can make the car feel more affordable month-to-month, but you need a plan for the amount still owed at the end of the term.`;
     }
 
     if (selectedTerm >= 72) {
       return `This longer repayment term reduces the monthly pressure, but it keeps you in debt for longer. Over the full term, you would pay about ${formatCurrency(
-        totalInterest
-      )} in interest, bringing the estimated total repayable amount to ${formatCurrency(
-        totalRepayable
-      )}.`;
+        totalInterest,
+      )} in interest, bringing the estimated total repayable amount to ${formatCurrency(totalRepayable)}.`;
     }
 
     return `This is a more balanced repayment structure. Your monthly repayment may be higher than a long-term or balloon option, but you avoid a large final payment and may reduce the total interest paid over time.`;
@@ -132,8 +141,7 @@ function VehicleFinance() {
     const monthlyPayment =
       monthlyRate === 0
         ? financedAmount / months
-        : (financedAmount * monthlyRate) /
-          (1 - Math.pow(1 + monthlyRate, -months));
+        : (financedAmount * monthlyRate) / (1 - Math.pow(1 + monthlyRate, -months));
 
     const totalMonthlyRepayments = monthlyPayment * months;
     const totalRepayable = totalMonthlyRepayments + balloonAmount;
@@ -146,15 +154,11 @@ function VehicleFinance() {
     const currentFixedCosts = rent + retirement;
     const currentRemainingCash = netIncome - currentFixedCosts;
 
-    const vehicleToNetRatio =
-      netIncome > 0 ? (monthlyPayment / netIncome) * 100 : 0;
+    const vehicleToNetRatio = netIncome > 0 ? (monthlyPayment / netIncome) * 100 : 0;
 
     const cashAfterVehicle = netIncome - rent - retirement - monthlyPayment;
 
-    const affordability =
-      netIncome > 0
-        ? getAffordabilityStatus(vehicleToNetRatio, cashAfterVehicle)
-        : null;
+    const affordability = netIncome > 0 ? getAffordabilityStatus(vehicleToNetRatio, cashAfterVehicle) : null;
 
     const narrative = getVehicleNarrative({
       balloonPercent,
@@ -162,7 +166,7 @@ function VehicleFinance() {
       monthlyPayment,
       totalInterest,
       balloonAmount,
-      totalRepayable
+      totalRepayable,
     });
 
     setResult({
@@ -187,8 +191,10 @@ function VehicleFinance() {
       vehicleToNetRatio,
       cashAfterVehicle,
       affordability,
-      narrative
+      narrative,
     });
+
+    scrollToResult();
   }
 
   return (
@@ -198,10 +204,7 @@ function VehicleFinance() {
       <div className="vehicle-inputs-container">
         <div className="vehicle-field">
           <label>Vehicle Type</label>
-          <select
-            value={vehicleType}
-            onChange={(e) => setVehicleType(e.target.value)}
-          >
+          <select value={vehicleType} onChange={(e) => setVehicleType(e.target.value)}>
             <option value="">Please Select</option>
             <option value="Used">Used</option>
             <option value="New">New</option>
@@ -245,9 +248,8 @@ function VehicleFinance() {
               popoverClassName="vehicle-info-popover-panel"
             >
               <p>
-                This is the number of months you will take to repay the vehicle
-                loan. A longer term can reduce the monthly repayment, but it
-                usually increases the total interest paid over time.
+                This is the number of months you will take to repay the vehicle loan. A longer term can reduce the
+                monthly repayment, but it usually increases the total interest paid over time.
               </p>
             </InfoPopover>
           </div>
@@ -280,16 +282,13 @@ function VehicleFinance() {
               popoverClassName="vehicle-info-popover-panel"
             >
               <p>
-                This is the percentage charged for borrowing the money. A higher
-                interest rate means a more expensive loan overall.
+                This is the percentage charged for borrowing the money. A higher interest rate means a more expensive
+                loan overall.
               </p>
             </InfoPopover>
           </div>
 
-          <select
-            value={interestRate}
-            onChange={(e) => setInterestRate(e.target.value)}
-          >
+          <select value={interestRate} onChange={(e) => setInterestRate(e.target.value)}>
             {interestOptions.map((rate) => (
               <option key={rate} value={rate}>
                 {rate}%
@@ -312,10 +311,8 @@ function VehicleFinance() {
               popoverClassName="vehicle-info-popover-panel"
             >
               <p>
-                A balloon payment is a large final amount left unpaid until the
-                end of the loan. Choosing a higher balloon percentage can lower
-                your monthly instalments, but it increases the amount still owed
-                later.
+                A balloon payment is a large final amount left unpaid until the end of the loan. Choosing a higher
+                balloon percentage can lower your monthly instalments, but it increases the amount still owed later.
               </p>
             </InfoPopover>
           </div>
@@ -332,11 +329,12 @@ function VehicleFinance() {
         {error && <p className="vehicle-error">{error}</p>}
 
         <button onClick={calculateFinance} className="sim-btn">
-          Simulate <i className="fa-solid fa-flask"></i>
+          Simulate Repayment <i className="fa-solid fa-flask"></i>
         </button>
-
+      </div>
+      <div className="result-container">
         {result && (
-          <div className="vehicle-results">
+          <div className="vehicle-results vehicle-results-enter" ref={resultRef}>
             <h2>Vehicle Finance Studio Result</h2>
 
             <div className="vehicle-result-highlight">
@@ -353,18 +351,14 @@ function VehicleFinance() {
                 </div>
 
                 <p>
-                  This repayment would use{" "}
-                  <strong>{result.vehicleToNetRatio.toFixed(1)}%</strong> of
-                  your estimated net income.
+                  This repayment would use <strong>{result.vehicleToNetRatio.toFixed(1)}%</strong> of your estimated net
+                  income.
                 </p>
 
                 <p>
-                  Based on your saved financial profile, your estimated net
-                  income is <strong>{formatCurrency(result.netIncome)}</strong>.
-                  After rent, retirement, and this new vehicle repayment, you
-                  would have about{" "}
-                  <strong>{formatCurrency(result.cashAfterVehicle)}</strong>{" "}
-                  left.
+                  Based on your saved financial profile, your estimated net income is{" "}
+                  <strong>{formatCurrency(result.netIncome)}</strong>. After rent, retirement, and this new vehicle
+                  repayment, you would have about <strong>{formatCurrency(result.cashAfterVehicle)}</strong> left.
                 </p>
 
                 <p>{result.affordability.message}</p>
@@ -373,8 +367,7 @@ function VehicleFinance() {
               <div className="vehicle-affordability-card">
                 <h3>Affordability Check</h3>
                 <p>
-                  Complete your financial profile first to see whether this
-                  repayment fits into your monthly budget.
+                  Complete your financial profile first to see whether this repayment fits into your monthly budget.
                 </p>
               </div>
             )}
@@ -439,10 +432,9 @@ function VehicleFinance() {
             <div className="vehicle-education-card">
               <h3>Did you know?</h3>
               <p>
-                A lower monthly repayment is not always the cheapest option. A
-                longer term or balloon payment can make the vehicle feel easier
-                to afford month-to-month, but it may increase the full cost of
-                the loan or leave you with a large final amount to settle.
+                A lower monthly repayment is not always the cheapest option. A longer term or balloon payment can make
+                the vehicle feel easier to afford month-to-month, but it may increase the full cost of the loan or leave
+                you with a large final amount to settle.
               </p>
             </div>
           </div>

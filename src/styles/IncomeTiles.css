@@ -178,6 +178,14 @@
   font-size: 1.3rem;
   line-height: 1.55;
 }
+
+.gross-breakdown{
+  display: flex;
+  align-items: flex-end;
+  justify-content: flex-start;
+  gap: 2rem ;
+}
+
 @media screen and (min-width: 600px) {
   .tile {
     padding: 2.2rem;

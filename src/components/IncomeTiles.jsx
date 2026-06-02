@@ -48,9 +48,9 @@ function IncomeTiles({
               </p>
 
               <h6>Calculation used</h6>
-              <p>Net Income = Gross Income − Estimated PAYE − UIF</p>
+              <p>Net Income = Gross Income - Estimated PAYE - UIF</p>
               <p>
-                In your case: {formatCurrency(gross)} − {formatCurrency(paye)} −{" "}
+                In your case: {formatCurrency(gross)} - {formatCurrency(paye)} −{" "}
                 {formatCurrency(uif)} = {formatCurrency(net)}
               </p>
             </div>
@@ -101,7 +101,7 @@ function IncomeTiles({
           <p className="tile-label">Gross Income</p>
           <h2 className="tile-amount">{formatCurrency(gross)}</h2>
 
-          <div>
+          <div className="gross-breakdown">
             <p className="tile-subtext">Before tax and other deductions</p>
             <p className="tile-meta">PAYE Estimated: {formatCurrency(paye)}</p>
             <p className="tile-meta">UIF Estimated: {formatCurrency(uif)}</p>
