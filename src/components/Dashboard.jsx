@@ -1,12 +1,12 @@
-import React, {useEffect, useState, useContext} from "react";
+import React, {useEffect, useState, useContext, lazy, Suspense} from "react";
 import AuthContext from "../context/AuthContext";
 import {useFinancials} from "../context/FinancialContext";
 import IncomeTiles from "./IncomeTiles";
-import ExpensesChart from "./ExpensesChart";
 import BudgetBuddy from "./BudgetBuddy";
 import FeatureGateway from "./FeatureGateway";
 import FinancialSetupModal from "./FinancialSetupModal";
 import Loader from "./Loader";
+const ExpensesChart = lazy(() => import("./ExpensesChart"));
 import "../styles/Dashboard.css";
 
 function Dashboard() {
@@ -72,7 +72,10 @@ function Dashboard() {
           />
 
           <div className="dashboard-grid">
-            <ExpensesChart />
+            <Suspense fallback={<div className="chart-card">Loading chart...</div>}>
+              <ExpensesChart />
+            </Suspense>
+
             <BudgetBuddy />
             <FeatureGateway />
           </div>
