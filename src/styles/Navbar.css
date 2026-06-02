@@ -261,6 +261,11 @@ header {
   text-decoration: underline;
 }
 
+.mobile-nav-actions {
+  display: flex;
+  align-items: center;
+}
+
 @media screen and (min-width: 600px) {
 }
 
@@ -347,4 +352,10 @@ header {
   .mobile-auth{
     display: none;
   }
+
+  .mobile-nav-actions {
+    display: none;
+  }
+
+
 }
