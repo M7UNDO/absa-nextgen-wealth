@@ -25,7 +25,8 @@
 }
 
 .tile-light {
-  background: var(--background);
+  background: var(--background-colour-light);
+  border: 1px solid var(--light-border);
   box-shadow:
     0 1rem 3rem rgba(0, 0, 0, 0.06),
     0 0.2rem 0.8rem rgba(0, 0, 0, 0.04);
@@ -37,7 +38,7 @@
 }
 
 .tile-dark {
-  background: linear-gradient(135deg, #1f1f2e 0%, #2d3142 100%);
+  background: linear-gradient(135deg, rgb(214, 29, 63) 0%, var(--primary-colour-dark) 100%);
   color: white;
   box-shadow:
     0 1rem 3rem rgba(0, 0, 0, 0.14),
@@ -45,7 +46,7 @@
 }
 
 .tile-dark::before {
-  border: 0.1rem solid rgba(255, 255, 255, 0.08);
+  border: 0.1rem solid rgba(255, 255, 255, 0.204);
 }
 
 .tile-content {
@@ -72,9 +73,7 @@
   margin: 1rem 0;
 }
 
-.net-income {
-  color: var(--accent-colour);
-}
+
 
 .tile-subtext {
   font-family: var(--primary-font);

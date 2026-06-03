@@ -22,6 +22,7 @@
   cursor: pointer;
   transition: all 0.2s ease;
   opacity: 0.8;
+  padding: 0.5rem;
 }
 
 .info-popover-btn:hover {
@@ -29,7 +30,7 @@
   background: rgba(0, 0, 0, 0.08);
 }
 
-.info-popover-btn .material-symbols-outlined {
+.info-popover-btn .help-circle{
   font-size: 1.8rem;
 }
 
@@ -49,12 +50,12 @@
   width: min(32rem, 80vw);
   padding: 1.4rem 1.5rem;
   border-radius: 1.2rem;
-  background: white;
+  background: var(--background-colour);
+  border: 1px solid var(--background-colour-light);
   color: var(--typography-colour);
   box-shadow:
     0 1rem 3rem rgba(0, 0, 0, 0.14),
     0 0.2rem 1rem rgba(0, 0, 0, 0.08);
-  border: 0.1rem solid rgba(0, 0, 0, 0.08);
   z-index: 30;
  
 }

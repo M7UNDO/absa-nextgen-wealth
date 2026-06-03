@@ -121,7 +121,9 @@ function ExpensesChart() {
                 borderRadius: "1rem",
                 border: "0.1rem solid rgba(0,0,0,0.08)",
                 boxShadow: "0 1rem 3rem rgba(0, 0, 0, 0.08)",
-                fontSize: "1.4rem",
+                fontSize: "1.3rem",
+                fontWeight: "700",
+                fontFamily: "var(--numbers-font)"
               }}
             />
           </PieChart>

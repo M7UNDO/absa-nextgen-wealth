@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { calculateNetIncome } from "../utils/taxCalculator";
 import { formatCurrency } from "../utils/formatCurrency";
+import InfoSymbol from "../assets/icons/help-circle.svg?react";
 import "../styles/IncomeTiles.css";
 
 function IncomeTiles({
@@ -36,7 +37,7 @@ function IncomeTiles({
             onClick={() => toggleInfo("net")}
             aria-expanded={activeInfo === "net"}
           >
-            <span className="material-symbols-outlined">help</span>
+            <InfoSymbol className="help-circle"/>
           </button>
 
           {activeInfo === "net" && (
@@ -72,7 +73,7 @@ function IncomeTiles({
             onClick={() => toggleInfo("gross")}
             aria-expanded={activeInfo === "gross"}
           >
-            <span className="material-symbols-outlined">help</span>
+            <InfoSymbol className="help-circle"/>
           </button>
 
           {activeInfo === "gross" && (

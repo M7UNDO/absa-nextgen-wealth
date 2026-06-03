@@ -18,6 +18,7 @@
 
 .path-section {
   background-color: var(--background-colour-light);
+  border: var(--light-border);
   border-radius: 1.8rem;
   padding: 2rem;
   box-shadow:

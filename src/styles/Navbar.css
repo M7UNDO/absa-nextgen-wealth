@@ -59,7 +59,10 @@ header {
 }
 
 .logo {
-  color: var(--primary-colour);
+  background: var(--primary-gradient);
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
   font-family: var(--primary-font);
   font-size: 1.8rem;
   text-decoration: none;
@@ -213,9 +216,12 @@ header {
   top: 120%;
   right: 0;
 
-  background: var(--background-colour-light);
+  background: var(--background-colour);
   color: var(--primary-colour);
-  border: 1px solid #e5e5e5;
+  border: 1px solid var(--background-colour-light);
+  box-shadow:
+    0 1rem 3rem rgba(0, 0, 0, 0.06),
+    0 0.2rem 0.8rem rgba(0, 0, 0, 0.04);
   border-radius: 10px;
   padding: 0.5rem 0.75rem;
 

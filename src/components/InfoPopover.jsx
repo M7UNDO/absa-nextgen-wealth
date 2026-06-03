@@ -1,6 +1,6 @@
 import React from "react";
 import "../styles/InfoPopover.css";
-import infoSymbol from "../assets/icons/help-circle.svg?react";
+import InfoSymbol from "../assets/icons/help-circle.svg?react";
 
 function InfoPopover({
   infoKey,
@@ -23,7 +23,7 @@ function InfoPopover({
         onClick={() => toggleInfo(infoKey)}
         aria-expanded={isOpen}
       >
-        <span className="material-symbols-outlined">help</span>
+        <InfoSymbol className="help-circle"/>
       </button>
 
       {isOpen && (

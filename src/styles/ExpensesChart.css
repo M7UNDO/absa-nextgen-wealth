@@ -1,6 +1,7 @@
 .chart-card {
   background-color: var(--background-colour-light);
   border-radius: 2rem;
+  border: 1px solid var(--light-border);
   padding: 2.4rem 1.8rem;
   box-shadow:
     0 1rem 3rem rgba(0, 0, 0, 0.05),
@@ -53,8 +54,8 @@
 }
 
 .chart-centre-label-value {
-  color: var(--typography-colour);
-  font-family: var(--secondary-font);
+  fill: var(--typography-colour);
+  font-family: var(--numbers-font);
   font-size: 1.8rem;
   font-weight: 500;
 }
@@ -129,10 +130,12 @@
 
 #remaining-cash{
   color: var(--accent-colour);
+  font-family: var(--numbers-font);
 }
 
 #total-expenses{
   color: var(--primary-colour);
+  font-family: var(--numbers-font);
 }
 
 @media screen and (min-width: 600px) {
