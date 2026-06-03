@@ -59,13 +59,9 @@
   -webkit-background-clip: text;
   color: transparent;
   font-family: var(--primary-font);
-  font-size: 1.8rem;
+  font-size: 2rem;
   text-decoration: none;
   transition: all 0.3s ease;
-}
-
-.footer-tagline a.logo:hover {
-  color: var(--primary-colour-dark);
 }
 
 .footer-top a:hover {
