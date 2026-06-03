@@ -7,7 +7,7 @@
 
 .accordion-item {
   border-radius: 1rem;
-  background-color: var(--primary-colour-dark);
+  background: var(--primary-gradient);
   overflow: hidden;
 }
 

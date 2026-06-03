@@ -22,14 +22,14 @@
 
   padding: 3rem;
   border-radius: 1rem;
-
+  border: 1px solid var(--background-colour-light);
   width: 100%;
   max-width: 500px;
 
   display: flex;
   flex-direction: column;
   gap: 2rem;
-
+ 
   box-shadow: 0 10px 40px rgba(0, 0, 0, 0.25);
 }
 

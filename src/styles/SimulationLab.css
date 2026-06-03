@@ -44,7 +44,7 @@
   width: 100%;
   font-family: var(--primary-font);
   padding: 2rem;
-  background-color: var(--primary-colour-dark);
+  background: var(--primary-gradient);
 
   color: white;
   border-radius: 0.5rem;

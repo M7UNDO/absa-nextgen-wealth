@@ -37,7 +37,7 @@
 .budget-add-btn {
   width: 4rem;
   height: 4rem;
-  border: none;
+  border: 1px solid rgba(255, 117, 117, 0.233);
   border-radius: 50%;
   background: rgba(208, 2, 27, 0.08);
   color: var(--primary-colour);
@@ -249,17 +249,20 @@
 .simulate-spend-btn {
   width: fit-content;
   border: none;
-  background: rgba(0, 0, 0, 0.05);
+  background: var(--background-colour-light);
   color: var(--typography-colour);
   padding: 0.9rem 1.2rem;
   border-radius: 0.8rem;
+  border: 1px solid var(--light-border);
   font-size: 1.3rem;
   cursor: pointer;
   transition: 150ms ease;
 }
 
 .simulate-spend-btn:hover {
-  background: rgba(0, 0, 0, 0.08);
+  background: var(--primary-gradient);
+  border-color: rgba(255, 255, 255, 0.281);
+  color: white;
 }
 
 @media screen and (min-width: 600px) {

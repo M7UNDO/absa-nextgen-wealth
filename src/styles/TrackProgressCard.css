@@ -39,7 +39,7 @@
 .progress-bar-fill {
   height: 100%;
   border-radius: 10rem;
-  background-color: var(--primary-colour);
+  background: var(--primary-gradient);
 }
 
 @media screen and (min-width: 768px) {

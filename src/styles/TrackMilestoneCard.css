@@ -68,7 +68,7 @@
 
 .status-btn {
   border: 0.1rem solid rgba(0, 0, 0, 0.12);
-  background-color: var(--background-colour-light);
+  background: var(--background-colour-light);
   border-radius: 10rem;
   padding: 0.8rem 1.2rem;
 
@@ -86,8 +86,8 @@
 }
 
 .status-btn.active {
-  background-color: var(--primary-colour);
-  border-color: var(--primary-colour);
+  background: var(--primary-gradient);
+  border-color: rgba(255, 255, 255, 0.321);
   color: white;
 }
 
