@@ -45,13 +45,31 @@
   font-size: 1.6rem;
   color: var(--typography-colour);
   background-color: var(--background-colour-light);
-  border-radius: 0.5rem;
+  border-radius: 1rem;
   border: 0.15rem solid rgba(128, 128, 128, 0.35);
   transition: 150ms ease;
 }
 
 .loan-inputs::placeholder {
   opacity: 0.6;
+}
+
+.loan-inputs:focus::placeholder,
+.home-loan-container input[type="text"]:focus::placeholder,
+.home-loan-container input[type="number"]:focus::placeholder {
+  color: transparent; /* hides placeholder on focus */
+}
+
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+
+input[type="number"] {
+  -moz-appearance: textfield;
+  appearance: textfield;
 }
 
 .loan-inputs:hover,
@@ -70,10 +88,19 @@
   appearance: none;
   height: 0.6rem;
   border-radius: 10rem;
-  background: var(--primary-colour);
+  background: linear-gradient(
+    to right, 
+    var(--primary-colour) var(--value), 
+    rgba(128, 128, 128, 0.35) var(--value)
+  );
   cursor: pointer;
   margin: 2rem 0;
   padding: 0;
+}
+
+.home-loan-container input[type="range"]:hover, .home-loan-container input[type="range"]:focus {
+  border: none;
+
 }
 
 .home-loan-container input[type="range"]::-webkit-slider-thumb {

@@ -119,7 +119,8 @@ function ExpensesChart() {
               formatter={(value, name) => [formatCurrency(value), name]}
               contentStyle={{
                 borderRadius: "1rem",
-                border: "0.1rem solid rgba(0,0,0,0.08)",
+                background: "var(--background-colour)",
+                border: "0.1rem solid var(--light-border)",
                 boxShadow: "0 1rem 3rem rgba(0, 0, 0, 0.08)",
                 fontSize: "1.3rem",
                 fontWeight: "700",

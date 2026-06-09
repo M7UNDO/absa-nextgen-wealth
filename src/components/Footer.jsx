@@ -1,7 +1,4 @@
-import {Link} from "react-router-dom";
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faLinkedinIn} from "@fortawesome/free-brands-svg-icons";
-import { faAt, faEnvelope} from  '@fortawesome/free-solid-svg-icons';     
+import {Link} from "react-router-dom";   
 
 import "../styles/Footer.css";
 
@@ -54,10 +51,10 @@ function Footer() {
             <h4>Connect</h4>
             <div className="social-icons">
               <a href="https://www.linkedin.com/in/mfundo-dhlamini" target="_blank" rel="noopener noreferrer">
-                <FontAwesomeIcon icon={faLinkedinIn} />
+                <i class="fa-brands fa-linkedin-in"></i>
               </a>
               <a href="mailto:dhlaminimfundo1@gmail.com" target="_blank" rel="noopener noreferrer">
-                <FontAwesomeIcon icon={faEnvelope} />
+                <i class="fa-solid fa-envelope"></i>
               </a>
             </div>
           </div>

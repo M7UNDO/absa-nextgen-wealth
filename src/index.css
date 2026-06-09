@@ -5,7 +5,7 @@
   --secondary-colour: #fedcdc;
   --accent-colour: #3d83fc;
   --accent-colour-2: #ff450d;
-  --typography-colour: #333d47;
+  --typography-colour: #232323;
   --background-colour: rgb(245, 245, 245);
   --background: linear-gradient(180deg, #ffffff 0%, #f7f8fa 100%);
   --background-colour-light: white;
@@ -25,6 +25,7 @@
 
 [data-theme="light"] {
   --primary-colour: #d0021b;
+  --primary-colour-highlight: rgba(255, 0, 0, 0.1);
   --primary-colour-dark: rgb(175, 20, 75);
   --secondary-colour: #fedcdc;
   --accent-colour: #3d83fc;
@@ -38,6 +39,7 @@
 }
 [data-theme="dark"] {
   --primary-colour: #d0021b;
+  --primary-colour-highlight: rgba(255, 0, 0, 0.13);
   --primary-colour-dark: rgb(175, 20, 75);
   --secondary-colour: #fedcdc;
   --accent-colour: #3d83fc;
@@ -65,6 +67,7 @@ body {
   background-color: var(--background-colour);
   color: var(--typography-colour);
   transition: var(--theme-transition);
+  font-family: var(--primary-font);
 }
 
 h1 {
