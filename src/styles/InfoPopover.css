@@ -50,14 +50,17 @@
   width: min(32rem, 80vw);
   padding: 1.4rem 1.5rem;
   border-radius: 1.2rem;
-  background: var(--background-colour);
-  border: 1px solid var(--background-colour-light);
+  background: var(--background-colour-light);
+  border: 1px solid rgba(0, 0, 0, 0.2);
   color: var(--typography-colour);
   box-shadow:
     0 1rem 3rem rgba(0, 0, 0, 0.14),
     0 0.2rem 1rem rgba(0, 0, 0, 0.08);
   z-index: 30;
- 
+}
+
+[data-theme="dark"] .info-popover-panel{
+  border: 1px solid rgba(255, 255, 255, 0.2);
 }
 
 .info-popover-panel-dark {

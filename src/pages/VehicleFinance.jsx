@@ -4,6 +4,7 @@ import {formatCurrency} from "../utils/formatCurrency";
 import useInfoToggle from "../hooks/useInfoToggle";
 import InfoPopover from "../components/InfoPopover";
 import {useFinancials} from "../context/FinancialContext";
+import StudioHero from "../components/StudioHero";
 
 function VehicleFinance() {
   const {financials} = useFinancials();
@@ -199,6 +200,10 @@ function VehicleFinance() {
 
   return (
     <section className="vehicle-finance-page">
+      <StudioHero
+      title="Vehicle Finance Calculator"
+      subheading=""
+      />
       <h1>Vehicle Finance Calculator</h1>
 
       <div className="vehicle-inputs-container">

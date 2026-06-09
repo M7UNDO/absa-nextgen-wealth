@@ -354,6 +354,14 @@
   animation: vehicleResultReveal 450ms ease forwards;
 }
 
+.disclaimer-container{
+  padding: 2rem 6rem;
+}
+
+.disclaimer-text{
+  font-size: 1.4rem;
+}
+
 @keyframes vehicleResultReveal {
   from {
     opacity: 0;

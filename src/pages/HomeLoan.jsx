@@ -3,6 +3,7 @@ import "../styles/HomeLoan.css";
 import {formatCurrency} from "../utils/formatCurrency";
 import useInfoToggle from "../hooks/useInfoToggle";
 import InfoPopover from "../components/InfoPopover";
+import StudioHero from "../components/StudioHero";
 
 function HomeLoan() {
   const [purchasePrice, setPurchasePrice] = useState("");
@@ -65,164 +66,190 @@ function HomeLoan() {
 
   return (
     <section className="home-loan-page">
-      <h1>Home Loan Affordability Calculator</h1>
-      <p>Discover your home-buying budget and estimate your monthly bond repayments</p>
-
+      <StudioHero
+        title="Home Loan Affordability Calculator"
+        subheading="Discover your home-buying budget and estimate your monthly bond repayments"
+      />
       <div className="home-loan-container">
-        <div className="loan-field">
-          <div className="loan-label-row">
-            <label>Property Purchase Price (ZAR)</label>
+        <div className="inputs-container">
+          <div className="loan-field">
+            <div className="loan-label-row">
+              <label>Property Purchase Price (ZAR)</label>
 
-            <InfoPopover
-              infoKey="purchasePrice"
-              activeInfo={activeInfo}
-              toggleInfo={toggleInfo}
-              title="What is Property Purchase Price?"
-              className="loan-info-popover-wrapper"
-              buttonClassName="loan-info-popover-btn"
-              popoverClassName="loan-info-popover-panel"
-            >
-              <p>This is the full price of the property you want to buy before subtracting your deposit.</p>
-            </InfoPopover>
+              <InfoPopover
+                infoKey="purchasePrice"
+                activeInfo={activeInfo}
+                toggleInfo={toggleInfo}
+                title="What is Property Purchase Price?"
+                className="loan-info-popover-wrapper"
+                buttonClassName="loan-info-popover-btn"
+                popoverClassName="loan-info-popover-panel"
+              >
+                <p>This is the full price of the property you want to buy before subtracting your deposit.</p>
+              </InfoPopover>
+            </div>
+
+            <input
+              type="number"
+              placeholder="Enter property price"
+              value={purchasePrice}
+              onChange={(e) => setPurchasePrice(e.target.value)}
+              className="loan-inputs"
+            />
           </div>
 
-          <input
-            type="number"
-            placeholder="Enter property price"
-            value={purchasePrice}
-            onChange={(e) => setPurchasePrice(e.target.value)}
-            className="loan-inputs"
-          />
-        </div>
+          <div className="loan-field">
+            <div className="loan-label-row">
+              <label>Deposit Amount (ZAR)</label>
 
-        <div className="loan-field">
-          <div className="loan-label-row">
-            <label>Deposit Amount (ZAR)</label>
+              <InfoPopover
+                infoKey="deposit"
+                activeInfo={activeInfo}
+                toggleInfo={toggleInfo}
+                title="What is Deposit Amount?"
+                className="loan-info-popover-wrapper"
+                buttonClassName="loan-info-popover-btn"
+                popoverClassName="loan-info-popover-panel"
+              >
+                <p>
+                  Your deposit is the amount you pay upfront toward the property. A larger deposit usually reduces the
+                  loan amount and monthly repayment.
+                </p>
+              </InfoPopover>
+            </div>
 
-            <InfoPopover
-              infoKey="deposit"
-              activeInfo={activeInfo}
-              toggleInfo={toggleInfo}
-              title="What is Deposit Amount?"
-              className="loan-info-popover-wrapper"
-              buttonClassName="loan-info-popover-btn"
-              popoverClassName="loan-info-popover-panel"
-            >
-              <p>
-                Your deposit is the amount you pay upfront toward the property. A larger deposit usually reduces the
-                loan amount and monthly repayment.
-              </p>
-            </InfoPopover>
+            <input
+              type="number"
+              placeholder="Enter deposit"
+              value={deposit}
+              onChange={(e) => setDeposit(e.target.value)}
+              className="loan-inputs"
+            />
+          </div>
+          <div className="loan-field">
+            <div className="loan-label-row">
+              <label>Gross Monthly Income (ZAR)</label>
+
+              <InfoPopover
+                infoKey="salary"
+                activeInfo={activeInfo}
+                toggleInfo={toggleInfo}
+                title="What is Gross Monthly Income?"
+                className="loan-info-popover-wrapper"
+                buttonClassName="loan-info-popover-btn"
+                popoverClassName="loan-info-popover-panel"
+              >
+                <p>
+                  Gross monthly income is your income before tax and other deductions. This calculator uses it to
+                  estimate how affordable the home loan may be.
+                </p>
+              </InfoPopover>
+            </div>
+
+            <input
+              type="number"
+              placeholder="Enter salary"
+              value={salary}
+              onChange={(e) => setSalary(e.target.value)}
+              className="loan-inputs"
+            />
           </div>
 
-          <input
-            type="number"
-            placeholder="Enter deposit"
-            value={deposit}
-            onChange={(e) => setDeposit(e.target.value)}
-            className="loan-inputs"
-          />
-        </div>
+          <div className="loan-field">
+            <div className="loan-label-row">
+              <label>Loan Term (Years)</label>
 
-        <div className="loan-field">
-          <div className="loan-label-row">
-            <label>Gross Monthly Income (ZAR)</label>
+              <InfoPopover
+                infoKey="loanTerm"
+                activeInfo={activeInfo}
+                toggleInfo={toggleInfo}
+                title="What is Loan Term?"
+                className="loan-info-popover-wrapper"
+                buttonClassName="loan-info-popover-btn"
+                popoverClassName="loan-info-popover-panel"
+              >
+                <p>
+                  This is the number of years you will take to repay the home loan. A longer term can lower the monthly
+                  repayment, but it usually increases the total interest paid.
+                </p>
+              </InfoPopover>
+            </div>
 
-            <InfoPopover
-              infoKey="salary"
-              activeInfo={activeInfo}
-              toggleInfo={toggleInfo}
-              title="What is Gross Monthly Income?"
-              className="loan-info-popover-wrapper"
-              buttonClassName="loan-info-popover-btn"
-              popoverClassName="loan-info-popover-panel"
-            >
-              <p>
-                Gross monthly income is your income before tax and other deductions. This calculator uses it to estimate
-                how affordable the home loan may be.
-              </p>
-            </InfoPopover>
+            <input type="text" value={`${loanYears} Years`} readOnly className="loan-inputs" />
+
+            <input
+              type="range"
+              min="10"
+              max="30"
+              step="1"
+              value={loanYears}
+              onChange={(e) => setLoanYears(Number(e.target.value))}
+              style={{
+                "--value": `${((loanYears - 10) / (30 - 10)) * 100}%`,
+              }}
+            />
           </div>
 
-          <input
-            type="number"
-            placeholder="Enter salary"
-            value={salary}
-            onChange={(e) => setSalary(e.target.value)}
-            className="loan-inputs"
-          />
-        </div>
+          <div className="loan-field">
+            <div className="loan-label-row">
+              <label>Interest Rate %</label>
 
-        <div className="loan-field">
-          <div className="loan-label-row">
-            <label>Loan Term (Years)</label>
+              <InfoPopover
+                infoKey="interestRate"
+                activeInfo={activeInfo}
+                toggleInfo={toggleInfo}
+                title="What is Interest Rate?"
+                className="loan-info-popover-wrapper"
+                buttonClassName="loan-info-popover-btn"
+                popoverClassName="loan-info-popover-panel"
+              >
+                <p>
+                  This is the percentage charged by the lender for borrowing the money. A higher interest rate increases
+                  the monthly repayment and the total cost of the loan.
+                </p>
+              </InfoPopover>
+            </div>
 
-            <InfoPopover
-              infoKey="loanTerm"
-              activeInfo={activeInfo}
-              toggleInfo={toggleInfo}
-              title="What is Loan Term?"
-              className="loan-info-popover-wrapper"
-              buttonClassName="loan-info-popover-btn"
-              popoverClassName="loan-info-popover-panel"
-            >
-              <p>
-                This is the number of years you will take to repay the home loan. A longer term can lower the monthly
-                repayment, but it usually increases the total interest paid.
-              </p>
-            </InfoPopover>
+            <input
+              type="number"
+              min="1"
+              max="100"
+              step="0.01"
+              placeholder="11.75"
+              value={interestRate}
+              onChange={(e) => setInterestRate(e.target.value)}
+              className="loan-inputs"
+            />
           </div>
 
-          <input type="text" value={`${loanYears} Years`} readOnly className="loan-inputs" />
-
-          <input
-            type="range"
-            min="10"
-            max="30"
-            step="1"
-            value={loanYears}
-            onChange={(e) => setLoanYears(Number(e.target.value))}
-            style={{
-              "--value": `${((loanYears - 10) / (30 - 10)) * 100}%`,
-            }}
-          />
+          <button onClick={calculateHomeLoan} className="loan-btn">
+            Simulate <i className="fa-solid fa-flask"></i>
+          </button>
         </div>
 
-        <div className="loan-field">
-          <div className="loan-label-row">
-            <label>Interest Rate %</label>
+        <div className="results-container">
+          <h2>Total Monthly Repayment</h2>
+          <p className="result-subheading">See what your total monthly repayment amount would be on your new home</p>
+          <p>{formatCurrency(monthlyPayment)}</p>
+          <div className="result-divider"></div>
+          <div className="result-container">
+            <div className="breakdown-row">
+              <span>Loan Required</span>
+              <span>{formatCurrency(rent)}</span>
+            </div>
 
-            <InfoPopover
-              infoKey="interestRate"
-              activeInfo={activeInfo}
-              toggleInfo={toggleInfo}
-              title="What is Interest Rate?"
-              className="loan-info-popover-wrapper"
-              buttonClassName="loan-info-popover-btn"
-              popoverClassName="loan-info-popover-panel"
-            >
-              <p>
-                This is the percentage charged by the lender for borrowing the money. A higher interest rate increases
-                the monthly repayment and the total cost of the loan.
-              </p>
-            </InfoPopover>
+            <div className="breakdown-row">
+              <span>Suggested Home Budget Range</span>
+              <span>
+                {formatCurrency(budgetRange.min)} - {formatCurrency(budgetRange.max)}
+              </span>
+            </div>
+
+            <div className="loan-message">
+              <small>{affordabilityMessage}</small>
+            </div>
           </div>
-
-          <input
-            type="number"
-            min="1"
-            max="100"
-            step="0.01"
-            placeholder="11.75"
-            value={interestRate}
-            onChange={(e) => setInterestRate(e.target.value)}
-            className="loan-inputs"
-          />
         </div>
-
-        <button onClick={calculateHomeLoan} className="loan-btn">
-          Simulate <i className="fa-solid fa-flask"></i>
-        </button>
 
         {monthlyPayment && (
           <div className="loan-results">
@@ -243,8 +270,71 @@ function HomeLoan() {
           </div>
         )}
       </div>
+
+      <div className="disclaimer-container">
+        <p className="disclaimer-text">
+          Disclaimer: We provide this calculator for convenience to you to provide results based on your input and
+          assumptions and it should not be used for any other purpose. We give no warranty, express or implied, as to
+          the accuracy, reliability and completeness of any information, formulae or calculations provided through its
+          use. We do not accept any liability for loss or damage of any nature, including indirect or consequential
+          loss, which may be attributable to the reliance on and use of the calculators. Please contact us for
+          verification on any of the information provided.
+        </p>
+      </div>
     </section>
   );
 }
 
 export default HomeLoan;
+
+/*
+
+<div className="results-container">
+          <h2>Total Monthly Repayment</h2>
+          <div className="expense-breakdown">
+            <div className="breakdown-row">
+              <span>Rent</span>
+              <span>{formatCurrency(rent)}</span>
+            </div>
+
+            <div className="breakdown-row">
+              <span>Retirement</span>
+              <span>{formatCurrency(retirement)}</span>
+            </div>
+
+            <div className="breakdown-row">
+              <span>Vehicle</span>
+              <span>{formatCurrency(vehicle)}</span>
+            </div>
+
+            <div className="breakdown-divider"></div>
+
+            <div className="breakdown-row">
+              <span>PAYE Estimated</span>
+              <span>{formatCurrency(incomeBreakdown.monthlyPAYE)}</span>
+            </div>
+
+            <div className="breakdown-row">
+              <span>UIF Estimated</span>
+              <span>{formatCurrency(incomeBreakdown.monthlyUIF)}</span>
+            </div>
+
+            <div className="breakdown-divider"></div>
+
+            <div className="breakdown-row breakdown-strong">
+              <span>Total Expenses</span>
+              <span id="total-expenses">
+                {formatCurrency(totalExpenses)} ({expensesPercentage.toFixed(0)}%)
+              </span>
+            </div>
+
+            <div className="breakdown-row breakdown-strong">
+              <span>Remaining After Expenses</span>
+              <span id="remaining-cash">
+                {formatCurrency(remainingCash)} ({remainingPercentage.toFixed(0)}%)
+              </span>
+            </div>
+          </div>
+        </div>
+
+*/

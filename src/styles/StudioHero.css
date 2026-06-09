@@ -1,0 +1,78 @@
+.studio-hero {
+  width: 100%;
+  background-image: url(../assets/images/ShinyOverlay.svg);
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  min-height: 30rem;
+  text-align: center;
+  padding: 8rem 2rem 5rem;
+  color: white;
+}
+
+.studio-hero h1 {
+  margin: 2rem;
+  font-size: 3rem;
+  font-weight: 800;
+  letter-spacing: -0.8px;
+}
+
+.studio-hero p {
+  color: white;
+  font-size: 1.4rem;
+  font-family: var(--numbers-font);
+  font-weight: 400;
+  letter-spacing: -0.8px;
+}
+
+@media screen and (min-width: 450px) {
+  .studio-hero{
+
+  }
+
+  .studio-hero h1{
+    font-size: 3.4rem;
+
+  }
+
+  .studio-hero p{
+    font-size: 1.6rem;
+
+  }
+
+}
+
+
+@media screen and (min-width: 600px) {
+  .studio-hero{
+
+  }
+
+  .studio-hero h1{
+    font-size: 3.4rem;
+
+  }
+
+  .studio-hero p{
+    font-size: 1.6rem;
+
+  }
+
+}
+
+@media screen and (min-width: 768px) {
+  .studio-hero{
+
+  }
+
+  .studio-hero h1{
+    font-size: 3.8rem;
+
+  }
+
+  .studio-hero p{
+    font-size: 1.7rem;
+
+  }
+
+}
