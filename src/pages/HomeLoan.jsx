@@ -8,7 +8,6 @@ import StudioHero from "../components/StudioHero";
 import TrackAccordionSection from "../components/TrackAccordionSection";
 import {useFinancials} from "../context/FinancialContext";
 
-
 function getPropertyFee(price) {
   if (price <= 100000) return 50.0;
   if (price <= 200000) return 114.0;
@@ -229,13 +228,13 @@ function HomeLoan() {
             <input type="text" value={`${loanYears} Years`} readOnly className="loan-inputs" />
             <input
               type="range"
-              min="10"
+              min="1"
               max="30"
               step="1"
               value={loanYears}
               onChange={(e) => setLoanYears(Number(e.target.value))}
               style={{
-                "--value": `${((loanYears - 10) / (30 - 10)) * 100}%`,
+                "--value": `${((loanYears - 1) / (30 - 1)) * 100}%`,
               }}
             />
           </div>

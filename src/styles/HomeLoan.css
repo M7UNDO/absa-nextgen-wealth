@@ -63,7 +63,7 @@
 .loan-inputs:focus::placeholder,
 .home-loan-container input[type="text"]:focus::placeholder,
 .home-loan-container input[type="number"]:focus::placeholder {
-  color: transparent; /* hides placeholder on focus */
+  color: transparent;
 }
 
 input[type="number"]::-webkit-inner-spin-button,
