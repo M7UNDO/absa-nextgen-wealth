@@ -305,15 +305,15 @@ function HomeLoan() {
             </div>
 
             <div className="breakdown-row">
-              <span>Total Interest Added</span>
-              <span style={{color: "var(--primary-colour)"}}>{formatCurrency(totalInterest)}</span>
+              <span>Total Interest</span>
+              <span>{formatCurrency(totalInterest)}</span>
             </div>
 
             <div className="result-divider" style={{margin: "1.5rem auto"}}></div>
             <h3 style={{fontSize: "1.8rem", marginBottom: "1rem"}}>Estimated Deeds Office Fees</h3>
 
             <div className="breakdown-row">
-              <span>Property Purchase Fee</span>
+              <span>Deeds Office Fee</span>
               <span>{formatCurrency(propertyFee)}</span>
             </div>
 
@@ -323,7 +323,7 @@ function HomeLoan() {
             </div>
 
             <div className="result-divider" style={{margin: "1.5rem auto"}}></div>
-            <h3 style={{fontSize: "1.8rem", marginBottom: "1rem"}}>Your Affordability Range</h3>
+            <h3 style={{fontSize: "1.8rem", marginBottom: "1rem"}}>Affordability Range</h3>
 
             <div className="breakdown-row">
               <span>Qualifying Loan Amount Range</span>
