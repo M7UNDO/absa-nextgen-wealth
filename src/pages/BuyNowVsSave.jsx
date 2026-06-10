@@ -17,9 +17,6 @@ function BuyNowVsSave() {
   const [saveMonths, setSaveMonths] = useState(6);
 
   const [hasCalculated, setHasCalculated] = useState(false);
-  const [bnplMonthly, setBnplMonthly] = useState(0);
-  const [bnplTotal, setBnplTotal] = useState(0);
-  const [saveMonthly, setSaveMonthly] = useState(0);
 
   const { activeInfo, toggleInfo } = useInfoToggle();
   const { financials } = useFinancials();
@@ -44,19 +41,18 @@ function BuyNowVsSave() {
   const handleCalculate = (e) => {
     e.preventDefault();
     const itemPrice = Number(price);
-    const interestRate = Number(bnplInterest);
-
     if (!itemPrice || itemPrice <= 0) return;
-
-    const totalCalculatedBnpl = itemPrice + itemPrice * (interestRate / 100);
-    setBnplTotal(totalCalculatedBnpl);
-    setBnplMonthly(totalCalculatedBnpl / bnplMonths);
-    setSaveMonthly(itemPrice / saveMonths);
     setHasCalculated(true);
   };
 
   const itemPrice = Number(price) || 0;
-  const interestPenalty = Math.max(0, bnplTotal - itemPrice);
+  const interestRate = Number(bnplInterest) || 0;
+
+  const bnplTotal = Number((itemPrice + itemPrice * (interestRate / 100)).toFixed(2));
+  const bnplMonthly = Number((bnplTotal / bnplMonths).toFixed(2));
+  const saveMonthly = Number((itemPrice / saveMonths).toFixed(2));
+  const interestPenalty = Number(Math.max(0, bnplTotal - itemPrice).toFixed(2));
+  
   const targetProductLabel = itemName.trim() || "this item";
 
   let statusClass = "narrative-safe";
@@ -163,7 +159,7 @@ function BuyNowVsSave() {
                 </InfoPopover>
               </div>
               <input
-                type="number"
+                type="numeric"
                 className="bnpl-inputs"
                 placeholder="Enter item cost value"
                 value={price}
@@ -197,7 +193,7 @@ function BuyNowVsSave() {
                 <label>Financing Interest Rate (%)</label>
               </div>
               <input
-                type="number"
+                type="numeric"
                 className="bnpl-inputs"
                 min="0"
                 max="100"
@@ -325,7 +321,7 @@ function BuyNowVsSave() {
                     <span>Core Value ({formatCurrency(itemPrice)})</span>
                   </div>
                   {interestPenalty > 0 && (
-                    <div className="legend-item">
+                    <div className="legend-item:">
                       <span className="legend-dot interest-dot"></span>
                       <span>Interest Waste ({formatCurrency(interestPenalty)})</span>
                     </div>

@@ -317,14 +317,6 @@
   position: relative;
 }
 
-.bnpl-summary-tile.border-bnpl {
-  border: 1px solid #ff4d4f;
-}
-
-.bnpl-summary-tile.border-save {
-  border: 1px solid #1890ff;
-}
-
 .tile-strategy-tag {
   align-self: flex-start;
   font-size: 1.1rem;

@@ -59,10 +59,13 @@ function HomeLoan() {
   const [affordabilityMessage, setAffordabilityMessage] = useState("");
   const [hasSimulated, setHasSimulated] = useState(false);
   const [narrativeClass, setNarrativeClass] = useState("");
+  const [error, setError] = useState("");
 
   const {activeInfo, toggleInfo} = useInfoToggle();
 
   const calculateHomeLoan = useCallback(() => {
+    setError(""); // Clear previous errors
+
     const homePrice = Number(purchasePrice);
     const depositAmount = Number(deposit) || 0;
     const annualRate = Number(interestRate);
@@ -70,7 +73,20 @@ function HomeLoan() {
 
     const grossIncome = financials?.grossIncome ? Number(financials.grossIncome) : 0;
 
-    if (!homePrice || homePrice <= 0 || !annualRate || annualRate <= 0 || depositAmount >= homePrice) {
+    // Validation Logic
+    let validationError = "";
+    if (!purchasePrice || homePrice <= 0) {
+      validationError = "Please enter a valid Property Purchase Price greater than 0.";
+    } else if (depositAmount < 0) {
+      validationError = "Deposit Amount cannot be negative.";
+    } else if (depositAmount >= homePrice) {
+      validationError = "Deposit Amount cannot be equal to or greater than the Purchase Price.";
+    } else if (!interestRate || annualRate <= 0) {
+      validationError = "Please enter a valid Interest Rate greater than 0%.";
+    }
+
+    if (validationError) {
+      setError(validationError);
       setMonthlyPayment(0);
       setTotalRepayment(0);
       setTotalInterest(0);
@@ -172,7 +188,7 @@ function HomeLoan() {
               </InfoPopover>
             </div>
             <input
-              type="number"
+              type="numeric"
               placeholder="e.g. 1500000"
               value={purchasePrice}
               onChange={(e) => setPurchasePrice(e.target.value)}
@@ -199,7 +215,7 @@ function HomeLoan() {
               </InfoPopover>
             </div>
             <input
-              type="number"
+              type="numeric"
               placeholder="e.g. 20000"
               value={deposit}
               onChange={(e) => setDeposit(e.target.value)}
@@ -258,7 +274,7 @@ function HomeLoan() {
               </InfoPopover>
             </div>
             <input
-              type="number"
+              type="numeric"
               min="1"
               max="30"
               step="0.01"
@@ -280,11 +296,15 @@ function HomeLoan() {
             />
           </div>
 
-          {!hasSimulated && (
-            <button onClick={handleSimulate} className="loan-btn">
-              Run Simulation <i className="fa-solid fa-flask"></i>
-            </button>
+          {error && (
+            <div className="loan-error-alert" style={{ color: "#d9534f", backgroundColor: "#fdf7f7", border: "1px solid #d9534f", padding: "10px", borderRadius: "4px", marginBottom: "1rem", fontSize: "1.4rem" }}>
+              <strong>Error:</strong> {error}
+            </div>
           )}
+
+          <button onClick={handleSimulate} className="loan-btn">
+            {hasSimulated ? "Recalculate Simulation" : "Run Simulation"} <i className="fa-solid fa-flask"></i>
+          </button>
         </div>
 
         <div className="results-container">
@@ -332,7 +352,7 @@ function HomeLoan() {
               </span>
             </div>
 
-            {hasSimulated && (
+            {hasSimulated && !error && (
               <div className={`loan-message ${narrativeClass}`}>
                 <span>{affordabilityMessage}</span>
               </div>

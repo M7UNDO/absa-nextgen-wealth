@@ -289,7 +289,7 @@ function VehicleFinance() {
               <label>Vehicle Purchase Price (ZAR)</label>
             </div>
             <input
-              type="number"
+              type="numeric"
               placeholder="e.g. 350000"
               value={purchasePrice}
               onChange={(e) => setPurchasePrice(e.target.value)}
@@ -302,7 +302,7 @@ function VehicleFinance() {
               <label>Deposit Amount (ZAR)</label>
             </div>
             <input
-              type="number"
+              type="numeric"
               placeholder="e.g. 35000"
               value={deposit}
               onChange={(e) => setDeposit(e.target.value)}
@@ -360,7 +360,7 @@ function VehicleFinance() {
               </InfoPopover>
             </div>
             <input
-              type="number"
+              type="numeric"
               min="1"
               max="100"
               step="0.1"
@@ -421,7 +421,6 @@ function VehicleFinance() {
           )}
         </div>
 
-        {/* RIGHT COLUMN: Results */}
         <div className="vehicle-results-column" ref={resultRef}>
           <h2>Monthly Repayment</h2>
           <p className="vehicle-result-subheading">
@@ -438,7 +437,6 @@ function VehicleFinance() {
 
           <div className="vehicle-result-content" style={{ width: "100%", marginTop: "2rem" }}>
             
-            {/* Financial Profile Context Message */}
             {hasSimulated && displayData.netIncome > 0 && displayData.affordability ? (
               <div className={`vehicle-message ${displayData.affordability.narrativeClass}`}>
                 <div className="vehicle-message-header">
@@ -464,7 +462,6 @@ function VehicleFinance() {
               </div>
             ) : null}
 
-            {/* Vehicle Result Grid Tiles */}
             <div className="vehicle-result-grid">
               <div className="vehicle-tile">
                 <span className="vehicle-tile-label">Vehicle Type</span>
@@ -503,20 +500,17 @@ function VehicleFinance() {
                 </span>
               </div>
               
-              {/* Full Width Tile */}
               <div className="vehicle-tile vehicle-tile-full">
                 <span className="vehicle-tile-label">Total Repayable</span>
                 <span className="vehicle-tile-value">{renderCurrency(displayData.totalRepayable)}</span>
               </div>
             </div>
 
-            {/* Narrative Insight */}
             <div className="vehicle-insight-card">
               <h3>What this means</h3>
               <p>{displayData.narrative}</p>
             </div>
 
-            {/* Educational Accordion */}
             <div className="vehicle-educational-section">
               <TrackAccordionSection title="Finance Trade-Offs & Knowledge" items={educationItems} />
             </div>
