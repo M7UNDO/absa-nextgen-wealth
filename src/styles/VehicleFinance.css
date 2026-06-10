@@ -34,6 +34,7 @@
   height: fit-content;
   background: var(--background-colour-light);
   border: 1px solid var(--light-border);
+  margin-top: 5rem;
 }
 
 .vehicle-field {
@@ -409,11 +410,12 @@
     flex-direction: row;
     align-items: flex-start;
     padding: 4rem 6rem;
-    gap: 4rem;
+    gap: 8rem;
   }
 
   .vehicle-inputs-column {
     flex: 1;
+    margin-top: 0;
   }
 
   .vehicle-results-column {
@@ -428,7 +430,7 @@
     grid-template-columns: repeat(2, 1fr);
   }
   .vehicle-btn {
+    align-self: center;
     width: fit-content;
-    align-self: flex-start;
   }
 }
