@@ -108,7 +108,7 @@ function FirstPropertyPath() {
       targetedAdditions.push(`Restructuring your ${formatCurrency(vehicle)} monthly vehicle layout to recover debt capacity`);
     }
     if (grossIncome > 0 && rent > grossIncome * 0.3) {
-      targetedAdditions.push(`Addressing your current housing premium (${Math.round((rent / grossIncome) * 100)}% of gross income) to maximize free cash`);
+      targetedAdditions.push(`Addressing your current housing premium (${Math.round((rent / grossIncome) * 100)}% of gross income) to maximise free cash`);
     }
 
     return [...targetedAdditions, ...basePriorities];

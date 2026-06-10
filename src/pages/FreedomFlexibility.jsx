@@ -108,7 +108,7 @@ function FreedomFlexibilityPath() {
     const targetedAdditions = [];
 
     if (vehicle > 0) {
-      targetedAdditions.push(`Minimizing your ${formatCurrency(vehicle)} monthly vehicle exposure to maximize choice isolation`);
+      targetedAdditions.push(`Minimising your ${formatCurrency(vehicle)} monthly vehicle exposure to maximise choice isolation`);
     }
 
     if (grossIncome > 0 && remaining < grossIncome * 0.2) {

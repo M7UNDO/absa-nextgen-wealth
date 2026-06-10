@@ -1,4 +1,4 @@
-import React, {useEffect, useMemo, useState} from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import Hero from "../components/Hero";
 
 import TrackHeroActions from "../components/TrackHeroActions";
@@ -11,23 +11,19 @@ import TrackAccordionSection from "../components/TrackAccordionSection";
 import ConfettiOverlay from "../components/ConfettiOverlay";
 
 import legacyImpactPathData from "../data/legacyImpactPathData";
+import { useFinancials } from "../context/FinancialContext"; 
 import "../styles/TrackDetail.css";
 
 function LegacyImpactPath() {
-  const [financials, setFinancials] = useState(null);
+  const { financials } = useFinancials();
   const [activeTrack, setActiveTrack] = useState(null);
   const [celebrationMessage, setCelebrationMessage] = useState("");
   const [progress, setProgress] = useState(legacyImpactPathData.defaultProgress);
   const [showConfetti, setShowConfetti] = useState(false);
 
   useEffect(() => {
-    const storedFinancials = localStorage.getItem("financials");
     const storedProgress = localStorage.getItem(legacyImpactPathData.progressStorageKey);
     const storedTrack = localStorage.getItem("activeStrategyTrack");
-
-    if (storedFinancials) {
-      setFinancials(JSON.parse(storedFinancials));
-    }
 
     if (storedProgress) {
       setProgress(JSON.parse(storedProgress));
@@ -96,15 +92,43 @@ function LegacyImpactPath() {
     }
   }, [completionPercentage]);
 
+  const personalizedPriorities = useMemo(() => {
+    const basePriorities = [...legacyImpactPathData.priorities.items];
+    if (!financials) return basePriorities;
+
+    const grossIncome = Number(financials.grossIncome) || 0;
+    const rent = Number(financials.rent) || 0;
+    const vehicle = Number(financials.vehicle) || 0;
+    const retirement = Number(financials.retirement) || 0;
+
+    const fixedCosts = rent + vehicle + retirement;
+    const remaining = grossIncome - fixedCosts;
+    const targetedAdditions = [];
+
+    if (retirement === 0) {
+      targetedAdditions.push("Initiating compounding wealth structures to stabilise your future retirement baseline");
+    }
+
+    if (vehicle > 5000) {
+      targetedAdditions.push("Optimising current vehicle cash layouts to protect legacy building capacity");
+    }
+
+    if (grossIncome > 0 && remaining < grossIncome * 0.2) {
+      targetedAdditions.push("Addressing restricted cash flow allocations to preserve structural long-term safety nets");
+    }
+
+    return [...targetedAdditions, ...basePriorities];
+  }, [financials]);
+
   const tips = useMemo(() => {
     if (!financials) {
       return [legacyImpactPathData.messages.defaultTip];
     }
 
-    const grossIncome = financials.grossIncome || 0;
-    const rent = financials.rent || 0;
-    const vehicle = financials.vehicle || 0;
-    const retirement = financials.retirement || 0;
+    const grossIncome = Number(financials.grossIncome) || 0;
+    const rent = Number(financials.rent) || 0;
+    const vehicle = Number(financials.vehicle) || 0;
+    const retirement = Number(financials.retirement) || 0;
 
     const fixedCosts = rent + vehicle + retirement;
     const remaining = grossIncome - fixedCosts;
@@ -119,11 +143,11 @@ function LegacyImpactPath() {
 
     if (vehicle > 5000) {
       dynamicTips.push(
-        "High vehicle finance can slow down long-term legacy goals. Protecting cash flow matters when building for more than just yourself.",
+        `High vehicle finance can slow down long-term legacy goals. Protecting your cash flow matters when building for more than just yourself.`,
       );
     }
 
-    if (remaining < grossIncome * 0.2) {
+    if (grossIncome > 0 && remaining < grossIncome * 0.2) {
       dynamicTips.push(
         "Your current free cash flow looks tight. This path works best when you have enough room for protection, investing, and future-focused planning.",
       );
@@ -174,8 +198,8 @@ function LegacyImpactPath() {
             <section className="path-section">
               <h2>{legacyImpactPathData.priorities.title}</h2>
               <ul className="priorities-list">
-                {legacyImpactPathData.priorities.items.map((item) => (
-                  <li key={item}>{item}</li>
+                {personalizedPriorities.map((item, index) => (
+                  <li key={index}>{item}</li>
                 ))}
               </ul>
             </section>
