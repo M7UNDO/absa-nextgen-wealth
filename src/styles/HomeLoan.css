@@ -12,9 +12,9 @@
 
 .home-loan-container {
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   align-items: flex-start;
-  gap: 2rem;
+  gap: 8rem;
   width: 100%;
   padding: 3rem 5rem;
 }
@@ -25,6 +25,7 @@
 }
 
 .inputs-container {
+  width: 100%;
   display: flex;
   flex-direction: column;
   gap: 2rem;
@@ -241,28 +242,100 @@ input[type="number"] {
   align-items: center;
 }
 
-.results-container h2{
+.results-container h2 {
   font-size: 3rem;
+  font-weight: 700;
   margin-bottom: 1rem;
   margin-top: 1rem;
 }
 
-.result-subheading{
+.result-subheading {
   font-size: 1.4rem;
 }
 
-.repayment-amount{
+.repayment-amount {
   font-size: 4rem;
   margin: 1rem 0;
 }
 
-.result-divider{
-  width: 80%;
-  height: 0.1rem;
+.result-divider {
+  width: 100%;
+  height: 1px;
   background: rgba(0, 0, 0, 0.17);
   margin: 0.5rem 0;
 }
 
+[data-theme="dark"] .result-divider {
+  background: rgba(206, 206, 206, 0.17);
+}
+
+.loan-message {
+  font-size: 1.4rem;
+  color: var(--typography-colour);
+  width: 100%;
+  padding: 1.5rem;
+  border-radius: 0;
+  margin-top: 1.5rem;
+  border-left: 0.5rem solid rgba(128, 128, 128, 0.4);
+  background-color: var(--background-colour-light);
+  transition: all 200ms ease;
+}
+
+.loan-message.narrative-safe {
+  border-left-color: #2e7d32;
+  background-color: rgba(46, 125, 50, 0.08);
+}
+
+.loan-message.narrative-warning {
+  border-left-color: #f57c00;
+  background-color: rgba(245, 124, 0, 0.08);
+}
+
+.loan-message.narrative-danger {
+  border-left-color: #d32f2f; /* Deep Crimson */
+  background-color: rgba(211, 47, 47, 0.08);
+}
+
+.result-container .breakdown-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  padding: 1rem 0;
+  font-size: 1.6rem;
+  color: var(--typography-colour);
+}
+
+.result-container .breakdown-row span:last-child {
+  font-size: 1.8rem;
+  font-weight: 500;
+}
+
+.result-container {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.result-container .path-section {
+  margin-top: 4rem;
+}
+
+.result-container .path-section h2 {
+  font-family: var(--numbers-font);
+  font-size: 2.4rem;
+  font-weight: 500;
+  color: var(--primary-colour);
+  text-align: left;
+  padding: 0rem;
+  margin-top: 1rem;
+  margin-bottom: 2rem;
+}
+
+.result-container h3 {
+  font-family: var(--numbers-font);
+  font-weight: 700;
+}
 @media screen and (min-width: 600px) {
   .home-loan-page h1 {
     font-size: 3.8rem;
@@ -280,10 +353,22 @@ input[type="number"] {
   }
 }
 
+@media screen and (min-width: 992px) {
+  .home-loan-container {
+    flex-direction: row;
+    gap: 4rem;
+  }
+
+  .result-container .path-section {
+    margin-top: 6rem;
+  }
+}
+
 @media screen and (min-width: 1024px) {
-  /*.home-loan-page {
-    padding-top: 12rem;
-  }*/
+  .home-loan-container {
+    flex-direction: row;
+    gap: 8rem;
+  }
 
   .home-loan-container {
     padding: 3rem 8rem;

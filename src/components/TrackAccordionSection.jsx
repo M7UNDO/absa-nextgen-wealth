@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import "../styles/TrackAccordion.css";
 
 function TrackAccordionSection({ title = "Did you know?", items }) {
-  const [openAccordion, setOpenAccordion] = useState(0);
+  const [openAccordion, setOpenAccordion] = useState();
 
   return (
     <section className="path-section">

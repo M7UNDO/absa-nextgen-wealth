@@ -42,7 +42,7 @@
 
 .chart-percentage-label {
   font-family: var(--primary-font);
-  font-size: 1.3rem;
+  font-size: 1.6rem;
   font-weight: 600;
 }
 
@@ -184,7 +184,7 @@
   }
 
   .chart-percentage-label {
-    font-size: 1.4rem;
+    font-size: 1.8rem;
   }
 
   .chart-centre-label-title {

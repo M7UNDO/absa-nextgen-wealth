@@ -100,8 +100,8 @@ function ExpensesChart() {
               data={chartData}
               dataKey="value"
               nameKey="name"
-              innerRadius={78}
-              outerRadius={110}
+              innerRadius={110}
+              outerRadius={150}
               paddingAngle={2}
               cornerRadius={8}
               stroke="none"
@@ -119,11 +119,11 @@ function ExpensesChart() {
               formatter={(value, name) => [formatCurrency(value), name]}
               contentStyle={{
                 borderRadius: "1rem",
-                background: "var(--background-colour)",
-                border: "0.1rem solid var(--light-border)",
+                background: "rgb(255, 255, 255)",
+                border: "0.5px solid rgba(0, 0, 0, 0.2)",
                 boxShadow: "0 1rem 3rem rgba(0, 0, 0, 0.08)",
                 fontSize: "1.3rem",
-                fontWeight: "700",
+                fontWeight: "500",
                 fontFamily: "var(--numbers-font)"
               }}
             />

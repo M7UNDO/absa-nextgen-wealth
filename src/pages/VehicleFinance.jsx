@@ -204,7 +204,6 @@ function VehicleFinance() {
       title="Vehicle Finance Calculator"
       subheading=""
       />
-      <h1>Vehicle Finance Calculator</h1>
 
       <div className="vehicle-inputs-container">
         <div className="vehicle-field">

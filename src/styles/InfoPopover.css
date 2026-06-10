@@ -3,7 +3,7 @@
   display: flex;
   align-items: center;
   flex-shrink: 0;
-   text-align: left;
+  text-align: left;
 }
 
 .info-popover-btn {
@@ -30,7 +30,7 @@
   background: rgba(0, 0, 0, 0.08);
 }
 
-.info-popover-btn .help-circle{
+.info-popover-btn .help-circle {
   font-size: 1.8rem;
 }
 
@@ -50,23 +50,13 @@
   width: min(32rem, 80vw);
   padding: 1.4rem 1.5rem;
   border-radius: 1.2rem;
-  background: var(--background-colour-light);
+  background: rgb(245, 245, 245);
   border: 1px solid rgba(0, 0, 0, 0.2);
-  color: var(--typography-colour);
+  color: #232323;
   box-shadow:
     0 1rem 3rem rgba(0, 0, 0, 0.14),
     0 0.2rem 1rem rgba(0, 0, 0, 0.08);
   z-index: 30;
-}
-
-[data-theme="dark"] .info-popover-panel{
-  border: 1px solid rgba(255, 255, 255, 0.2);
-}
-
-.info-popover-panel-dark {
-  background: #2d3142;
-  color: white;
-  border: 0.1rem solid rgba(255, 255, 255, 0.08);
 }
 
 .info-popover-panel h5 {
@@ -82,12 +72,11 @@
   font-family: var(--primary-font);
   font-size: 1.3rem;
   font-weight: 700;
-   text-align: left;
+  text-align: left;
 }
 
 .info-popover-panel .info-popover-body p {
   font-family: var(--primary-font);
-  color: var(--typography-colour);
   font-size: 1.3rem;
   line-height: 1.55;
   text-align: left;

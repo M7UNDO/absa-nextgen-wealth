@@ -5,18 +5,9 @@
   gap: 3rem;
 
   min-height: 100vh;
-  padding: 10rem 2rem 5rem 2rem;
 
   background-color: var(--background-colour);
   color: var(--typography-colour);
-}
-
-.vehicle-finance-page h1 {
-  font-family: var(--secondary-font);
-  font-weight: 400;
-  font-size: 3rem;
-  color: var(--primary-colour);
-  text-align: center;
 }
 
 .vehicle-inputs-container {
@@ -166,8 +157,6 @@
   width: min(30rem, 80vw);
 }
 
-/* Error Message */
-
 .vehicle-error {
   font-family: var(--primary-font);
   font-size: 1.4rem;
@@ -181,8 +170,6 @@
   padding: 1rem 1.2rem;
   border-radius: 1rem;
 }
-
-/* Results Section */
 
 .vehicle-results {
   display: flex;
@@ -285,10 +272,10 @@
   color: var(--typography-colour);
 }
 
-.result-container{
+/*.result-container{
   padding: 2rem 8rem;
 }
-
+*/
 .vehicle-result-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr));
@@ -374,12 +361,7 @@
   }
 }
 
-/* Tablet */
-
 @media screen and (min-width: 600px) {
-  .vehicle-finance-page h1 {
-    font-size: 3.8rem;
-  }
 
   .vehicle-inputs-container {
     max-width: 50rem;
@@ -390,12 +372,7 @@
   }
 }
 
-/* Desktop */
-
 @media screen and (min-width: 1024px) {
-  .vehicle-finance-page {
-    padding-top: 10rem;
-  }
 
   .vehicle-inputs-container {
     max-width: 55rem;

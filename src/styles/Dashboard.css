@@ -36,26 +36,21 @@
   display: flex;
   align-items: center;
   gap: 1rem;
-  background-color: #ffb1ba81;
-  color: var(--primary-colour);
+  background-color: var(--typography-colour);
+  color: var(--background-colour);
   font-family: var(--secondary-font);
   outline: none;
-  border: none;
+  border:none;
   border-radius: 0.5rem;
-
-  padding: 0.5rem 2rem;
-  transition: all 0.3s ease;
+  padding: 1rem 2rem;
+  transition: all 0.2s ease;
 }
 
 .edit-btn:hover {
   transform: translateY(-2px);
-  background-color: var(--background-colour-light);
 }
 
 @media screen and (min-width: 992px) {
-  .edit-btn {
-    background: none;
-  }
   .dashboard-grid {
     display: flex;
     flex-direction: row;
