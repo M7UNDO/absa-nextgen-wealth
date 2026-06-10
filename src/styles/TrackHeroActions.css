@@ -85,7 +85,7 @@
 
 .first-property-page .btn-container,
 .freedom-path-page .btn-container,
-.legacy-path-page .btn-container .btn-container {
+.legacy-path-page .btn-container{
   width: 100%;
   display: flex;
   align-items: center;

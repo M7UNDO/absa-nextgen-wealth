@@ -100,8 +100,8 @@ function ExpensesChart() {
               data={chartData}
               dataKey="value"
               nameKey="name"
-              innerRadius={110}
-              outerRadius={150}
+              innerRadius={100}
+              outerRadius={140}
               paddingAngle={2}
               cornerRadius={8}
               stroke="none"
