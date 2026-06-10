@@ -1,3 +1,9 @@
+.freedom-path-page .hero-section,
+.first-property-page .hero-section,
+.legacy-path-page .hero-section {
+  background-color: #000000;
+}
+
 .first-property-content,
 .freedom-path-content,
 .legacy-path-content {
@@ -141,7 +147,8 @@
 
 @media screen and (min-width: 1024px) {
   .first-property-content,
-  .freedom-path-content,.legacy-path-content {
+  .freedom-path-content,
+  .legacy-path-content {
     padding: 5rem 10%;
   }
 
