@@ -1,4 +1,4 @@
-import React, {useEffect, useMemo, useState} from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import Hero from "../components/Hero";
 
 import TrackHeroActions from "../components/TrackHeroActions";
@@ -11,23 +11,20 @@ import TrackAccordionSection from "../components/TrackAccordionSection";
 import ConfettiOverlay from "../components/ConfettiOverlay";
 
 import freedomFlexibilityPathData from "../data/freedomFlexibilityPathData";
+import { useFinancials } from "../context/FinancialContext";
+import { formatCurrency } from "../utils/formatCurrency";
 import "../styles/TrackDetail.css";
 
 function FreedomFlexibilityPath() {
-  const [financials, setFinancials] = useState(null);
+  const { financials } = useFinancials();
   const [activeTrack, setActiveTrack] = useState(null);
   const [celebrationMessage, setCelebrationMessage] = useState("");
   const [progress, setProgress] = useState(freedomFlexibilityPathData.defaultProgress);
   const [showConfetti, setShowConfetti] = useState(false);
 
   useEffect(() => {
-    const storedFinancials = localStorage.getItem("financials");
     const storedProgress = localStorage.getItem(freedomFlexibilityPathData.progressStorageKey);
     const storedTrack = localStorage.getItem("activeStrategyTrack");
-
-    if (storedFinancials) {
-      setFinancials(JSON.parse(storedFinancials));
-    }
 
     if (storedProgress) {
       setProgress(JSON.parse(storedProgress));
@@ -96,15 +93,41 @@ function FreedomFlexibilityPath() {
     }
   }, [completionPercentage]);
 
+
+  const personalizedPriorities = useMemo(() => {
+    const basePriorities = [...freedomFlexibilityPathData.priorities.items];
+    if (!financials) return basePriorities;
+
+    const grossIncome = Number(financials.grossIncome) || 0;
+    const rent = Number(financials.rent) || 0;
+    const vehicle = Number(financials.vehicle) || 0;
+    const retirement = Number(financials.retirement) || 0;
+
+    const fixedCosts = rent + vehicle + retirement;
+    const remaining = grossIncome - fixedCosts;
+    const targetedAdditions = [];
+
+    if (vehicle > 0) {
+      targetedAdditions.push(`Minimizing your ${formatCurrency(vehicle)} monthly vehicle exposure to maximize choice isolation`);
+    }
+
+    if (grossIncome > 0 && remaining < grossIncome * 0.2) {
+      const currentMarginPercent = Math.max(0, Math.round((remaining / grossIncome) * 100));
+      targetedAdditions.push(`Expanding your suppressed liquid margins (currently at ${currentMarginPercent}% of gross income)`);
+    }
+
+    return [...targetedAdditions, ...basePriorities];
+  }, [financials]);
+
   const tips = useMemo(() => {
     if (!financials) {
       return [freedomFlexibilityPathData.messages.defaultTip];
     }
 
-    const grossIncome = financials.grossIncome || 0;
-    const rent = financials.rent || 0;
-    const vehicle = financials.vehicle || 0;
-    const retirement = financials.retirement || 0;
+    const grossIncome = Number(financials.grossIncome) || 0;
+    const rent = Number(financials.rent) || 0;
+    const vehicle = Number(financials.vehicle) || 0;
+    const retirement = Number(financials.retirement) || 0;
 
     const fixedCosts = rent + vehicle + retirement;
     const remaining = grossIncome - fixedCosts;
@@ -113,17 +136,17 @@ function FreedomFlexibilityPath() {
 
     if (vehicle > 0) {
       dynamicTips.push(
-        "Vehicle finance reduces flexibility. Lower debt means more freedom to pivot, travel, or take opportunities.",
+        `Vehicle finance reduces flexibility. Lowering your current ${formatCurrency(vehicle)} debt footprint means more freedom to pivot, travel, or take opportunities.`,
       );
     }
 
-    if (remaining < grossIncome * 0.2) {
+    if (grossIncome > 0 && remaining < grossIncome * 0.2) {
       dynamicTips.push(
         "Your free cash flow looks tight for a flexibility-first strategy. Creating more breathing room would strengthen this path.",
       );
     }
 
-    if (remaining > grossIncome * 0.25) {
+    if (grossIncome > 0 && remaining > grossIncome * 0.25) {
       dynamicTips.push("You appear to have room to automate a Freedom Fund and build liquid savings faster.");
     }
 
@@ -172,8 +195,8 @@ function FreedomFlexibilityPath() {
             <section className="path-section">
               <h2>{freedomFlexibilityPathData.priorities.title}</h2>
               <ul className="priorities-list">
-                {freedomFlexibilityPathData.priorities.items.map((item) => (
-                  <li key={item}>{item}</li>
+                {personalizedPriorities.map((item, index) => (
+                  <li key={index}>{item}</li>
                 ))}
               </ul>
             </section>

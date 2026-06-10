@@ -12,12 +12,12 @@ import TrackAccordionSection from "../components/TrackAccordionSection";
 import ConfettiOverlay from "../components/ConfettiOverlay";
 
 import firstPropertyPathData from "../data/firstPropertyPathData";
-import { useFinancials } from "../context/FinancialContext"; // Integrated global context
+import { useFinancials } from "../context/FinancialContext";
 import { formatCurrency } from "../utils/formatCurrency";
 import "../styles/TrackDetail.css";
 
 function FirstPropertyPath() {
-  const { financials } = useFinancials(); // Swapped local state for global context hook
+  const { financials } = useFinancials(); 
   const [activeTrack, setActiveTrack] = useState(null);
   const [celebrationMessage, setCelebrationMessage] = useState("");
   const [progress, setProgress] = useState(firstPropertyPathData.defaultProgress);
