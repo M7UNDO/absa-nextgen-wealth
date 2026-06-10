@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useState } from "react";
+import React, {useEffect, useMemo, useState} from "react";
 import Hero from "../components/Hero";
 
 import TrackHeroActions from "../components/TrackHeroActions";
@@ -8,6 +8,7 @@ import TrackCelebrationBanner from "../components/TrackCelebrationBanner";
 import TrackTipCard from "../components/TrackTipCard";
 import TrackSidebar from "../components/TrackSidebar";
 import TrackAccordionSection from "../components/TrackAccordionSection";
+import ConfettiOverlay from "../components/ConfettiOverlay";
 
 import freedomFlexibilityPathData from "../data/freedomFlexibilityPathData";
 import "../styles/TrackDetail.css";
@@ -16,15 +17,12 @@ function FreedomFlexibilityPath() {
   const [financials, setFinancials] = useState(null);
   const [activeTrack, setActiveTrack] = useState(null);
   const [celebrationMessage, setCelebrationMessage] = useState("");
-  const [progress, setProgress] = useState(
-    freedomFlexibilityPathData.defaultProgress
-  );
+  const [progress, setProgress] = useState(freedomFlexibilityPathData.defaultProgress);
+  const [showConfetti, setShowConfetti] = useState(false);
 
   useEffect(() => {
     const storedFinancials = localStorage.getItem("financials");
-    const storedProgress = localStorage.getItem(
-      freedomFlexibilityPathData.progressStorageKey
-    );
+    const storedProgress = localStorage.getItem(freedomFlexibilityPathData.progressStorageKey);
     const storedTrack = localStorage.getItem("activeStrategyTrack");
 
     if (storedFinancials) {
@@ -42,10 +40,7 @@ function FreedomFlexibilityPath() {
 
   function handleApplyTrack() {
     if (!activeTrack) {
-      localStorage.setItem(
-        "activeStrategyTrack",
-        freedomFlexibilityPathData.trackId
-      );
+      localStorage.setItem("activeStrategyTrack", freedomFlexibilityPathData.trackId);
       setActiveTrack(freedomFlexibilityPathData.trackId);
       setCelebrationMessage(freedomFlexibilityPathData.messages.applied);
       return;
@@ -73,10 +68,7 @@ function FreedomFlexibilityPath() {
     };
 
     setProgress(updatedProgress);
-    localStorage.setItem(
-      freedomFlexibilityPathData.progressStorageKey,
-      JSON.stringify(updatedProgress)
-    );
+    localStorage.setItem(freedomFlexibilityPathData.progressStorageKey, JSON.stringify(updatedProgress));
 
     if (previousValue !== "done" && value === "done") {
       setCelebrationMessage(`🎉 Milestone reached: ${milestoneLabel}`);
@@ -85,14 +77,22 @@ function FreedomFlexibilityPath() {
 
   const completionPercentage = useMemo(() => {
     const progressValues = Object.values(progress);
-    const completedCount = progressValues.filter(
-      (item) => item === "done"
-    ).length;
+    const completedCount = progressValues.filter((item) => item === "done").length;
 
-    return Math.round(
-      (completedCount / progressValues.length) * 100
-    );
+    return Math.round((completedCount / progressValues.length) * 100);
   }, [progress]);
+
+  useEffect(() => {
+    if (completionPercentage === 100) {
+      setShowConfetti(true);
+
+      const timer = setTimeout(() => {
+        setShowConfetti(false);
+      }, 5000);
+
+      return () => clearTimeout(timer);
+    }
+  }, [completionPercentage]);
 
   const tips = useMemo(() => {
     if (!financials) {
@@ -111,28 +111,26 @@ function FreedomFlexibilityPath() {
 
     if (vehicle > 0) {
       dynamicTips.push(
-        "Vehicle finance reduces flexibility. Lower debt means more freedom to pivot, travel, or take opportunities."
+        "Vehicle finance reduces flexibility. Lower debt means more freedom to pivot, travel, or take opportunities.",
       );
     }
 
     if (remaining < grossIncome * 0.2) {
       dynamicTips.push(
-        "Your free cash flow looks tight for a flexibility-first strategy. Creating more breathing room would strengthen this path."
+        "Your free cash flow looks tight for a flexibility-first strategy. Creating more breathing room would strengthen this path.",
       );
     }
 
     if (remaining > grossIncome * 0.25) {
-      dynamicTips.push(
-        "You appear to have room to automate a Freedom Fund and build liquid savings faster."
-      );
+      dynamicTips.push("You appear to have room to automate a Freedom Fund and build liquid savings faster.");
     }
 
     dynamicTips.push(
-      "This path works best when your money stays accessible. Focus on liquid savings before locking money away too early."
+      "This path works best when your money stays accessible. Focus on liquid savings before locking money away too early.",
     );
 
     dynamicTips.push(
-      "Use BNPL vs Save First to check whether everyday spending decisions are reducing your future flexibility."
+      "Use BNPL vs Save First to check whether everyday spending decisions are reducing your future flexibility.",
     );
 
     return dynamicTips;
@@ -140,6 +138,7 @@ function FreedomFlexibilityPath() {
 
   return (
     <div className="freedom-path-page">
+      {showConfetti && <ConfettiOverlay />}
       <Hero
         title={freedomFlexibilityPathData.hero.title}
         subheading={freedomFlexibilityPathData.hero.subheading}
@@ -158,9 +157,7 @@ function FreedomFlexibilityPath() {
         <TrackCelebrationBanner message={celebrationMessage} />
 
         <div className="intro-card">
-          <p className="track-tag">
-            {freedomFlexibilityPathData.intro.tag}
-          </p>
+          <p className="track-tag">{freedomFlexibilityPathData.intro.tag}</p>
           <p>{freedomFlexibilityPathData.intro.description}</p>
         </div>
 
@@ -173,11 +170,9 @@ function FreedomFlexibilityPath() {
             <section className="path-section">
               <h2>{freedomFlexibilityPathData.priorities.title}</h2>
               <ul className="priorities-list">
-                {freedomFlexibilityPathData.priorities.items.map(
-                  (item) => (
-                    <li key={item}>{item}</li>
-                  )
-                )}
+                {freedomFlexibilityPathData.priorities.items.map((item) => (
+                  <li key={item}>{item}</li>
+                ))}
               </ul>
             </section>
 
@@ -196,9 +191,7 @@ function FreedomFlexibilityPath() {
 
           <TrackSidebar
             className="freedom-path-sidebar"
-            tradeOffsTitle={
-              freedomFlexibilityPathData.sidebar.tradeOffsTitle
-            }
+            tradeOffsTitle={freedomFlexibilityPathData.sidebar.tradeOffsTitle}
             tradeOffs={freedomFlexibilityPathData.sidebar.tradeOffs}
             studios={freedomFlexibilityPathData.sidebar.studios}
           />

@@ -8,6 +8,7 @@ import TrackCelebrationBanner from "../components/TrackCelebrationBanner";
 import TrackTipCard from "../components/TrackTipCard";
 import TrackSidebar from "../components/TrackSidebar";
 import TrackAccordionSection from "../components/TrackAccordionSection";
+import ConfettiOverlay from "../components/ConfettiOverlay";
 
 import legacyImpactPathData from "../data/legacyImpactPathData";
 import "../styles/TrackDetail.css";
@@ -17,6 +18,7 @@ function LegacyImpactPath() {
   const [activeTrack, setActiveTrack] = useState(null);
   const [celebrationMessage, setCelebrationMessage] = useState("");
   const [progress, setProgress] = useState(legacyImpactPathData.defaultProgress);
+  const [showConfetti, setShowConfetti] = useState(false);
 
   useEffect(() => {
     const storedFinancials = localStorage.getItem("financials");
@@ -80,6 +82,18 @@ function LegacyImpactPath() {
     return Math.round((completedCount / progressValues.length) * 100);
   }, [progress]);
 
+  useEffect(() => {
+    if (completionPercentage === 100) {
+      setShowConfetti(true);
+
+      const timer = setTimeout(() => {
+        setShowConfetti(false);
+      }, 5000);
+
+      return () => clearTimeout(timer);
+    }
+  }, [completionPercentage]);
+
   const tips = useMemo(() => {
     if (!financials) {
       return [legacyImpactPathData.messages.defaultTip];
@@ -126,6 +140,7 @@ function LegacyImpactPath() {
 
   return (
     <div className="legacy-path-page">
+      {showConfetti && <ConfettiOverlay />}
       <Hero
         title={legacyImpactPathData.hero.title}
         subheading={legacyImpactPathData.hero.subheading}

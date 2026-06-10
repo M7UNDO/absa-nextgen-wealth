@@ -9,6 +9,8 @@ import TrackTipCard from "../components/TrackTipCard";
 import TrackSidebar from "../components/TrackSidebar";
 import TrackAccordionSection from "../components/TrackAccordionSection";
 
+import ConfettiOverlay from "../components/ConfettiOverlay"; 
+
 import firstPropertyPathData from "../data/firstPropertyPathData";
 import "../styles/TrackDetail.css";
 
@@ -17,6 +19,7 @@ function FirstPropertyPath() {
   const [activeTrack, setActiveTrack] = useState(null);
   const [celebrationMessage, setCelebrationMessage] = useState("");
   const [progress, setProgress] = useState(firstPropertyPathData.defaultProgress);
+  const [showConfetti, setShowConfetti] = useState(false); 
 
   useEffect(() => {
     const storedFinancials = localStorage.getItem("financials");
@@ -83,6 +86,18 @@ function FirstPropertyPath() {
     return Math.round((completedCount / progressValues.length) * 100);
   }, [progress]);
 
+  useEffect(() => {
+    if (completionPercentage === 100) {
+      setShowConfetti(true);
+
+      const timer = setTimeout(() => {
+        setShowConfetti(false);
+      }, 5000);
+
+      return () => clearTimeout(timer);
+    }
+  }, [completionPercentage]);
+
   const tips = useMemo(() => {
     if (!financials) {
       return [firstPropertyPathData.messages.defaultTip];
@@ -129,6 +144,8 @@ function FirstPropertyPath() {
 
   return (
     <div className="first-property-page">
+      {showConfetti && <ConfettiOverlay />}
+
       <Hero
         title={firstPropertyPathData.hero.title}
         subheading={firstPropertyPathData.hero.subheading}
