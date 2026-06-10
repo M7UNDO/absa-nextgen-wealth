@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { calculateNetIncome } from "../utils/taxCalculator";
 import { formatCurrency } from "../utils/formatCurrency";
-import InfoSymbol from "../assets/icons/help-circle.svg?react";
+import InfoPopover from "./InfoPopover"; // Ensure path matches your directory structure
 import "../styles/IncomeTiles.css";
 
 function IncomeTiles({
@@ -29,33 +29,29 @@ function IncomeTiles({
 
   return (
     <div className="income-tiles">
+      {/* Net Income Tile */}
       <div className="tile tile-light">
         <div className="tile-info-wrapper">
-          <button
-            type="button"
-            className="tile-info-btn"
-            onClick={() => toggleInfo("net")}
-            aria-expanded={activeInfo === "net"}
+          <InfoPopover
+            infoKey="net"
+            activeInfo={activeInfo}
+            toggleInfo={toggleInfo}
+            title="What is Net Income?"
+            buttonClassName="tile-info-btn"
+            popoverClassName="tile-popover"
           >
-            <InfoSymbol className="help-circle"/>
-          </button>
+            <p>
+              Net income is the estimated amount left after PAYE tax and UIF
+              have been deducted from your gross monthly income.
+            </p>
 
-          {activeInfo === "net" && (
-            <div className="tile-popover">
-              <h5>What is Net Income?</h5>
-              <p>
-                Net income is the estimated amount left after PAYE tax and UIF
-                have been deducted from your gross monthly income.
-              </p>
-
-              <h6>Calculation used</h6>
-              <p>Net Income = Gross Income - Estimated PAYE - UIF</p>
-              <p>
-                In your case: {formatCurrency(gross)} - {formatCurrency(paye)} −{" "}
-                {formatCurrency(uif)} = {formatCurrency(net)}
-              </p>
-            </div>
-          )}
+            <h6>Calculation used</h6>
+            <p>Net Income = Gross Income - Estimated PAYE - UIF</p>
+            <p>
+              In your case: {formatCurrency(gross)} - {formatCurrency(paye)} −{" "}
+              {formatCurrency(uif)} = {formatCurrency(net)}
+            </p>
+          </InfoPopover>
         </div>
 
         <div className="tile-content">
@@ -65,37 +61,34 @@ function IncomeTiles({
         </div>
       </div>
 
+      {/* Gross Income Tile */}
       <div className="tile tile-dark">
         <div className="tile-info-wrapper">
-          <button
-            type="button"
-            className="tile-info-btn tile-info-btn-dark"
-            onClick={() => toggleInfo("gross")}
-            aria-expanded={activeInfo === "gross"}
+          <InfoPopover
+            infoKey="gross"
+            activeInfo={activeInfo}
+            toggleInfo={toggleInfo}
+            title="What is Gross Income?"
+            dark={true}
+            buttonClassName="tile-info-btn tile-info-btn-dark"
+            popoverClassName="tile-popover tile-popover-dark"
           >
-            <InfoSymbol className="help-circle"/>
-          </button>
+            <p>
+              Gross income is your total monthly income before PAYE tax, UIF,
+              retirement contributions, and other deductions are considered.
+            </p>
 
-          {activeInfo === "gross" && (
-            <div className="tile-popover tile-popover-dark">
-              <h5>What is Gross Income?</h5>
-              <p>
-                Gross income is your total monthly income before PAYE tax, UIF,
-                retirement contributions, and other deductions are considered.
-              </p>
-
-              <h6>Calculation used</h6>
-              <p>
-                PAYE is estimated from your annualised salary, adjusted for your
-                retirement contribution where applicable, then converted back to
-                a monthly amount.
-              </p>
-              <p>
-                In your case: Annual income = {formatCurrency(gross * 12)} and
-                estimated monthly PAYE = {formatCurrency(paye)}.
-              </p>
-            </div>
-          )}
+            <h6>Calculation used</h6>
+            <p>
+              PAYE is estimated from your annualised salary, adjusted for your
+              retirement contribution where applicable, then converted back to
+              a monthly amount.
+            </p>
+            <p>
+              In your case: Annual income = {formatCurrency(gross * 12)} and
+              estimated monthly PAYE = {formatCurrency(paye)}.
+            </p>
+          </InfoPopover>
         </div>
 
         <div className="tile-content">

@@ -71,7 +71,7 @@
   font-weight: 600;
   text-decoration: none;
   text-align: center;
-  transition: transform 0.3s ease;
+  transition: transform 0.2s ease;
 }
 
 .explore-btn:hover {
