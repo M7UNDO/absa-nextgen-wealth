@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { PieChart, Pie, Cell, ResponsiveContainer, Tooltip } from "recharts";
 import "../styles/BuyNowVsSave.css";
 import useInfoToggle from "../hooks/useInfoToggle";
@@ -8,6 +8,7 @@ import TrackAccordionSection from "../components/TrackAccordionSection";
 import { formatCurrency } from "../utils/formatCurrency";
 import { useFinancials } from "../context/FinancialContext";
 import { calculateNetIncome } from "../utils/taxCalculator";
+import { gsap } from "gsap"; 
 
 function BuyNowVsSave() {
   const [itemName, setItemName] = useState("");
@@ -123,8 +124,76 @@ function BuyNowVsSave() {
   const bnplMonthsPercent = ((bnplMonths - 2) / (24 - 2)) * 100;
   const saveMonthsPercent = ((saveMonths - 1) / (24 - 1)) * 100;
 
+  const pageRef = useRef(null);
+  const prevValues = useRef({
+    bnplMonthly: 0,
+    bnplTotal: 0,
+    saveMonthly: 0,
+    itemPrice: 0,
+    interestPenalty: 0,
+    potentialInvestmentValue: 0,
+  });
+
+  const renderCurrency = (val) => (val && val > 0 ? formatCurrency(val) : "R 0.00");
+
+
+  useEffect(() => {
+    if (!hasCalculated) return;
+
+    const ctx = gsap.context(() => {
+      const obj = { ...prevValues.current };
+
+      gsap.to(obj, {
+        bnplMonthly: bnplMonthly,
+        bnplTotal: bnplTotal,
+        saveMonthly: saveMonthly,
+        itemPrice: itemPrice,
+        interestPenalty: interestPenalty,
+        potentialInvestmentValue: potentialInvestmentValue,
+        duration: 1.2,
+        ease: "power3.out",
+        onUpdate: () => {
+          const bnplMonthlyEls = pageRef.current?.querySelectorAll(".bns-bnpl-monthly-val");
+          const bnplTotalEls = pageRef.current?.querySelectorAll(".bns-bnpl-total-val");
+          const saveMonthlyEls = pageRef.current?.querySelectorAll(".bns-save-monthly-val");
+          const itemPriceEls = pageRef.current?.querySelectorAll(".bns-item-price-val");
+          const penaltyEls = pageRef.current?.querySelectorAll(".bns-penalty-val");
+          const investmentEls = pageRef.current?.querySelectorAll(".bns-investment-val");
+
+          if (bnplMonthlyEls) bnplMonthlyEls.forEach(el => { el.textContent = `${renderCurrency(obj.bnplMonthly)}/mo`; });
+          if (bnplTotalEls) bnplTotalEls.forEach(el => { el.textContent = renderCurrency(obj.bnplTotal); });
+          if (saveMonthlyEls) saveMonthlyEls.forEach(el => { el.textContent = `${renderCurrency(obj.saveMonthly)}/mo`; });
+          if (itemPriceEls) itemPriceEls.forEach(el => { el.textContent = renderCurrency(obj.itemPrice); });
+          if (penaltyEls) penaltyEls.forEach(el => { el.textContent = renderCurrency(obj.interestPenalty); });
+          if (investmentEls) investmentEls.forEach(el => { el.textContent = renderCurrency(obj.potentialInvestmentValue); });
+
+          prevValues.current = {
+            bnplMonthly: obj.bnplMonthly,
+            bnplTotal: obj.bnplTotal,
+            saveMonthly: obj.saveMonthly,
+            itemPrice: obj.itemPrice,
+            interestPenalty: obj.interestPenalty,
+            potentialInvestmentValue: obj.potentialInvestmentValue,
+          };
+        },
+        onComplete: () => {
+          prevValues.current = {
+            bnplMonthly,
+            bnplTotal,
+            saveMonthly,
+            itemPrice,
+            interestPenalty,
+            potentialInvestmentValue,
+          };
+        }
+      });
+    }, pageRef);
+
+    return () => ctx.revert();
+  }, [hasCalculated, bnplMonthly, bnplTotal, saveMonthly, itemPrice, interestPenalty, potentialInvestmentValue]);
+
   return (
-    <section className="bnpl-simulator-page">
+    <section ref={pageRef} className="bnpl-simulator-page">
       <StudioHero
         title="Buy Now vs. Save First Coach"
         subheading="Unmask the true long-term impact of instant purchase choices on your active cash flow."
@@ -252,26 +321,28 @@ function BuyNowVsSave() {
                 <p className="bnpl-message-text">{analysisNarrative}</p>
                 <p className="bnpl-message-text">
                   Opting for BNPL gets you <strong>{targetProductLabel}</strong> today, but drains an extra{" "}
-                  <span className="vehicle-highlight-text">{formatCurrency(interestPenalty)}</span> in dead borrowing costs.
+                  <span className="vehicle-highlight-text bns-penalty-val">{formatCurrency(interestPenalty)}</span> in dead borrowing costs.
                 </p>
               </div>
 
               <div className="bnpl-metric-tile-grid">
                 <div className="bnpl-summary-tile border-bnpl">
                   <span className="tile-strategy-tag tag-bnpl">Financed Plan</span>
-                  <span className="tile-value-large">{formatCurrency(bnplMonthly)}/mo</span>
+                  <span className="tile-value-large bns-bnpl-monthly-val">{formatCurrency(bnplMonthly)}/mo</span>
                   <span className="tile-label-desc">Sustained for {bnplMonths} consecutive months</span>
                   <div className="tile-footer-summary">
-                    Total Cost: <strong>{formatCurrency(bnplTotal)}</strong>
+                    Total Cost: <strong className="bns-bnpl-total-val">{formatCurrency(bnplTotal)}</strong>
                   </div>
                 </div>
 
                 <div className="bnpl-summary-tile border-save">
                   <span className="tile-strategy-tag tag-save">Self-Funded Plan</span>
-                  <span className="tile-value-large">{formatCurrency(saveMonthly)}/mo</span>
+
+                  <span className="tile-value-large bns-save-monthly-val">{formatCurrency(saveMonthly)}/mo</span>
                   <span className="tile-label-desc">Accumulated for {saveMonths} months before buy</span>
                   <div className="tile-footer-summary">
-                    Total Cost: <strong>{formatCurrency(itemPrice)}</strong>
+                    {/* Target class integrated: bns-item-price-val */}
+                    Total Cost: <strong className="bns-item-price-val">{formatCurrency(itemPrice)}</strong>
                   </div>
                 </div>
               </div>
@@ -318,12 +389,14 @@ function BuyNowVsSave() {
                 <div className="chart-legend">
                   <div className="legend-item">
                     <span className="legend-dot base-dot"></span>
-                    <span>Core Value ({formatCurrency(itemPrice)})</span>
+                    {/* Target class integrated: bns-item-price-val */}
+                    <span>Core Value (<span className="bns-item-price-val">{formatCurrency(itemPrice)}</span>)</span>
                   </div>
                   {interestPenalty > 0 && (
                     <div className="legend-item">
                       <span className="legend-dot interest-dot"></span>
-                      <span>Interest Waste ({formatCurrency(interestPenalty)})</span>
+                      {/* Target class integrated: bns-penalty-val */}
+                      <span>Interest Waste (<span className="bns-penalty-val">{formatCurrency(interestPenalty)}</span>)</span>
                     </div>
                   )}
                 </div>
@@ -333,9 +406,11 @@ function BuyNowVsSave() {
                 <div className="bnpl-insight-alternative-card">
                   <h3>Alternative Wealth Opportunity</h3>
                   <p>
-                    Instead of handing over <strong>{formatCurrency(interestPenalty)}</strong> to a financing company,
+                    {/* Target class integrated: bns-penalty-val */}
+                    Instead of handing over <strong className="bns-penalty-val">{formatCurrency(interestPenalty)}</strong> to a financing company,
                     diverting that exact sum toward interest-bearing savings channels or retail market indices over the next
-                    few years could value out to roughly <strong>{formatCurrency(potentialInvestmentValue)}</strong>. 
+                    {/* Target class integrated: bns-investment-val */}
+                    few years could value out to roughly <strong className="bns-investment-val">{formatCurrency(potentialInvestmentValue)}</strong>. 
                     Protect your cash flow leverage.
                   </p>
                 </div>
