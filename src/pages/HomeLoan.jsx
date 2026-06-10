@@ -1,4 +1,4 @@
-import React, {useState, useEffect, useCallback} from "react";
+import React, {useState, useEffect, useCallback, useRef} from "react";
 import "../styles/HomeLoan.css";
 import homeLoanData from "../data/homeLoanData";
 import {formatCurrency} from "../utils/formatCurrency";
@@ -7,6 +7,7 @@ import InfoPopover from "../components/InfoPopover";
 import StudioHero from "../components/StudioHero";
 import TrackAccordionSection from "../components/TrackAccordionSection";
 import {useFinancials} from "../context/FinancialContext";
+import { gsap } from "gsap"; 
 
 function getPropertyFee(price) {
   if (price <= 100000) return 50.0;
@@ -62,6 +63,17 @@ function HomeLoan() {
   const [error, setError] = useState("");
 
   const {activeInfo, toggleInfo} = useInfoToggle();
+
+  const pageRef = useRef(null);
+  const prevValues = useRef({
+    monthlyPayment: 0,
+    totalRepayment: 0,
+    totalInterest: 0,
+    propertyFee: 0,
+    bondFee: 0,
+    budgetMin: 0,
+    budgetMax: 0
+  });
 
   const calculateHomeLoan = useCallback(() => {
     setError(""); // Clear previous errors
@@ -158,13 +170,61 @@ function HomeLoan() {
     }
   }, [purchasePrice, deposit, interestRate, loanYears, calculateHomeLoan, hasSimulated]);
 
+  useEffect(() => {
+    const ctx = gsap.context(() => {
+      const obj = { ...prevValues.current };
+
+      gsap.to(obj, {
+        monthlyPayment: Number(monthlyPayment) || 0,
+        totalRepayment: Number(totalRepayment) || 0,
+        totalInterest: Number(totalInterest) || 0,
+        propertyFee: Number(propertyFee) || 0,
+        bondFee: Number(bondFee) || 0,
+        budgetMin: Number(budgetRange.min) || 0,
+        budgetMax: Number(budgetRange.max) || 0,
+        duration: 1.2,
+        ease: "power3.out",
+        onUpdate: () => {
+          const monthlyEl = pageRef.current?.querySelector(".monthly-payment-val");
+          const totalRepayEl = pageRef.current?.querySelector(".total-repayment-val");
+          const totalIntEl = pageRef.current?.querySelector(".total-interest-val");
+          const propFeeEl = pageRef.current?.querySelector(".property-fee-val");
+          const bondFeeEl = pageRef.current?.querySelector(".bond-fee-val");
+          const budgetMinEl = pageRef.current?.querySelector(".budget-min-val");
+          const budgetMaxEl = pageRef.current?.querySelector(".budget-max-val");
+
+          if (monthlyEl) monthlyEl.textContent = formatCurrency(obj.monthlyPayment);
+          if (totalRepayEl) totalRepayEl.textContent = formatCurrency(obj.totalRepayment);
+          if (totalIntEl) totalIntEl.textContent = formatCurrency(obj.totalInterest);
+          if (propFeeEl) propFeeEl.textContent = formatCurrency(obj.propertyFee);
+          if (bondFeeEl) bondFeeEl.textContent = formatCurrency(obj.bondFee);
+          if (budgetMinEl) budgetMinEl.textContent = formatCurrency(obj.budgetMin);
+          if (budgetMaxEl) budgetMaxEl.textContent = formatCurrency(obj.budgetMax);
+        },
+        onComplete: () => {
+          prevValues.current = {
+            monthlyPayment,
+            totalRepayment,
+            totalInterest,
+            propertyFee,
+            bondFee,
+            budgetMin: budgetRange.min,
+            budgetMax: budgetRange.max
+          };
+        }
+      });
+    }, pageRef);
+
+    return () => ctx.revert();
+  }, [monthlyPayment, totalRepayment, totalInterest, propertyFee, bondFee, budgetRange]);
+
   const handleSimulate = () => {
     setHasSimulated(true);
     calculateHomeLoan();
   };
 
   return (
-    <section className="home-loan-page">
+    <section ref={pageRef} className="home-loan-page">
       <StudioHero
         title="Home Loan Affordability Calculator"
         subheading="Discover your home-buying budget and estimate your monthly bond repayments"
@@ -314,19 +374,19 @@ function HomeLoan() {
               ? "See what your total monthly repayment amount would be on your new home"
               : "Here is your personalised affordability breakdown and estimated costs"}
           </p>
-          <p className="repayment-amount">{formatCurrency(monthlyPayment)}</p>
+          <p className="repayment-amount monthly-payment-val">{formatCurrency(monthlyPayment)}</p>
 
           <div className="result-divider"></div>
 
           <div className="result-container" style={{width: "100%", marginTop: "2rem"}}>
             <div className="breakdown-row">
               <span>Total Repayment</span>
-              <span>{formatCurrency(totalRepayment)}</span>
+              <span className="total-repayment-val">{formatCurrency(totalRepayment)}</span>
             </div>
 
             <div className="breakdown-row">
               <span>Total Interest</span>
-              <span>{formatCurrency(totalInterest)}</span>
+              <span className="total-interest-val">{formatCurrency(totalInterest)}</span>
             </div>
 
             <div className="result-divider" style={{margin: "1.5rem auto"}}></div>
@@ -334,12 +394,12 @@ function HomeLoan() {
 
             <div className="breakdown-row">
               <span>Deeds Office Fee</span>
-              <span>{formatCurrency(propertyFee)}</span>
+              <span className="property-fee-val">{formatCurrency(propertyFee)}</span>
             </div>
 
             <div className="breakdown-row">
               <span>Bond Registration Fee</span>
-              <span>{formatCurrency(bondFee)}</span>
+              <span className="bond-fee-val">{formatCurrency(bondFee)}</span>
             </div>
 
             <div className="result-divider" style={{margin: "1.5rem auto"}}></div>
@@ -348,7 +408,7 @@ function HomeLoan() {
             <div className="breakdown-row">
               <span>Qualifying Loan Amount Range</span>
               <span style={{fontWeight: "bold"}}>
-                {formatCurrency(budgetRange.min)} - {formatCurrency(budgetRange.max)}
+                <span className="budget-min-val">{formatCurrency(budgetRange.min)}</span> - <span className="budget-max-val">{formatCurrency(budgetRange.max)}</span>
               </span>
             </div>
 
