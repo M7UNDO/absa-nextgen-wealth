@@ -290,7 +290,7 @@ function BuyNowVsSave() {
                         dataKey="value"
                         nameKey="name"
                         innerRadius={75}
-                        outerRadius={105}
+                        outerRadius={120}
                         paddingAngle={3}
                         cornerRadius={6}
                         stroke="none"
@@ -321,7 +321,7 @@ function BuyNowVsSave() {
                     <span>Core Value ({formatCurrency(itemPrice)})</span>
                   </div>
                   {interestPenalty > 0 && (
-                    <div className="legend-item:">
+                    <div className="legend-item">
                       <span className="legend-dot interest-dot"></span>
                       <span>Interest Waste ({formatCurrency(interestPenalty)})</span>
                     </div>

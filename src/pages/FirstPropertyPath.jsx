@@ -9,26 +9,23 @@ import TrackTipCard from "../components/TrackTipCard";
 import TrackSidebar from "../components/TrackSidebar";
 import TrackAccordionSection from "../components/TrackAccordionSection";
 
-import ConfettiOverlay from "../components/ConfettiOverlay"; 
+import ConfettiOverlay from "../components/ConfettiOverlay";
 
 import firstPropertyPathData from "../data/firstPropertyPathData";
+import { useFinancials } from "../context/FinancialContext"; // Integrated global context
+import { formatCurrency } from "../utils/formatCurrency";
 import "../styles/TrackDetail.css";
 
 function FirstPropertyPath() {
-  const [financials, setFinancials] = useState(null);
+  const { financials } = useFinancials(); // Swapped local state for global context hook
   const [activeTrack, setActiveTrack] = useState(null);
   const [celebrationMessage, setCelebrationMessage] = useState("");
   const [progress, setProgress] = useState(firstPropertyPathData.defaultProgress);
-  const [showConfetti, setShowConfetti] = useState(false); 
+  const [showConfetti, setShowConfetti] = useState(false);
 
   useEffect(() => {
-    const storedFinancials = localStorage.getItem("financials");
     const storedProgress = localStorage.getItem(firstPropertyPathData.progressStorageKey);
     const storedTrack = localStorage.getItem("activeStrategyTrack");
-
-    if (storedFinancials) {
-      setFinancials(JSON.parse(storedFinancials));
-    }
 
     if (storedProgress) {
       setProgress(JSON.parse(storedProgress));
@@ -69,10 +66,7 @@ function FirstPropertyPath() {
     };
 
     setProgress(updatedProgress);
-    localStorage.setItem(
-      firstPropertyPathData.progressStorageKey,
-      JSON.stringify(updatedProgress)
-    );
+    localStorage.setItem(firstPropertyPathData.progressStorageKey, JSON.stringify(updatedProgress));
 
     if (previousValue !== "done" && value === "done") {
       setCelebrationMessage(`🎉 Milestone reached: ${milestoneLabel}`);
@@ -95,18 +89,40 @@ function FirstPropertyPath() {
       }, 5000);
 
       return () => clearTimeout(timer);
+    } else {
+      setShowConfetti(false);
     }
   }, [completionPercentage]);
+
+  const personalizedPriorities = useMemo(() => {
+    const basePriorities = [...firstPropertyPathData.priorities.items];
+    if (!financials) return basePriorities;
+
+    const grossIncome = Number(financials.grossIncome) || 0;
+    const rent = Number(financials.rent) || 0;
+    const vehicle = Number(financials.vehicle) || 0;
+
+    const targetedAdditions = [];
+
+    if (vehicle > 5000) {
+      targetedAdditions.push(`Restructuring your ${formatCurrency(vehicle)} monthly vehicle layout to recover debt capacity`);
+    }
+    if (grossIncome > 0 && rent > grossIncome * 0.3) {
+      targetedAdditions.push(`Addressing your current housing premium (${Math.round((rent / grossIncome) * 100)}% of gross income) to maximize free cash`);
+    }
+
+    return [...targetedAdditions, ...basePriorities];
+  }, [financials]);
 
   const tips = useMemo(() => {
     if (!financials) {
       return [firstPropertyPathData.messages.defaultTip];
     }
 
-    const grossIncome = financials.grossIncome || 0;
-    const rent = financials.rent || 0;
-    const vehicle = financials.vehicle || 0;
-    const retirement = financials.retirement || 0;
+    const grossIncome = Number(financials.grossIncome) || 0;
+    const rent = Number(financials.rent) || 0;
+    const vehicle = Number(financials.vehicle) || 0;
+    const retirement = Number(financials.retirement) || 0;
 
     const fixedCosts = rent + vehicle + retirement;
     const remaining = grossIncome - fixedCosts;
@@ -115,28 +131,28 @@ function FirstPropertyPath() {
 
     if (vehicle > 5000) {
       dynamicTips.push(
-        "Your vehicle finance looks high. Lower transport costs could help you save for a deposit faster."
+        `Your vehicle finance looks high (${formatCurrency(vehicle)}/mo). Lower transport costs could help you save for a deposit faster.`,
       );
     }
 
-    if (remaining < grossIncome * 0.2) {
+    if (grossIncome > 0 && remaining < grossIncome * 0.2) {
       dynamicTips.push(
-        "Your free cash flow looks tight for an aggressive property goal. Focus on creating more room in your budget first."
+        "Your free cash flow looks tight for an aggressive property goal. Focus on creating more room in your budget first.",
       );
     }
 
-    if (rent > grossIncome * 0.3) {
+    if (grossIncome > 0 && rent > grossIncome * 0.3) {
       dynamicTips.push(
-        "Your rent is taking a large share of your income. Lower housing costs now could improve your future deposit progress."
+        `Your rent is taking a large share (${Math.round((rent / grossIncome) * 100)}%) of your income. Lower housing costs now could improve your future deposit progress.`,
       );
     }
 
     dynamicTips.push(
-      "Build your emergency fund before pushing hard on your deposit. It protects your progress when surprise costs appear."
+      "Build your emergency fund before pushing hard on your deposit. It protects your progress when surprise costs appear.",
     );
 
     dynamicTips.push(
-      "Use the Home Loan Calculator to estimate what kind of property range may be realistic for your income."
+      "Use the Home Loan Calculator to estimate what kind of property range may be realistic for your income.",
     );
 
     return dynamicTips;
@@ -177,8 +193,8 @@ function FirstPropertyPath() {
             <section className="path-section">
               <h2>{firstPropertyPathData.priorities.title}</h2>
               <ul className="priorities-list">
-                {firstPropertyPathData.priorities.items.map((item) => (
-                  <li key={item}>{item}</li>
+                {personalizedPriorities.map((item, index) => (
+                  <li key={index}>{item}</li>
                 ))}
               </ul>
             </section>

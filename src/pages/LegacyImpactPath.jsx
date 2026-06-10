@@ -91,6 +91,8 @@ function LegacyImpactPath() {
       }, 5000);
 
       return () => clearTimeout(timer);
+    } else {
+      setShowConfetti(false);
     }
   }, [completionPercentage]);
 
